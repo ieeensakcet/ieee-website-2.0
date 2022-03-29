@@ -1,0 +1,14 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.span{
+    color: #12679b;
+}
+.title{
+    margin-bottom: 10px;
+}
+.subTitle{
+    margin-top: 10px;
+}
