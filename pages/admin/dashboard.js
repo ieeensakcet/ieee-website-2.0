@@ -3,15 +3,38 @@ import { useState } from "react";
 import Footer from "../../components/footer/Footer";
 import styles from "../../styles/Dashboard.module.css";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LogoutIcon from "@mui/icons-material/Logout";
 import CreateUser from "../../components/createUser/CreateUser";
 
 export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   console.log(selectedRows);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -99,9 +122,23 @@ export default function Dashboard() {
       </Head>
 
       <main className={styles.main}>
-        <h1>
-          <span className={styles.title__border}>Adm</span>in Dashboard
-        </h1>
+        <div className={styles.title}>
+          <h1>
+            <span className={styles.title__border}>Adm</span>in Dashboard
+          </h1>
+          <div className={styles.title__userInfo}>
+            <Typography variant="subtitle1">
+              Logged In as <b>John Doe</b>
+            </Typography>
+            <Button
+              variant="contained"
+              endIcon={<LogoutIcon />}
+              sx={{ backgroundColor: "#db2b39" }}
+            >
+              Logout
+            </Button>
+          </div>
+        </div>
         {/* <Button variant="contained" onClick={() => setShowModal(true)}>
           Add User
         </Button>
@@ -113,20 +150,52 @@ export default function Dashboard() {
         <div className={styles.dashboard__container}>
           <div className={styles.dashboard__container__header}>
             <div className={styles.dashboard__container__header__content}>
-              <Typography variant="h6" sx={{color: '#12679b',}}>All Users</Typography>
+              <Typography variant="h6" sx={{ color: "#12679b" }}>
+                All Users
+              </Typography>
               <span>|</span>
               <Typography variant="body1">30 total</Typography>
             </div>
             <div className={styles.dashboard__container__header__buttons}>
               <div
-                className={styles.dashboard__container__header__buttons__box}
+                className={styles.dashboard__container__header__buttons__boxRed}
               >
-                <Button sx={{color: '#fff'}} endIcon={<DeleteIcon />}>Delete User</Button>
+                <Button sx={{ color: "#fff" }} endIcon={<DeleteIcon />} onClick={handleClickOpen}>
+                  Delete User
+                </Button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Are you sure?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Do you really want to delete the user? This cannot be undone.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose} autoFocus>No</Button>
+                    <Button onClick={handleClose} sx={{color: 'red'}}>
+                      Yes, Delete User
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </div>
               <div
                 className={styles.dashboard__container__header__buttons__box}
               >
-                <Button sx={{color: '#fff'}} endIcon={<AddBoxIcon />}>Add User</Button>
+                <Button
+                  sx={{ color: "#fff" }}
+                  endIcon={<AddBoxIcon />}
+                  onClick={openModal}
+                >
+                  Add User
+                </Button>
+                <CreateUser showModal={showModal} setShowModal={setShowModal} />
               </div>
             </div>
           </div>
@@ -145,6 +214,7 @@ export default function Dashboard() {
                 );
                 console.log(selectedRowData);
               }}
+              sx={{ border: "none" }}
             />
           </div>
         </div>
