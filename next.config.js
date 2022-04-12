@@ -3,7 +3,7 @@
 // }
 module.exports = {
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com','ik.imagekit.io'],
   },
   reactStrictMode: true,
 }
