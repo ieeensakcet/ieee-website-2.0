@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { auth } from "../../config/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import useProvideAuth from "../../utils/auth";
 
 //styles
 import styles from "./SignIn.module.css";
 import { Button, TextField } from "@mui/material";
-import useProvideAuth from "../../utils/auth";
 
 export default function Login() {
   // const dispatch = useDispatch()
