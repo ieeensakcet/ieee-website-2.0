@@ -5,8 +5,13 @@ import useProvideAuth from "../../utils/auth";
 import styles from "./CreateUser.module.css";
 import { Button, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { getApp } from "firebase/app";
+import { connectFunctionsEmulator, getFunctions, httpsCallable } from "firebase/functions";
 
 export default function CreateUser({ showModal, setShowModal }) {
+  const functions = getFunctions(getApp());
+  connectFunctionsEmulator(functions, "localhost", 5001);
+  const register = httpsCallable(functions, "register");
   const modalRef = useRef();
   // const dispatch = useDispatch()
   const auth = useProvideAuth();
@@ -16,13 +21,26 @@ export default function CreateUser({ showModal, setShowModal }) {
     password: "",
   });
 
-  const creates = (e) => {
+  const createUser = (e) => {
     e.preventDefault();
     if (!userInfo.email || !userInfo.password) {
       alert("enter email and password");
       return;
     }
-    auth.signup(userInfo.email, userInfo.password);
+    // auth.signup(userInfo.email, userInfo.password);
+    register({email: userInfo.email, password: userInfo.password}).then((result) => {
+      // Read result of the Cloud Function.
+      /** @type {any} */
+      const data = result.data;
+      const sanitizedMessage = data.text;
+    })
+    .catch((error) => {
+      // Getting the Error details.
+      const code = error.code;
+      const message = error.message;
+      const details = error.details;
+      // ...
+    });
   };
 
   const onInputChange = (e) => {
@@ -93,7 +111,7 @@ export default function CreateUser({ showModal, setShowModal }) {
                   value={userInfo.password}
                   onChange={onInputChange}
                 />
-                <Button variant="contained" onClick={creates}>
+                <Button variant="contained" onClick={createUser}>
                   Create User
                 </Button>
 
