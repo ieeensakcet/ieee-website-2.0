@@ -3,23 +3,31 @@ import useProvideAuth from "../../utils/auth";
 
 //styles
 import styles from "./CreateUser.module.css";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Select, MenuItem } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { getApp } from "firebase/app";
-import { connectFunctionsEmulator, getFunctions, httpsCallable } from "firebase/functions";
+import {
+  connectFunctionsEmulator,
+  getFunctions,
+  httpsCallable,
+} from "firebase/functions";
+import { Controller, useForm } from "react-hook-form";
+import CreateUserForm from "../createUserForm/CreateUserForm";
 
 export default function CreateUser({ showModal, setShowModal }) {
   const functions = getFunctions(getApp());
   connectFunctionsEmulator(functions, "localhost", 5001);
-  const register = httpsCallable(functions, "register");
+  const registers = httpsCallable(functions, "register");
   const modalRef = useRef();
   // const dispatch = useDispatch()
   const auth = useProvideAuth();
 
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-  });
+  // const [userInfo, setUserInfo] = useState({
+  //   email: "",
+  //   password: "",
+  //   fullname: "",
+  //   membershipNumber: "",
+  // });
 
   const createUser = (e) => {
     e.preventDefault();
@@ -28,24 +36,25 @@ export default function CreateUser({ showModal, setShowModal }) {
       return;
     }
     // auth.signup(userInfo.email, userInfo.password);
-    register({email: userInfo.email, password: userInfo.password}).then((result) => {
-      // Read result of the Cloud Function.
-      /** @type {any} */
-      const data = result.data;
-      const sanitizedMessage = data.text;
-    })
-    .catch((error) => {
-      // Getting the Error details.
-      const code = error.code;
-      const message = error.message;
-      const details = error.details;
-      // ...
-    });
+    register({ email: userInfo.email, password: userInfo.password })
+      .then((result) => {
+        // Read result of the Cloud Function.
+        /** @type {any} */
+        const data = result.data;
+        const sanitizedMessage = data.text;
+      })
+      .catch((error) => {
+        // Getting the Error details.
+        const code = error.code;
+        const message = error.message;
+        const details = error.details;
+        // ...
+      });
   };
 
-  const onInputChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.type]: e.target.value });
-  };
+  // const onInputChange = (e) => {
+  //   setUserInfo({ ...userInfo, [e.target.type]: e.target.value });
+  // };
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
       setShowModal(false);
@@ -65,7 +74,6 @@ export default function CreateUser({ showModal, setShowModal }) {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
-
   return (
     <>
       {showModal ? (
@@ -92,31 +100,7 @@ export default function CreateUser({ showModal, setShowModal }) {
               <h1 className={styles.title}>
                 Create User<span className={styles.span}>Account</span>
               </h1>
-              <div className={styles.form}>
-                <TextField
-                  id="filled-email-input"
-                  label="Email"
-                  type="email"
-                  autoComplete="off"
-                  variant="filled"
-                  value={userInfo.email}
-                  onChange={onInputChange}
-                />
-                <TextField
-                  id="filled-password-input"
-                  label="Password"
-                  type="password"
-                  autoComplete="off"
-                  variant="filled"
-                  value={userInfo.password}
-                  onChange={onInputChange}
-                />
-                <Button variant="contained" onClick={createUser}>
-                  Create User
-                </Button>
-
-                {/* <button className="button">Login</button> */}
-              </div>
+              <CreateUserForm />
             </div>
           </div>
         </div>
