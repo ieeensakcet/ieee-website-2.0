@@ -17,68 +17,64 @@ exports.register = functions
         disabled: false,
       })
       .then((userRecord) => {
-        const firestore = admin.firestore();
-        const userId = userRecord.uid;
-        const userRef = firestore.collection("users").doc(userId);
-        const role = data.role;
-        userRef
-          .set({
-            email: userRecord.email,
-            emailVerified: userRecord.emailVerified,
-            displayName: userRecord.displayName,
-            customClaims: data.role,
-            membershipNumber: data.membershipNumber,
-            uid: userRecord.uid,
-          })
-          .then((userId) => {
-            // console.log(userId);
-            admin.auth().setCustomUserClaims(userId, {
-              role: true,
-            })
-          })
-          .then(() => {
-            //Interesting to note: we need to re-fetch the userRecord, as the user variable **does not** hold the claim
-            return admin.auth().getUser(userId);
-          })
-          .catch((error) => {
-            console.log("Error added new user:", error);
-          });
+        console.log(`Success user:${userRecord.uid} has been created`);
         // See the UserRecord reference doc for the contents of userRecord.
-        console.log("Successfully created new user:", userRecord.uid);
       })
       .catch((error) => {
         console.log("Error creating new user:", error);
       });
   });
+exports.updateUserRole = functions.https.onCall((data, context) => {
+  return admin
+    .auth()
+    .getUserByEmail(data.email)
+    .then((user) => {
+      return admin.auth().setCustomUserClaims(user.uid, {
+        admin: true,
+      });
+    })
+    .then(() => {
+      return {
+        message: `Success ${data.email} has been made an admin`,
+      };
+    })
+    .catch((error) => {
+      return error;
+    });
+});
+exports.addDefaultUserRole = functions.auth.user().onCreate((user) => {
+  let uid = user.uid;
 
-// exports.userSaver = functions.auth.user().onCreate(async (user) => {
-//   const userId = user.uid;
-//   return admin.auth().setCustomUserClaims(userId, {
-//     isAdmin: true,
-//   })
-//   // await userRef
-//   //   .set({
-//   //     email: user.email,
-//   //     emailVerified: user.emailVerified,
-//   //     displayName: user.displayName,
-//   //     customClaims: {},
-//   //     uid: user.uid,
-//   //   })
-//     .then(() => {
-//       //Interesting to note: we need to re-fetch the userRecord, as the user variable **does not** hold the claim
-//       return admin.auth().getUser(userId);
-//     })
-//     .then((userRecord) => {
-//       console.log(userId);
-//       console.log(userRecord.customClaims.isAdmin);
-//       return null;
-//     })
-//     .catch((error) => {
-//       console.log("Error:", error);
+  //add custom claims
+  return admin
+    .auth()
+    .setCustomUserClaims(uid, {
+      isMember: true,
+    })
+    .then(() => {
+      //Interesting to note: we need to re-fetch the userRecord, as the user variable **does not** hold the claim
+      return admin.auth().getUser(uid);
+    })
+    .then((userRecord) => {
+      console.log(uid);
+      console.log(userRecord.customClaims.isMember);
+      return null;
+    });
+});
+
+// exports.removeUser = functions.firestore
+//   .document("/users/{uid}")
+//   .onDelete((snapshot, context) => {
+//     admin.initializeApp({
+//       credential: admin.credential.cert(serviceAccount),
+//       databaseURL: "https://<DATABASE_NAME>>.firebaseio.com",
 //     });
-// });
+//     return admin.auth().deleteUser(context.params.uid);
+//   });
 
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", { structuredData: true });
-//   response.send("Hello from Firebase!");
-// });
+exports.deleteUserAuth = functions.auth.https.onCall((data, context) => {
+  user = admin.auth().getUserByEmail(data.email)
+  return admin.auth.deleteUser(user.uid)
+})
+
+
