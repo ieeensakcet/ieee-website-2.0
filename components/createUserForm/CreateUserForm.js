@@ -9,6 +9,7 @@ import {
   httpsCallable,
 } from "firebase/functions";
 import { firebaseFunctions } from "../../config/firebaseConfig";
+import { addUser } from "../../helpers/userDB";
 
 function CreateUserForm() {
   const functions = getFunctions(getApp());
@@ -31,26 +32,22 @@ function CreateUserForm() {
   const [data, setData] = useState(null);
   console.log(data);
 
-  const createUser = (data) => {
-    // e.preventDefault();
-    console.log("running")
-    // if (!userInfo.email || !userInfo.password) {
-    //   alert("enter email and password");
-    //   return;
-    // }
-    // auth.signup(userInfo.email, userInfo.password);
-    registers({
+  const createUser = async (data) => {
+    console.log("running");
+    await registers({
       email: data.email,
       password: data.password,
       displayName: data.fullname,
       role: data.role,
       membershipNumber: data.membershipNumber,
     })
-      .then((result) => {
-        // Read result of the Cloud Function.
-        /** @type {any} */
-        const data = result.data;
-        const sanitizedMessage = data.text;
+      .then(() => {
+        addUser({
+          email: data.email,
+          displayName: data.fullname,
+          role: data.role,
+          membershipNumber: data.membershipNumber,
+        });
       })
       .catch((error) => {
         // Getting the Error details.
@@ -60,7 +57,10 @@ function CreateUserForm() {
         // ...
       });
   };
-  const onSubmit = (data) => {setData(data); createUser(data)}
+  const onSubmit = (data) => {
+    setData(data);
+    createUser(data);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.form}>
@@ -87,7 +87,7 @@ function CreateUserForm() {
             <Controller
               render={({ field }) => (
                 <TextField
-                sx={{width: '100%'}}
+                  sx={{ width: "100%" }}
                   {...field}
                   variant="filled"
                   label="Email"
@@ -107,7 +107,7 @@ function CreateUserForm() {
             <Controller
               render={({ field }) => (
                 <TextField
-                sx={{width: '100%'}}
+                  sx={{ width: "100%" }}
                   {...field}
                   variant="filled"
                   label="Full Name"
@@ -126,7 +126,7 @@ function CreateUserForm() {
             <Controller
               render={({ field }) => (
                 <TextField
-                sx={{width: '100%'}}
+                  sx={{ width: "100%" }}
                   {...field}
                   variant="filled"
                   label="Password"
@@ -146,7 +146,7 @@ function CreateUserForm() {
             <Controller
               render={({ field }) => (
                 <TextField
-                sx={{width: '100%'}}
+                  sx={{ width: "100%" }}
                   {...field}
                   variant="filled"
                   label="Membership Number"
