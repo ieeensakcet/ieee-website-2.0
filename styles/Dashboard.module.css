@@ -14,6 +14,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.span {
+  color: #12679b;
+}
 .title__border {
   border-bottom: 4px solid #db2b39;
 }
