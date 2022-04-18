@@ -21,6 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CreateUserForm from "../../components/createUserForm/CreateUserForm";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
+import { deleteUser } from "../../helpers/userDB";
 
 // import { getUsers, users } from "../../helpers/userDB";
 
@@ -33,7 +34,7 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 8,
-  textAlign: 'center'
+  textAlign: "center",
 };
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
@@ -46,27 +47,24 @@ export default function Dashboard() {
 
     getUsers();
   }, []);
+
+  //modal create user
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // const [showModal, setShowModal] = useState(false);
+  //delete warning modal
+  const [DeleteOpen, setDeleteOpen] = useState(false);
+  const DeleteHandleOpen = () => setDeleteOpen(true);
+  const DeleteHandleClose = () => setDeleteOpen(false);
+
   const [selectedRows, setSelectedRows] = useState([]);
   console.log(selectedRows);
 
-  // const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  const openModal = () => {
-    setShowModal((prev) => !prev);
-  };
+  //delete user
+  const DeleteUser = () => {
+    deleteUser(user.id)
+  }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -76,15 +74,6 @@ export default function Dashboard() {
       width: 150,
       editable: true,
     },
-    // {
-    //   field: "fullName",
-    //   headerName: "Full name",
-    //   description: "This column has a value getter and is not sortable.",
-    //   // sortable: false,
-    //   width: 250,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-    // },
     {
       field: "email",
       headerName: "Email ID",
@@ -141,13 +130,13 @@ export default function Dashboard() {
                 <Button
                   sx={{ color: "#fff" }}
                   endIcon={<DeleteIcon />}
-                  onClick={handleClickOpen}
+                  onClick={DeleteHandleOpen}
                 >
                   Delete User
                 </Button>
                 <Dialog
-                  open={open}
-                  onClose={handleClose}
+                  open={DeleteOpen}
+                  onClose={DeleteHandleClose}
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
                 >
@@ -161,10 +150,10 @@ export default function Dashboard() {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose} autoFocus>
+                    <Button onClick={DeleteHandleClose} autoFocus>
                       No
                     </Button>
-                    <Button onClick={handleClose} sx={{ color: "red" }}>
+                    <Button onClick={DeleteUser} sx={{ color: "red" }}>
                       Yes, Delete User
                     </Button>
                   </DialogActions>
@@ -223,14 +212,13 @@ export default function Dashboard() {
                 const selectedRowData = users.filter((user) =>
                   selectedIDs.has(user.id)
                 );
-                setSelectedRows(selectedRowData)
+                setSelectedRows(selectedRowData);
               }}
               sx={{ border: "none" }}
             />
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
