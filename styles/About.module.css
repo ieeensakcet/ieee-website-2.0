@@ -34,6 +34,7 @@
     }
     .About__about__image
     {
+        position: unset;
         min-width: 50%;
 
         max-height: 100%;
@@ -136,14 +137,14 @@
 
     }
 
-    @media (min-width:900px) {
+    @media (max-width:1280px) {
         .About__about{
             flex-Direction: column;
 
         } 
     }
 
-    @media (min-width:600px) {
+    @media (max-width:960px) {
         .About__ourCommunity__pyramid{
             padding: 0px 50px
         }
@@ -163,7 +164,7 @@
 
         }
     }
-    @media (min-width:600px) {
+    @media (max-width:600px) {
         .About__ourCommunity__pyramid{
             padding: 0px 10px
         }

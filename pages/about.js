@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Footer from '../components/footer/Footer'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/About.module.css'
 import React from "react";
 import {
   Accordion,
@@ -46,12 +46,17 @@ export default function About() {
         gap: '20px',
         marginBottom: '30px',
       }}>
-        <Image
+
+         
+       <Image
           src="https://ik.imagekit.io/ieeensakcet/tr:w-400/college_BKdkFH2fF.webp"
           layout='fill'
           alt="college"
-          className={styles.About__about__image}
-        />
+
+        className={styles.About__about__image}
+         
+       />
+
         <div className={styles.About__about__text}>
           <Typography variant="h6">
             <span className={styles.About__about__text__header}>
