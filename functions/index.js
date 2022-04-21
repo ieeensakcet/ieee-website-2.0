@@ -72,9 +72,10 @@ exports.addDefaultUserRole = functions.auth.user().onCreate((user) => {
 //     return admin.auth().deleteUser(context.params.uid);
 //   });
 
-exports.deleteUserAuth = functions.auth.https.onCall((data, context) => {
-  user = admin.auth().getUserByEmail(data.email)
-  return admin.auth.deleteUser(user.uid)
+exports.deleteUserAuth = functions.https.onCall( async (data, context) => {
+  console.log(data.email)
+  user = await getAuth().getUserByEmail(data.email)
+  return admin.auth().deleteUser(user.uid)
 })
 
 
