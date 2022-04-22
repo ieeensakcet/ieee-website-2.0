@@ -1,5 +1,4 @@
 const functions = require("firebase-functions");
-const { getAuth } = require("firebase-admin/auth");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
@@ -62,19 +61,9 @@ exports.addDefaultUserRole = functions.auth.user().onCreate((user) => {
     });
 });
 
-// exports.removeUser = functions.firestore
-//   .document("/users/{uid}")
-//   .onDelete((snapshot, context) => {
-//     admin.initializeApp({
-//       credential: admin.credential.cert(serviceAccount),
-//       databaseURL: "https://<DATABASE_NAME>>.firebaseio.com",
-//     });
-//     return admin.auth().deleteUser(context.params.uid);
-//   });
-
 exports.deleteUserAuth = functions.https.onCall( async (data, context) => {
   console.log(data.email)
-  user = await getAuth().getUserByEmail(data.email)
+  user = await admin.auth().getUserByEmail(data.email)
   return admin.auth().deleteUser(user.uid)
 })
 
