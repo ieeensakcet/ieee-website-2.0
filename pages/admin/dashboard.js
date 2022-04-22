@@ -19,11 +19,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CloseIcon from "@mui/icons-material/Close";
 import CreateUserForm from "../../components/createUserForm/CreateUserForm";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import { deleteUser } from "../../helpers/userDB";
+import { getApp } from "firebase/app";
+import {
+  connectFunctionsEmulator,
+  getFunctions,
+  httpsCallable,
+} from "firebase/functions";
 
-// import { getUsers, users } from "../../helpers/userDB";
 
 const style = {
   position: "absolute",
@@ -38,15 +43,22 @@ const style = {
 };
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
-
+  console.log(users)
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(collection(db, "users"));
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+    // const getUsers = async () => {
+    //   const data = await getDocs(collection(db, "users"));
+    //   setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    // };
+    // getUsers()
+    const unsubscribe = onSnapshot(collection(db, "users"), (querySnapshot) => {
+      setUsers(querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id })))
+    });
 
-    getUsers();
+    return () => {
+      unsubscribe()
+    }
   }, []);
+
 
   //modal create user
   const [open, setOpen] = useState(false);
@@ -58,12 +70,21 @@ export default function Dashboard() {
   const DeleteHandleOpen = () => setDeleteOpen(true);
   const DeleteHandleClose = () => setDeleteOpen(false);
 
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState();
   console.log(selectedRows);
+
+  //delete user auth function
+  const functions = getFunctions(getApp());
+  // const functions = firebaseFunctions;
+  connectFunctionsEmulator(functions, "localhost", 5001);
+  const deleteUserAuth = httpsCallable(functions, "deleteUserAuth");
 
   //delete user
   const DeleteUser = () => {
-    deleteUser(user.id)
+    const [userToBeDeleted] = selectedRows
+    console.log(userToBeDeleted);
+    deleteUserAuth({email: userToBeDeleted.email}) 
+    deleteUser(userToBeDeleted.id)
   }
 
   const columns = [
