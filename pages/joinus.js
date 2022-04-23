@@ -1,7 +1,7 @@
-import React from "react";
-import ListIcon from "@mui/icons-material";
+import ListIcon from "@mui/icons-material/List";
 import classes from "../styles/Join.module.css";
 import Image from "next/image";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
 import {
@@ -14,8 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-
 // import useStyles from "./style";
 
 // import network from "../..//public/joinUs/network.png";
@@ -36,13 +34,20 @@ export default function JoinUs() {
     <div className={classes.JoinUs}>
       <section className={classes.JoinUs__form}>
         <Typography variant="h4">BECOME AN IEEE MEMBER</Typography>
-        <Typography variant="h5" className={classes.JoinUs__form__text}>
+        <Typography
+          variant="h5"
+          sx={{
+            lineHeight: "45px",
+            lineBreak: { xs: "35px", md: "auto" },
+            width: { md: "50%", xs: "90%" },
+          }}
+        >
           Join a community of over 420,000 technology and engineering
           professionals united by a common desire to continuously learn,
           interact, collaborate, and innovate
         </Typography>
         <Link
-          className={classes.link}
+          sx={{ textDecoration: "none" }}
           href="https://docs.google.com/forms/d/e/1FAIpQLScqnICww9HQLJoFFuBDymNhvjFAn-8WL_eAbQuYNeM9MnTVVw/viewform"
           target="_blank"
           rel="noopener"
@@ -50,7 +55,13 @@ export default function JoinUs() {
           <Button
             startIcon={<ListIcon />}
             size="large"
-            className={classes.JoinUs__form__button}
+            sx={{
+              backgroundColor: "#fff",
+              borderRadius: "20px",
+              padding: "10px 20px",
+              fontWeight: "600",
+              color: "#000",
+            }}
           >
             Google Form Submission
           </Button>
@@ -59,10 +70,13 @@ export default function JoinUs() {
       <section className={classes.JoinUs__benefits}>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\softskills.png"
-            layout="fill"
+            src="/joinUs/softskills.png"
+            layout="fixed"
             alt="skills"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">SOFT SKILLS</Typography>
           <Typography variant="body1">
@@ -72,10 +86,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\network.png"
-            layout="fill"
+            src="/joinUs/network.png"
+            layout="fixed"
             alt="network"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">NETWORK</Typography>
           <Typography variant="body1">
@@ -85,10 +102,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\awards.png"
-            layout="fill"
+            src="/joinUs/awards.png"
+            layout="fixed"
             alt="awards"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">AWARDS</Typography>
           <Typography variant="body1">
@@ -99,10 +119,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\travelgrants.png"
-            layout="fill"
+            src="/joinUs/travelgrants.png"
+            layout="fixed"
             alt="travel"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">TRAVEL GRANTS</Typography>
           <Typography variant="body1">
@@ -112,10 +135,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\scholarship.png"
-            layout="fill"
+            src="/joinUs/scholarship.png"
+            layout="fixed"
             alt="scholarship"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">SCHOLARSHIPS</Typography>
           <Typography variant="body1">
@@ -125,10 +151,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\ieeeorg.png"
-            layout="fill"
+            src="/joinUs/ieeeorg.png"
+            layout="fixed"
             alt="ieeeorg"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">@IEEE.org</Typography>
           <Typography variant="body1">
@@ -138,10 +167,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\magazine.png"
-            layout="fill"
+            src="/joinUs/magazine.png"
+            layout="fixed"
             alt="magazine"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">MAGAZINES</Typography>
           <Typography variant="body1">
@@ -151,10 +183,13 @@ export default function JoinUs() {
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
-            src="\joinUs\ieeetv.png"
-            layout="fill"
+            src="/joinUs/ieeetv.png"
+            layout="fixed"
             alt="ieeetv"
             className={classes.JoinUs__benefits__benefit__image}
+            loading="lazy"
+            height="120px"
+            width="120px"
           />
           <Typography variant="h6">IEEE.tv</Typography>
           <Typography variant="body1">
@@ -164,11 +199,15 @@ export default function JoinUs() {
       </section>
       <section className={classes.JoinUs__globalBenefits}>
         <div className={classes.JoinUs__globalBenefits__header}>
-          <Image src="\joinUs\thinking.png" layout="fill" alt="thinking" />
-          <Typography
-            variant="h4"
-            className={classes.JoinUs__globalBenefits__header__text}
-          >
+          <Image
+            src="/joinUs/thinking.png"
+            layout="fixed"
+            alt="thinking"
+            loading="lazy"
+            height="120px"
+            width="120px"
+          />
+          <Typography variant="h4" sx={{ fontWeight: "600" }}>
             STILL NOT SATISFIED?
           </Typography>
         </div>
@@ -178,7 +217,7 @@ export default function JoinUs() {
             href="https://www.ieee.org/membership/benefits/index.html"
             target="_blank"
             rel="noreferrer"
-            className={classes.JoinUs__globalBenefits__link}
+            sx={{ color: "#12679b" }}
           >
             IEEE Global Benefits
           </a>{" "}
@@ -203,9 +242,7 @@ export default function JoinUs() {
                 <Avatar
                   alt="Remy Sharp"
                   src="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/hafsa_EFuQsDexX.jpeg"
-                  className={
-                    classes.JoinUs__testemonials__carousel__content__person__image
-                  }
+                  sx={{ height: "150px", width: "150px" }}
                 />
                 <Typography variant="subtitle1">Hafsa Taruj</Typography>
                 <Typography variant="overline">
@@ -235,9 +272,7 @@ export default function JoinUs() {
                 <Avatar
                   alt="Remy Sharp"
                   src="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/kaunain.jpg"
-                  className={
-                    classes.JoinUs__testemonials__carousel__content__person__image
-                  }
+                  sx={{ height: "150px", width: "150px" }}
                 />
                 <Typography variant="subtitle1">
                   Syeda Kaunain Fatima
@@ -269,9 +304,7 @@ export default function JoinUs() {
                 <Avatar
                   alt="Remy Sharp"
                   src="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/kounain.JPG"
-                  className={
-                    classes.JoinUs__testemonials__carousel__content__person__image
-                  }
+                  sx={{ height: "150px", width: "150px" }}
                 />
                 <Typography variant="subtitle1">
                   Syeda Kounain Fatima
@@ -289,16 +322,17 @@ export default function JoinUs() {
         </Carousel>
       </section>
       <section className={classes.JoinUs__accordion}>
-        <Typography className={classes.JoinUs__accordion__heading} variant="h4">
+        <Typography
+          sx={{ color: "#000", textAlign: "center", marginBottom: "30px" }}
+          variant="h4"
+        >
           FAQ
         </Typography>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
@@ -312,13 +346,11 @@ export default function JoinUs() {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
@@ -332,13 +364,11 @@ export default function JoinUs() {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
@@ -350,13 +380,11 @@ export default function JoinUs() {
             <Typography>Online payment and payment through Bank.</Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
@@ -373,13 +401,11 @@ export default function JoinUs() {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
@@ -391,13 +417,11 @@ export default function JoinUs() {
             <Typography>See benefits at top of the page</Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
@@ -410,13 +434,11 @@ export default function JoinUs() {
             <Typography>Yes</Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion className={classes.JoinUs__accordion__accordion}>
+        <Accordion
+          sx={{ backgroundColor: "#12679b", color: "#fff", padding: "15px" }}
+        >
           <AccordionSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.JoinUs__accordion__accordion__expandLogo}
-              />
-            }
+            expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
