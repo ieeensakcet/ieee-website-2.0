@@ -1,0 +1,21 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: cener;
+  text-align: center;
+  flex: 1 1 30%;
+}
+
+.profile__image {
+  height: 150px;
+  width: 150px;
+}
+
+/* [theme.breakpoints.down(sm)]: { */
+@media (max-width: 600px) {
+  .profile__image {
+    height: 100px;
+    width: 100px;
+  }
+}

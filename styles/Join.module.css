@@ -1,204 +1,232 @@
 .JoinUs {
-    color: #fff;
-    background-color: #e6e9eb;
-  }
+  color: #fff;
+  background-color: #e6e9eb;
+}
 
-  .JoinUs__form {
-    background-color: #3470a4;
-    width: 100%;
-    margin: auto;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-    text-align: center;
-  }
+.JoinUs__form {
+  background-color: #3470a4;
+  width: 100%;
+  margin: auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  text-align: center;
+}
 
-  .link {
-    text-decoration: 'none';
+.link {
+  text-decoration: "none";
+}
+
+.JoinUs__form__text {
+  line-height: 45px;
+  width: 50%;
+}
+
+.JoinUs__form__button {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.JoinUs__benefits {
+  background-color: #3470a4;
+  display: grid;
+  /* grid-template-columns: 'repeat(auto-fit; minmax(350px; 1fr))'; */
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.JoinUs__benefits div:nth-child(n + 1):nth-child(odd):nth-child(-n + 4) {
+  background-color: #e6e9eb;
+  color: #000;
+}
+
+.JoinUs__benefits div:nth-child(n + 5):nth-child(even):nth-child(-n + 8) {
+  background-color: #e6e9eb;
+  color: #000;
+}
+
+.JoinUs__benefits__benefit {
+  display: grid;
+  gap: 15px;
+  place-items: center;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.JoinUs__benefits__benefit__image {
+  width: "120px";
+}
+
+.JoinUs__globalBenefits {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.JoinUs__globalBenefits__header {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.JoinUs__globalBenefits__header__text {
+  font-weight: 600;
+}
+
+.JoinUs__globalBenefits__link {
+  color: #12679b;
+}
+
+.JoinUs__testemonials {
+  width: 70%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+.JoinUs__testemonials__carousel {
+  height: 100%;
+  padding: 20px;
+  background-image: radial-gradient(
+      circle at 99% 33%,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 37%,
+      transparent 37%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 46% 16%,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 43%,
+      transparent 43%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 99% 25%,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 22%,
+      transparent 22%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 57% 88%,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 86%,
+      transparent 86%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 82% 78%,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 22%,
+      transparent 22%,
+      transparent 100%
+    ),
+    linear-gradient(90deg, rgb(18, 103, 155), rgb(18, 103, 155));
+}
+
+.JoinUs__testemonials__carousel__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 80px;
+  gap: 30px;
+}
+
+.JoinUs__testemonials__carousel__content__person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0.3;
+}
+
+.JoinUs__testemonials__carousel__content__person__image {
+  height: 150px;
+  width: 150px;
+}
+
+.JoinUs__accordion {
+  width: 70%;
+  margin: auto;
+  padding-bottom: 50px;
+}
+
+.JoinUs__accordion__accordion {
+  background-color: #12679b;
+  color: #fff;
+  padding: 15px;
+}
+
+.JoinUs__accordion__heading {
+  color: #000;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.JoinUs__accordion__accordion__expandLogo {
+  color: #fff;
+}
+
+/* [theme.breakpoints.down(md)]:  */
+@media (max-width: 900px) {
+  .JoinUs__accordion {
+    width: 80%;
   }
 
   .JoinUs__form__text {
-    line-height: 45px;
-    width: 50%;
-  }
-
-  .JoinUs__form__button {
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-weight: 600;
-  }
-
-  .JoinUs__benefits {
-    background-color: #3470a4;
-    display: grid;
-    /* grid-template-columns: 'repeat(auto-fit; minmax(350px; 1fr))'; */
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-    .JoinUs__benefits div:nth-child(n+1):nth-child(odd):nth-child(-n+4) {
-      background-Color: #e6e9eb;
-      color: #000;
-    }
-    
-    .JoinUs__benefits div:nth-child(n+5):nth-child(even):nth-child(-n+8) {
-      background-Color: #e6e9eb;
-      color: #000;
-    }
-  
-  .JoinUs__benefits__benefit {
-    display: grid;
-    gap: 15px;
-    place-items: center;
-    padding: 80px 40px;
-    text-align: center;
-  }
-
-  .JoinUs__benefits__benefit__image {
-    width: '120px';
-  }
-
-  .JoinUs__globalBenefits {
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .JoinUs__globalBenefits__header {
-    display: flex;
-    text-align: center;
-    align-Items: center;
-  }
-  
-  .JoinUs__globalBenefits__header__text {
-    font-weight: 600;
-  }
-
-  .JoinUs__globalBenefits__link {
-    color: #12679b;
+    line-break: 35px;
+    width: 90%;
   }
 
   .JoinUs__testemonials {
-    width: 70%;
-    margin: auto;
-    margin-bottom: 25px;
+    width: 80%;
   }
 
-  .JoinUs__testemonials__carousel {
-    height: 100%;
-    padding: 20px;
-    background-image:
-    radial-gradient(circle at 99% 33%, rgba(255,255,255, 0.05) 0%, rgba(255,255,255, 0.05) 37%,transparent 37%, transparent 100%),radial-gradient(circle at 46% 16%, rgba(255,255,255, 0.05) 0%, rgba(255,255,255, 0.05) 43%,transparent 43%, transparent 100%),radial-gradient(circle at 99% 25%, rgba(255,255,255, 0.05) 0%, rgba(255,255,255, 0.05) 22%,transparent 22%, transparent 100%),radial-gradient(circle at 57% 88%, rgba(255,255,255, 0.05) 0%, rgba(255,255,255, 0.05) 86%,transparent 86%, transparent 100%),radial-gradient(circle at 82% 78%, rgba(255,255,255, 0.05) 0%, rgba(255,255,255, 0.05) 22%,transparent 22%, transparent 100%),linear-gradient(90deg, rgb(18,103,155),rgb(18,103,155));
+  .JoinUs__benefits {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .JoinUs__testemonials__carousel__content {
-    display: flex;
-    justify-content: center;
-    align-Items: center;
-    padding: 20px 80px;
-    gap: 30px;
-  }
-
-  .JoinUs__testemonials__carousel__content__person {
-    display: flex;
-    flex-Direction: column;
-    align-Items: center;
-    justify-Content: center;
-    flex: 0.3;
-  }
-
-  .JoinUs__testemonials__carousel__content__person__image {
-    height: 150px;
-    width: 150px;
+/* [theme.breakpoints.down(sm)]: */
+@media (max-width: 600px) {
+  .JoinUs__benefits__benefit__image {
+    width: 120px;
   }
 
   .JoinUs__accordion {
-    width: 70%;
-    margin: auto;
-    padding-bottom: 50px;
+    width: 90%;
   }
-
-  .JoinUs__accordion__accordion {
-    background-color: #12679b;
-    color: #fff;
-    padding: 15px;
+  .JoinUs__benefits {
+    grid-template-columns: repeat(1, 1fr);
   }
-
-  .JoinUs__accordion__heading {
-    color: #000;
-    text-align: center;
-    margin-bottom: 30px;
+  .JoinUs__testemonials {
+    width: 90%;
   }
-
-  .JoinUs__accordion__accordion__expandLogo {
-    color: #fff;
+  .JoinUs__testemonials__carousel__content {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  /* [theme.breakpoints.down(md)]:  */
-  @media (max-width: 900px) {
-      
-    
-    .JoinUs__accordion{
-      width: 80%;
-    }
-
-    .JoinUs__form__text {
-      line-break: 35px;
-      width: 90%;
-    }
-
-    .JoinUs__testemonials {
-      width: 80%;}
-    
-    .JoinUs__benefits {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-
+  .JoinUs__testemonials__carousel__content__person__image {
+    height: 100px;
+    width: 100px;
   }
+}
 
-  /* [theme.breakpoints.down(sm)]: */
-  @media (max-width: 600px) {
-
-    .JoinUs__benefits__benefit__image {
-      width: 120px;
-    }
-
-    .JoinUs__accordion {
-      width: 90%;
-    }
-    .JoinUs__benefits {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    .JoinUs__testemonials {
-      width: 90%;
-    }
-    .JoinUs__testemonials__carousel__content {
-      flex-direction: column;
-      gap: 10px;
-    }
-    .JoinUs__testemonials__carousel__content__person__image {
-      height: 100px;
-      width: 100px;
-    }
+/* [theme.breakpoints.down(xs)]:  */
+@media (max-width: 0px) {
+  .JoinUs__benefits {
+    grid-template-columns: repeat(1, 1fr);
   }
-
-  /* [theme.breakpoints.down(xs)]:  */
-  @media (max-width: 0px) {
-
-    .JoinUs__benefits {
-      grid-Template-Columns: repeat(1, 1fr);
-    }
-    .JoinUs__testemonials__carousel__content {
-      padding: 20px;
-    }
+  .JoinUs__testemonials__carousel__content {
+    padding: 20px;
   }
-
+}
