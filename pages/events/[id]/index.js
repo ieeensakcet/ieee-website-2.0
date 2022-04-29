@@ -1,19 +1,20 @@
-import { Avatar, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 import Footer from "../../../components/footer/Footer";
 import styles from "./event.module.css";
 
-const product = { 
+const product = {
   images: [
-    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80", "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80", "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-  ]
-}
-  
-
+    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+  ],
+};
 
 export default function Events() {
   const router = useRouter();
@@ -85,7 +86,7 @@ export default function Events() {
           </div>
         </section>
         <section className={styles.main__details}>
-          <Typography variant="body1">
+          <Typography variant="body1" sx={{ marginBottom: "25px" }}>
             Certain be ye amiable by exposed so celebrated estimating excellence
             do furnished do otherwise conveying attempted. These are just some
             of the numerous reasons of choosing and sticking with us alone.
@@ -93,37 +94,43 @@ export default function Events() {
             do furnished do otherwise conveying attempted. These are just some
             of the numerous reasons of choosing and sticking with us alone.
           </Typography>
-          {/* <Carousel
-            axis="horizontal"
+          <Carousel
+            className={styles.main__details__carousal}
             infiniteLoop={true}
             autoPlay={true}
+            showThumbs={true}
             swipeable={true}
             renderThumbs={() =>
               product.images.map((img, idx) => (
-                <div key={idx} className={styles.images}>
+                <div key={idx} className={styles.main__details__carousal__thumbs}>
                   <Image
                     src={img}
                     layout="fill"
                     objectFit="contain"
                     alt="logo"
-                  ></Image>
+                  />
                 </div>
               ))
             }
           >
             {product.images.length !== 0 &&
               product.images.map((img, idx) => (
-                <Image
+                <div
                   key={idx}
-                  src={img}
-                  alt={`${product.title} preview ${idx}`}
-                  layout="responsive"
-                  width={650}
-                  height={650}
-                  priority={idx === 0}
-                ></Image>
+                  className={styles.main__details__carousal__image}
+                >
+                  <Image
+                    src={img}
+                    alt={`${product.title} preview ${idx}`}
+                    layout="fill"
+                    objectFit="contain"
+                    // width={300}
+                    // height={300}
+                    priority={idx === 0}
+                  />
+                </div>
               ))}
-          </Carousel> */}
+          </Carousel>
         </section>
       </main>
       <Footer />
