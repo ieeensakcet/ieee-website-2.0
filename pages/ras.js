@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Link as MLink,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Button, Link as MLink, Paper, Typography } from "@mui/material";
 import classes from "../styles/RAS.module.css";
 import Link from "next/Link";
 import Image from "next/image";

@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Footer from "../components/footer/Footer";
 import styles from "../styles/About.module.css";
-import React from "react";
 import {
   Accordion,
   AccordionDetails,
