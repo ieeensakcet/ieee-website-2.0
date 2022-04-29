@@ -9,13 +9,6 @@ import classes from "../styles/RAS.module.css";
 import Link from "next/Link";
 import Image from "next/image";
 
-// import award from "../../../images/ras/award.png";
-// import discount from "../../../images/ras/discount.png";
-// import research from "../../../images/ras/research.png";
-// import resource from "../../../images/ras/resource.png";
-// import speak from "../../../images/ras/speak.png";
-// import volunteer from "../../../images/ras/volunteer.png";
-
 import Profile from "../components/profile/profile.js";
 
 import { ras } from "./data/profile";
@@ -259,10 +252,6 @@ export default function Ras() {
         <Typography variant="h4">ADVISOR MESSAGE</Typography>
         <div className={classes.ras__message__content}>
           <div className={classes.ras__message__content__person}>
-            {/* <Avatar
-              className={classes.ras__message__content__person__image}
-              src="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/shanila_mam.jpeg"
-            /> */}
             <Profile
               key="Ms. Shanila Mahreen"
               name="Ms. Shanila Mahreen"
@@ -271,7 +260,6 @@ export default function Ras() {
               linkedInURL="https://www.linkedin.com/in/firdous-rehana-55ba3a23/"
               image="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/shanila_mam.jpeg"
             />
-            {/* <Typography variant="h6">Ms Shanila Mahreen</Typography> */}
           </div>
           <Typography
             variant="h6"

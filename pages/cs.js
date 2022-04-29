@@ -7,15 +7,8 @@ import {
 } from "@mui/material";
 import classes from "../styles/CS.module.css";
 import Image from "next/image";
-// import { Link as RouterLink } from "react-router-dom"; //Confirm with salman
-import Link from "next/Link";
 
-// import mags from "cs/mags.webp";
-// import library from "cs/library.webp";
-// import price from "cs/price.webp";
-// import contacts from "cs/contacts.webp";
-// import community from "cs/community.webp";
-// import csLogo from "../../../images/homePage/IEEE-CS_Logo.png";
+import Link from "next/Link";
 
 import Profile from "../components/profile/profile.js";
 
@@ -268,10 +261,6 @@ export default function Cs() {
         <Typography variant="h4">ADVISOR MESSAGE</Typography>
         <div className={classes.cs__message__content}>
           <div className={classes.cs__message__content__person}>
-            {/* <Avatar
-              sx={{ width: "120px", height: "120px" }}
-              src="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/asma_mam_tbqioU5dh.png"
-            /> */}
             <Profile
               key="Mrs. Asma Mehdia"
               name="Mrs. Asma Mehdia"
@@ -280,7 +269,6 @@ export default function Cs() {
               linkedInURL="https://www.linkedin.com/in/asma-mehdia-7565151b4/"
               image="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/asma_mam_tbqioU5dh.png"
             />
-            {/* <Typography variant="h6">Ms Asma Mehdia</Typography>  */}
           </div>
           <Typography variant="h6">
             Joining IEEE is due to the fact that,you can have the smartest

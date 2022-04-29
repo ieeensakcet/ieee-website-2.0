@@ -14,20 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import useStyles from "./style";
-
-// import network from "../..//public/joinUs/network.png";
-// import thinking from "../../public/joinUs/thinking.png";
-// import ieeeorg from "../../public/joinUs/ieeeorg.png";
-// import ieeetv from "../../public/joinUs/ieeetv.png";
-// import magazine from "../../public/joinUs/magazine.png";
-// import scholarship from "../../public/joinUs/scholarship.png";
-// import softskills from "../../public/joinUs/softskills.png";
-// import travelgrants from "../../public/joinUs/travelgrants.png";
-// import awards from "../../public/joinUs/awards.png";
-
-// const JoinUs = () => {
-//   const classes = useStyles();
 
 export default function JoinUs() {
   return (

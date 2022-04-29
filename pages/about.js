@@ -19,12 +19,6 @@ import {
   TimelineDot,
 } from "@mui/lab";
 
-// import seminar from "../public/seminar.png";
-// import hackathon from "../public/hackathon.png";
-// import competition from "../public/competition.png";
-// import network from "../public/network.png";
-// import webinar from "../public/webinar.png";
-// import workshops from "../public/workshop.png";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function About() {
@@ -81,14 +75,6 @@ export default function About() {
                 community consists of amateurs to experts, who understand the
                 potential of volunteering and how priceless volunteers are!
               </Typography>
-              {/* <Typography variant="h6">
-            It is a student community that strives to inform, learn, entertain,
-            and inspire action through the events and experiences we create. We
-            promote student empowerment, develop professional skills, and foster
-            technological innovations and build networks. ​ Our community
-            consists of amateurs to experts, who understand the potential of
-            volunteering and how priceless volunteers are!
-          </Typography> */}
             </div>
           </Paper>
           <Paper

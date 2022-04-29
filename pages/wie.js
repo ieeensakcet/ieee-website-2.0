@@ -9,14 +9,6 @@ import classes from "../styles/WIE.module.css";
 import Link from "next/Link";
 import Image from "next/image";
 
-// import around from "../../../images/wie/around.png";
-// import email from "../../../images/wie/email.png";
-// import help from "../../../images/wie/help.png";
-// import medal from "../../../images/wie/medal.png";
-// import scholarship from "../../../images/wie/scholarship.png";
-// import tag from "../../../images/wie/tag.png";
-// import wieLogo from "../../../images/homePage/ieee-wie-logo.png";
-
 import Profile from "../components/profile/profile.js";
 
 import { wie } from "./data/profile";
@@ -312,11 +304,6 @@ export default function Wie() {
         <Typography variant="h4">ADVISOR MESSAGE</Typography>
         <div className={classes.wie__message__content}>
           <div className={classes.wie__message__content__person}>
-            {/* <Avatar
-              className={classes.wie__message__content__person__image}
-              src="https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/rehana_mam.png"
-            />
-            <Typography variant="h6">Ms Firdous Rehana</Typography> */}
             <Profile
               key="Ms. Firdous Rehana"
               name="Ms. Firdous Rehana"
