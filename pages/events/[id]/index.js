@@ -2,10 +2,13 @@ import { Button, Typography } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import Comment from "../../../components/Comment/Comment";
 
 import Footer from "../../../components/footer/Footer";
+import WriteComment from "../../../components/writeComment/WriteComment";
 import styles from "./event.module.css";
 
 const product = {
@@ -41,96 +44,111 @@ export default function Events() {
             adipiscing elit, sed do eiusmod tempor
           </h1>
         </section>
-        <section className={styles.main__content}>
-          <div className={styles.main__content__image}>
-            <Image
-              alt="event image"
-              src="https://source.unsplash.com/GiQ9Yck2h3E/400x400"
-              layout="fill"
-              objectFit="contain"
-            />
-          </div>
-          <div className={styles.main__content__details}>
-            <div className={styles.main__content__details__header}>
-              <Typography variant="subtitle1">Seminar</Typography>
-              <Typography variant="h6">
-                UCA Academic Symposium - Student
+        <section className={styles.main__event}>
+          <section className={styles.main__content}>
+            <div className={styles.main__content__image}>
+              <Image
+                alt="event image"
+                src="https://source.unsplash.com/GiQ9Yck2h3E/400x400"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
+            <div className={styles.main__content__details}>
+              <div className={styles.main__content__details__header}>
+                <Typography variant="subtitle1">Seminar</Typography>
+                <Typography variant="h6">
+                  UCA Academic Symposium - Student
+                </Typography>
+              </div>
+              <div className={styles.main__content__details__box}>
+                <div>
+                  <Typography variant="subtitle2">Date</Typography>
+                  <Typography variant="body1">September 2nd 2022</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle2">Time</Typography>
+                  <Typography variant="body1">8:00 A.M</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle2">Venue</Typography>
+                  <Typography variant="body1">UCA Hall, New York</Typography>
+                </div>
+              </div>
+              <Typography variant="body1">
+                Certain be ye amiable by exposed so celebrated estimating
+                excellence do furnished do otherwise conveying attempted. These
+                are just some of the numerous reasons of choosing and sticking
+                with us alone.
               </Typography>
+              <Button
+                variant="contained"
+                className={styles.main__content__details__button}
+              >
+                Book Your Seat
+              </Button>
             </div>
-            <div className={styles.main__content__details__box}>
-              <div>
-                <Typography variant="subtitle2">Date</Typography>
-                <Typography variant="body1">September 2nd 2022</Typography>
-              </div>
-              <div>
-                <Typography variant="subtitle2">Time</Typography>
-                <Typography variant="body1">8:00 A.M</Typography>
-              </div>
-              <div>
-                <Typography variant="subtitle2">Venue</Typography>
-                <Typography variant="body1">UCA Hall, New York</Typography>
-              </div>
-            </div>
-            <Typography variant="body1">
+          </section>
+          <section className={styles.main__details}>
+            <Typography variant="body1" sx={{ marginBottom: "25px" }}>
               Certain be ye amiable by exposed so celebrated estimating
               excellence do furnished do otherwise conveying attempted. These
               are just some of the numerous reasons of choosing and sticking
-              with us alone.
+              with us alone. Certain be ye amiable by exposed so celebrated
+              estimating excellence do furnished do otherwise conveying
+              attempted. These are just some of the numerous reasons of choosing
+              and sticking with us alone.
             </Typography>
-            <Button
-              variant="contained"
-              className={styles.main__content__details__button}
+            <Carousel
+              className={styles.main__details__carousal}
+              infiniteLoop={true}
+              autoPlay={true}
+              showThumbs={true}
+              swipeable={true}
+              renderThumbs={() =>
+                product.images.map((img, idx) => (
+                  <div
+                    key={idx}
+                    className={styles.main__details__carousal__thumbs}
+                  >
+                    <Image
+                      src={img}
+                      layout="fill"
+                      objectFit="contain"
+                      alt="logo"
+                    />
+                  </div>
+                ))
+              }
             >
-              Book Your Seat
-            </Button>
-          </div>
-        </section>
-        <section className={styles.main__details}>
-          <Typography variant="body1" sx={{ marginBottom: "25px" }}>
-            Certain be ye amiable by exposed so celebrated estimating excellence
-            do furnished do otherwise conveying attempted. These are just some
-            of the numerous reasons of choosing and sticking with us alone.
-            Certain be ye amiable by exposed so celebrated estimating excellence
-            do furnished do otherwise conveying attempted. These are just some
-            of the numerous reasons of choosing and sticking with us alone.
-          </Typography>
-          <Carousel
-            className={styles.main__details__carousal}
-            infiniteLoop={true}
-            autoPlay={true}
-            showThumbs={true}
-            swipeable={true}
-            renderThumbs={() =>
-              product.images.map((img, idx) => (
-                <div key={idx} className={styles.main__details__carousal__thumbs}>
-                  <Image
-                    src={img}
-                    layout="fill"
-                    objectFit="contain"
-                    alt="logo"
-                  />
-                </div>
-              ))
-            }
-          >
-            {product.images.length !== 0 &&
-              product.images.map((img, idx) => (
-                <div
-                  key={idx}
-                  className={styles.main__details__carousal__image}
-                >
-                  <Image
-                    src={img}
-                    alt={`${product.title} preview ${idx}`}
-                    layout="fill"
-                    objectFit="contain"
-                    // width={300}
-                    // height={300}
-                    priority={idx === 0}
-                  />
-                </div>
-              ))}
-          </Carousel>
+              {product.images.length !== 0 &&
+                product.images.map((img, idx) => (
+                  <div
+                    key={idx}
+                    className={styles.main__details__carousal__image}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${product.title} preview ${idx}`}
+                      layout="fill"
+                      objectFit="contain"
+                      // width={300}
+                      // height={300}
+                      priority={idx === 0}
+                    />
+                  </div>
+                ))}
+            </Carousel>
+          </section>
+          <section className={styles.main__comments}>
+            <WriteComment />
+            <div className={styles.main__comments__container}>
+              <Comment />
+              <Comment />
+              <Comment />
+              <Comment />
+            </div>
+          </section>
         </section>
       </main>
       <Footer />
