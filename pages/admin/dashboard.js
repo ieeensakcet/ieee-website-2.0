@@ -29,21 +29,9 @@ import {
   httpsCallable,
 } from "firebase/functions";
 
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 8,
-  textAlign: "center",
-};
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
-  console.log(users)
+  console.log(users);
   useEffect(() => {
     // const getUsers = async () => {
     //   const data = await getDocs(collection(db, "users"));
@@ -51,14 +39,15 @@ export default function Dashboard() {
     // };
     // getUsers()
     const unsubscribe = onSnapshot(collection(db, "users"), (querySnapshot) => {
-      setUsers(querySnapshot.docs.map(doc => ({...doc.data(), id: doc.id })))
+      setUsers(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
     });
 
     return () => {
-      unsubscribe()
-    }
+      unsubscribe();
+    };
   }, []);
-
 
   //modal create user
   const [open, setOpen] = useState(false);
@@ -81,11 +70,11 @@ export default function Dashboard() {
 
   //delete user
   const DeleteUser = () => {
-    const [userToBeDeleted] = selectedRows
+    const [userToBeDeleted] = selectedRows;
     console.log(userToBeDeleted);
-    deleteUserAuth({email: userToBeDeleted.email}) 
-    deleteUser(userToBeDeleted.id)
-  }
+    deleteUserAuth({ email: userToBeDeleted.email });
+    deleteUser(userToBeDeleted.id);
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -197,7 +186,19 @@ export default function Dashboard() {
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                 >
-                  <Box sx={style}>
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: "80%",
+                      bgcolor: "background.paper",
+                      boxShadow: 24,
+                      p: 8,
+                      textAlign: "center",
+                    }}
+                  >
                     <Button
                       onClick={() => setOpen((prev) => !prev)}
                       variant="contained"
