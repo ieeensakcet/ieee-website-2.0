@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Carousel } from "react-responsive-carousel";
+import { Carousel } from "@mohammedsrehan/react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Comment from "../../../components/Comment/Comment";
 
@@ -103,6 +103,7 @@ export default function Events() {
               className={styles.main__details__carousal}
               infiniteLoop={true}
               autoPlay={true}
+              thumbsAxis='vertical'
               showThumbs={true}
               swipeable={true}
               renderThumbs={() =>
@@ -110,6 +111,7 @@ export default function Events() {
                   <div
                     key={idx}
                     className={styles.main__details__carousal__thumbs}
+                    axis="vertical"
                   >
                     <Image
                       src={img}

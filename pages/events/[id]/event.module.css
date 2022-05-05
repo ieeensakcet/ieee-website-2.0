@@ -55,8 +55,9 @@
   margin-bottom: 25px;
 }
 .main__details__carousal {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
 }
