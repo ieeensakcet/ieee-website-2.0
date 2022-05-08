@@ -2,7 +2,7 @@ import { Button, Typography } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "@mohammedsrehan/react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Comment from "../../../components/Comment/Comment";
@@ -10,6 +10,7 @@ import Comment from "../../../components/Comment/Comment";
 import Footer from "../../../components/footer/Footer";
 import WriteComment from "../../../components/writeComment/WriteComment";
 import styles from "./event.module.css";
+import useWindowSize from "../../../helpers/customHooks";
 
 const product = {
   images: [
@@ -20,6 +21,8 @@ const product = {
 };
 
 export default function Events() {
+  const { width } = useWindowSize();
+
   const router = useRouter();
   const { id } = router.query;
   return (
@@ -90,7 +93,7 @@ export default function Events() {
             </div>
           </section>
           <section className={styles.main__details}>
-            <Typography variant="body1" sx={{ marginBottom: "25px" }}>
+            <Typography variant="body1" sx={{ marginBottom: "25px", textAlign: "justify" }}>
               Certain be ye amiable by exposed so celebrated estimating
               excellence do furnished do otherwise conveying attempted. These
               are just some of the numerous reasons of choosing and sticking
@@ -103,7 +106,7 @@ export default function Events() {
               className={styles.main__details__carousal}
               infiniteLoop={true}
               autoPlay={true}
-              thumbsAxis='vertical'
+              thumbsAxis={width <= 1200 ? "horizontal" : "vertical"}
               showThumbs={true}
               swipeable={true}
               renderThumbs={() =>
