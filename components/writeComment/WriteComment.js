@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, Button, Stack, TextField } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 function WriteComment() {
+  const user = useSelector(selectUser);
+
   const [commentTxt, setCommentTxt] = useState("");
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if(!user){
+      setDisabled(true)
+    }
+  }, [user])
+  
 
   return (
     <div style={{ padding: "15px" }}>
@@ -12,6 +24,7 @@ function WriteComment() {
           alt="user-avatar"
         />
         <TextField
+          disabled={disabled}
           multiline
           fullWidth
           minRows={4}
@@ -23,6 +36,7 @@ function WriteComment() {
           }}
         />
         <Button
+          disabled={disabled}
           size="large"
           sx={{
             bgcolor: "custom.moderateBlue",
