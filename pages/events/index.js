@@ -1,16 +1,11 @@
 import Head from "next/head";
+import Link from "next/link";
 import Footer from "../../components/footer/Footer";
 import styles from "../../styles/Events.module.css";
 import EventCard from "../../components/eventCard/EventCard";
-import EventForm from "../../components/eventForm/EventForm";
-import { Button, Modal } from "@mui/material";
-import { useState } from "react";
+import { Button } from "@mui/material";
 
 export default function Events() {
-  //modal create event
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   return (
     <div className={styles.container}>
       <Head>
@@ -20,34 +15,9 @@ export default function Events() {
       </Head>
 
       <main className={styles.main}>
-        <Button onClick={handleOpen}>Add Event</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <div className={styles.add__event}>
-            <Button
-              onClick={() => setOpen((prev) => !prev)}
-              variant="contained"
-              // endIcon={<CloseIcon />}
-              sx={{
-                position: "absolute",
-                right: 0,
-                top: 0,
-                backgroundColor: "#db2b39",
-                borderTopRightRadius: "10px",
-              }}
-            >
-              Close
-            </Button>
-            <h1 className={styles.title__modal}>
-              Create Event
-            </h1>
-            <EventForm />
-          </div>
-        </Modal>
+        <Button>
+          <Link href="/events/add-event">Add Event</Link>
+        </Button>
         <h3 className={styles.title}>
           Popular <a href="">Events</a>
         </h3>
