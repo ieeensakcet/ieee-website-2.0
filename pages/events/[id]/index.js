@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Modal, Typography } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import { Carousel } from "@mohammedsrehan/react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Comment from "../../../components/Comment/Comment";
+import SignIn from "../../../components/signin/SignIn";
 
 import Footer from "../../../components/footer/Footer";
 import WriteComment from "../../../components/writeComment/WriteComment";
 import styles from "./event.module.css";
 import useWindowSize from "../../../helpers/customHooks";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../features/userSlice";
 
 const product = {
   images: [
@@ -21,6 +24,14 @@ const product = {
 };
 
 export default function Events() {
+  const user = useSelector(selectUser);
+  console.log(user);
+
+  //modal create user
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const { width } = useWindowSize();
 
   const router = useRouter();
@@ -93,7 +104,10 @@ export default function Events() {
             </div>
           </section>
           <section className={styles.main__details}>
-            <Typography variant="body1" sx={{ marginBottom: "25px", textAlign: "justify" }}>
+            <Typography
+              variant="body1"
+              sx={{ marginBottom: "25px", textAlign: "justify" }}
+            >
               Certain be ye amiable by exposed so celebrated estimating
               excellence do furnished do otherwise conveying attempted. These
               are just some of the numerous reasons of choosing and sticking
@@ -146,6 +160,44 @@ export default function Events() {
             </Carousel>
           </section>
           <section className={styles.main__comments}>
+            {!user ? (
+              <div className={styles.main__comments__signInButton}>
+                <Button
+                  variant="outlined"
+                  sx={{ color: "#12679b" }}
+                  // endIcon={<AddBoxIcon />}
+                  // onClick={openModal}
+                  onClick={handleOpen}
+                >
+                  Sign In to write review
+                </Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <div className={styles.modal}>
+                    <Button
+                      onClick={() => setOpen((prev) => !prev)}
+                      variant="contained"
+                      // endIcon={<CloseIcon />}
+                      sx={{
+                        position: "absolute",
+                        right: 0,
+                        top: 0,
+                        backgroundColor: "#db2b39",
+                      }}
+                    >
+                      Close
+                    </Button>
+                    <SignIn />
+                  </div>
+                </Modal>
+              </div>
+            ) : (
+              <></>
+            )}
             <WriteComment />
             <div className={styles.main__comments__container}>
               <Comment />
