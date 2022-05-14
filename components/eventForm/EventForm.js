@@ -9,7 +9,7 @@ import {
   TextField,
   ListItemIcon,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { addEvent } from "../../helpers/eventsDB";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -20,22 +20,43 @@ import Dropzone from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { storage } from "../../config/firebaseConfig";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import LinearProgressWithLabel from "../progressBar/ProgressBar";
 
 function EventForm() {
   const [urls, setUrls] = useState([]);
   const [progress, setProgress] = useState(0);
 
-  const uploadFiles = (data) => {
+  console.log(urls);
+
+  useEffect(() => {
+    // setData(null);
+    console.log(urls);
+  }, [urls]);
+
+  const uploadFilesData = async (data) => {
     const promises = [];
-    data.images.map((file) => {
-      console.log("loop");
 
-      const sotrageRef = ref(storage, `files/${file.name}`);
+    for (var i = 0; i < data.images.length; i++) {
+      // files.values contains all the files objects
+      const file = data.images[i];
+      // const storage = getStorage();
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+      const storageRef = ref(storage, "temp/" + file.name);
 
-      const uploadTask = uploadBytesResumable(sotrageRef, file);
-      promises.push(uploadTask);
+      const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
+      promises.push(
+        uploadTask.then((uploadResult) => {
+          return getDownloadURL(uploadResult.ref);
+        })
+      );
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -45,17 +66,24 @@ function EventForm() {
           setProgress(prog);
         },
         (error) => console.log(error),
-        async () => {
-          await getDownloadURL(uploadTask.snapshot.ref).then((downloadURLs) => {
-            setUrls((prevState) => [...prevState, downloadURLs]);
-            console.log("File available at", downloadURLs);
-          });
-        }
       );
+    }
+
+    const photos = await Promise.all(promises);
+    console.log("uploading");
+    setUrls(photos);
+    await console.log(photos);
+    await addEvent({
+      title: data.title,
+      eventType: data.eventType,
+      date: data.date,
+      venue: data.venue,
+      description: data.description,
+      details: data.details,
+      images: photos,
+      link: data.link,
+      scheduleType: data.scheduleType,
     });
-    Promise.all(promises)
-      .then(() => alert("All images uploaded"))
-      .then((err) => console.log(err));
   };
 
   const defaultValues = {
@@ -79,25 +107,13 @@ function EventForm() {
   const [data, setData] = useState();
   console.log(data);
 
-  const createEvent = async (data) => {
-    console.log("running");
-    await uploadFiles(data);
-    await addEvent({
-      title: data.title,
-      eventType: data.eventType,
-      date: data.date,
-      venue: data.venue,
-      description: data.description,
-      details: data.details,
-      images: urls,
-      link: data.link,
-      scheduleType: data.scheduleType,
-    });
-  };
-
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setData(data);
-    createEvent(data);
+    console.log("before upload");
+    await uploadFilesData(data);
+    console.log("after upload");
+    console.log(urls);
+    setUrls([]);
   };
 
   return (
