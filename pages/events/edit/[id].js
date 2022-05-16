@@ -5,7 +5,6 @@ import EventForm from "../../../components/eventForm/EventForm";
 
 function Edit({ id }) {
   const [data, setdata] = useState();
-
   useEffect(() => {
     getData(id);
   }, [id]);
@@ -27,7 +26,7 @@ function Edit({ id }) {
     <div>
       Edit
       <h1>{id}</h1>
-      <EventForm form={data} />
+      <EventForm form={data} id={id}/>
     </div>
   );
 }
