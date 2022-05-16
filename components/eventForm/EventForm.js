@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { addEvent } from "../../helpers/eventsDB";
+import { addEvent, updateEvent } from "../../helpers/eventsDB";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -20,23 +20,57 @@ import Dropzone from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { storage } from "../../config/firebaseConfig";
-import {
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import LinearProgressWithLabel from "../progressBar/ProgressBar";
 
-function EventForm() {
-  const [urls, setUrls] = useState([]);
-  const [progress, setProgress] = useState(0);
+function EventForm(props) {
+  const formData = props?.form;
+  const isAddMode = !formData;
 
-  console.log(urls);
+  const defaultValues = {
+    title: "",
+    eventType: "",
+    date: "",
+    venue: "",
+    description: "",
+    details: "",
+    images: [],
+    link: "",
+    scheduleType: "",
+  };
+
+  const [progress, setProgress] = useState(0);
+  const [scheduleType, setScheduleType] = useState("");
+  const [eventType, setEventType] = useState("");
+
+  const {
+    formState,
+    getValues,
+    watch,
+    control,
+    register,
+    handleSubmit,
+    reset,
+  } = useForm({
+    defaultValues,
+    mode: "onBlur",
+  });
+  const { errors } = formState;
 
   useEffect(() => {
-    // setData(null);
-    console.log(urls);
-  }, [urls]);
+    if (props?.form) {
+      reset(props.form);
+      setScheduleType(props.form.scheduleType)
+      setEventType(props.form.eventType)
+    }
+  }, [reset, props]);
+
+  const eventChange = (e) => {
+    setEventType(e.target.value)
+  }
+  const scheduleChange = (e) => {
+    setScheduleType(e.target.value)
+  }
 
   const uploadFilesData = async (data) => {
     const promises = [];
@@ -65,13 +99,12 @@ function EventForm() {
           );
           setProgress(prog);
         },
-        (error) => console.log(error),
+        (error) => console.log(error)
       );
     }
 
     const photos = await Promise.all(promises);
     console.log("uploading");
-    setUrls(photos);
     await console.log(photos);
     await addEvent({
       title: data.title,
@@ -86,34 +119,35 @@ function EventForm() {
     });
   };
 
-  const defaultValues = {
-    title: "",
-    eventType: "",
-    date: "",
-    venue: "",
-    description: "",
-    details: "",
-    images: [],
-    link: "",
-    scheduleType: "",
-  };
-  const { formState, getValues, watch, control, register, handleSubmit } =
-    useForm({
-      defaultValues,
-      mode: "onBlur",
-    });
-  const { errors } = formState;
+  const updateFilesData = async (id, data) => {
+    console.log("before update")
+    await updateEvent(id, {
+      title: data.title,
+      eventType: data.eventType,
+      date: data.date,
+      venue: data.venue,
+      description: data.description,
+      details: data.details,
+      // images: photos,
+      link: data.link,
+      scheduleType: data.scheduleType,
+    })
+    console.log("after update")
+  }
+
 
   const [data, setData] = useState();
   console.log(data);
 
   const onSubmit = async (data) => {
     setData(data);
-    console.log("before upload");
-    await uploadFilesData(data);
-    console.log("after upload");
-    console.log(urls);
-    setUrls([]);
+    console.log(data)
+    // return isAddMode
+    //   ? await uploadFilesData(data)
+    //   : await updateFilesData(props.id, data);
+    // console.log("before upload");
+    // await uploadFilesData(data);
+    // console.log("after upload");
   };
 
   return (
@@ -132,7 +166,7 @@ function EventForm() {
                   inputProps={register("title", {
                     required: "Please enter user title",
                   })}
-                  error={errors.title}
+                  error={!!errors.title}
                   helperText={errors.title?.message}
                 />
               )}
@@ -151,7 +185,7 @@ function EventForm() {
                   inputProps={register("venue", {
                     required: "Please enter venue",
                   })}
-                  error={errors.venue}
+                  error={!!errors.venue}
                   helperText={errors.venue?.message}
                 />
               )}
@@ -170,7 +204,7 @@ function EventForm() {
                   inputProps={register("description", {
                     required: "Please enter description",
                   })}
-                  error={errors.description}
+                  error={!!errors.description}
                   helperText={errors.description?.message}
                 />
               )}
@@ -189,7 +223,7 @@ function EventForm() {
                   inputProps={register("link", {
                     required: "Please enter link",
                   })}
-                  error={errors.link}
+                  error={!!errors.link}
                   helperText={errors.link?.message}
                 />
               )}
@@ -208,7 +242,7 @@ function EventForm() {
                   inputProps={register("details", {
                     required: "Please enter details",
                   })}
-                  error={errors.details}
+                  error={!!errors.details}
                   helperText={errors.details?.message}
                 />
               )}
@@ -223,10 +257,12 @@ function EventForm() {
               label="Schedule Type"
               variant="filled"
               defaultValue=""
+              onChange={scheduleChange}
+              value={scheduleType ?? ""}
               inputProps={register("scheduleType", {
                 required: "Please enter schedule type",
               })}
-              error={errors.scheduleType}
+              error={!!errors.scheduleType}
               helperText={errors.scheduleType?.message}
             >
               <MenuItem value="schedule">Schedule</MenuItem>
@@ -241,10 +277,12 @@ function EventForm() {
               label="Event Type"
               variant="filled"
               defaultValue=""
+              onChange={eventChange}
+              value={eventType ?? ""}
               inputProps={register("eventType", {
                 required: "Please enter event type",
               })}
-              error={errors.eventType}
+              error={!!errors.eventType}
               helperText={errors.eventType?.message}
             >
               <MenuItem value="workshop">Workshop</MenuItem>
@@ -261,7 +299,7 @@ function EventForm() {
                 render={({ field: { onChange, value } }) => (
                   <DateTimePicker
                     label="Date and Time"
-                    value={value}
+                    value={props?.form?.date.toDate() ?? value}
                     onChange={(value) => onChange(value)}
                     renderInput={(params) => (
                       // console.log(invalid),
@@ -271,7 +309,7 @@ function EventForm() {
                         inputProps={register("date", {
                           required: "Please enter date",
                         })}
-                        error={errors.date}
+                        error={!!errors.date}
                         helperText={errors.date?.message}
                         {...params}
                         fullWidth
