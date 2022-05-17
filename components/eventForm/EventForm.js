@@ -22,6 +22,7 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { storage } from "../../config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import LinearProgressWithLabel from "../progressBar/ProgressBar";
+import Image from "next/image";
 
 function EventForm(props) {
   const formData = props?.form;
@@ -142,12 +143,9 @@ function EventForm(props) {
   const onSubmit = async (data) => {
     setData(data);
     console.log(data)
-    // return isAddMode
-    //   ? await uploadFilesData(data)
-    //   : await updateFilesData(props.id, data);
-    // console.log("before upload");
-    // await uploadFilesData(data);
-    // console.log("after upload");
+    return isAddMode
+      ? await uploadFilesData(data)
+      : await updateFilesData(props.id, data);
   };
 
   return (
@@ -351,6 +349,7 @@ function EventForm(props) {
                           <InsertDriveFileIcon />
                         </ListItemIcon>
                         <ListItemText primary={f.name} secondary={f.size} />
+                        <Image src={URL.createObjectURL(f)} alt="Images to be uploaded" width={200} height={100}/>
                       </ListItem>
                     ))}
                   </List>
