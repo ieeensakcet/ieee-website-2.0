@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
+const db = admin.firestore();
 
 exports.register = functions
   .region("us-central1")
@@ -67,4 +68,20 @@ exports.deleteUserAuth = functions.https.onCall( async (data, context) => {
   return admin.auth().deleteUser(user.uid)
 })
 
-
+//checking scheduled events and updating the event to completed
+exports.taskRunner = functions.pubsub
+    .schedule('* * * * *').onRun(async (context) => {
+    // Consistent timestamp
+    const now = admin.firestore.Timestamp.now();
+    // Query all documents ready to perform
+    const query = db.collection('events').where('scheduleType', '==', 'schedule').where('date', '<=', now);
+    await query.get().then( async (snapshots) => {
+      //creating promise array to run the query concurrently
+      const updatesDocs = []
+      //updating each document
+      snapshots.forEach((doc) => updatesDocs.push(doc.ref.update({ 
+        scheduleType: 'completed'
+      })))
+      await Promise.all(updatesDocs)
+    })
+});
