@@ -1,7 +1,9 @@
 import Head from "next/head";
-import Footer from "../components/footer/Footer";
-import styles from "../styles/Events.module.css";
-import EventCard from "../components/eventCard/EventCard";
+import Link from "next/link";
+import Footer from "../../components/footer/Footer";
+import styles from "../../styles/Events.module.css";
+import EventCard from "../../components/eventCard/EventCard";
+import { Button } from "@mui/material";
 
 export default function Events() {
   return (
@@ -13,6 +15,9 @@ export default function Events() {
       </Head>
 
       <main className={styles.main}>
+        <Button>
+          <Link href="/events/add-event">Add Event</Link>
+        </Button>
         <h3 className={styles.title}>
           Popular <a href="">Events</a>
         </h3>

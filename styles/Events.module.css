@@ -37,3 +37,15 @@
   gap: 30px;
   width: 85%;
 }
+
+.add__event{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  background-color: #fff;
+  padding: 8px;
+  text-align: center;
+  border-radius: 10px;
+}

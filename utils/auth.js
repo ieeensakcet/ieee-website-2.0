@@ -9,33 +9,24 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-
-// import prod from "../.firebase/prod.json";
-
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(prod);
-// }
-
-// const authContext = createContext();
-
-// export function ProvideAuth() {
-//   const auth = useProvideAuth();
-//   // return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-// }
-
-// export const useAuth = () => {
-//   return useContext(authContext);
-// };
+import { useDispatch } from "react-redux";
+import { login } from "../features/userSlice";
 
 export default function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
 
   const signin = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
+      .then((userAuth) => {
+        console.log(userAuth.user);
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+          })
+        );
+        // history.replace("/");
         alert("Successfully Logged In");
-        setUser(response.user);
-        return response.user;
       })
       .catch((error) => alert(error.message));
   };
@@ -43,7 +34,7 @@ export default function useProvideAuth() {
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log("created user", responce.user)
+        console.log("created user", responce.user);
         // setUser(response.user);
         signOut();
         return response.user;
