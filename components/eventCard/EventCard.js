@@ -1,15 +1,58 @@
-import { Button, Paper } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
+} from "@mui/material";
 import Image from "next/image";
 import styles from "./EventCard.module.css";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useState } from "react";
+import Link from "next/link";
+import { deleteEvent } from "../../helpers/eventsDB";
 
-export default function EventCard() {
+
+export default function EventCard({ id, title, venue, date }) {
+  // const d = date.toDate()
+  // const month = d.getMonth()
+  // const year = d.getFullYear()
+  // const dat = d.getDate()
+  // const fecha =dat+"-"+month+"-"+year;
+  // console.log(dat, month, year)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  //delete warning modal
+  const [DeleteOpen, setDeleteOpen] = useState(false);
+  const DeleteHandleOpen = () => setDeleteOpen(true);
+  const DeleteHandleClose = () => {
+    setDeleteOpen(false);
+    handleClose();
+  };
+
+  const DeleteEvent = () => {
+    deleteEvent(id)
+    DeleteHandleClose();
+  };
   return (
     <div className={styles.container}>
       <Paper
         elevation={3}
         sx={{
           width: "265px",
-          height: "150px",
+          height: "170px",
           zIndex: "10",
           position: "absolute",
           top: "0px",
@@ -17,34 +60,96 @@ export default function EventCard() {
           overflow: "hidden",
         }}
       >
-        <Image alt="image" src="https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" layout="fill"/>
+        <Image
+          alt="image"
+          src="https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+          layout="fill"
+        />
       </Paper>
       <Paper
         elevation={3}
         sx={{
-          width: "340px",
-          height: "260px",
+          width: "320px",
+          height: "240px",
           position: "absolute",
           bottom: "0px",
           borderRadius: "18px",
-          padding: "0 36.5px",
-          paddingTop: "100px",
+          padding: "0 25px",
+          paddingTop: "95px",
         }}
       >
         <div className={styles.card__header}>
-          <p>16 Aug 2021</p>
-          <p>Hyderabad</p>
+          <p>{date}</p>
+          <p>{venue}</p>
         </div>
-        <h4 className={styles.card__title}>
-          Text header title of the program. this can extend upto 2 lines
-        </h4>
+        <h4 className={styles.card__title}>{title}</h4>
         {/* <button className={styles.card__button}>Book Your Seat</button> */}
-        <Button
-          variant="contained"
-          sx={{ borderRadius: "12px", fontSize: "12px", marginTop: "12px" }}
-        >
-          Read More
-        </Button>
+        <div className={styles.more}>
+          <Button
+            variant="outline"
+            sx={{
+              borderRadius: "12px",
+              fontSize: "12px",
+              padding: "0",
+            }}
+          >
+            Read More
+          </Button>
+          <IconButton
+            aria-label="more"
+            id="long-button"
+            aria-controls={open ? "long-menu" : undefined}
+            aria-expanded={open ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={handleClick}
+            sx={{ padding: "0px" }}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="long-menu"
+            MenuListProps={{
+              "aria-labelledby": "long-button",
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+              style: {
+                maxHeight: 48 * 4.5,
+                width: "20ch",
+              },
+            }}
+          >
+            <MenuItem onClick={DeleteHandleOpen}>Delete</MenuItem>
+            <Dialog
+              open={DeleteOpen}
+              onClose={DeleteHandleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Are you sure?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  Do you really want to delete the Event? This cannot be undone.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={DeleteHandleClose} autoFocus>
+                  No
+                </Button>
+                <Button onClick={DeleteEvent} sx={{ color: "red" }}>
+                  Yes, Delete Event
+                </Button>
+              </DialogActions>
+            </Dialog>
+            <MenuItem onClick={handleClose}>
+              <Link href={`/events/edit/${id}`}>Update</Link>
+            </MenuItem>
+          </Menu>
+        </div>
       </Paper>
     </div>
   );
