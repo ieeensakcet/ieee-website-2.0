@@ -5,7 +5,24 @@ import styles from "../../styles/Events.module.css";
 import EventCard from "../../components/eventCard/EventCard";
 import { Button } from "@mui/material";
 
+import { db } from "../../config/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
 export default function Events() {
+  const eventsCollectionRef = collection(db, "events");
+  const [events, setevents] = useState([]);
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const data = await getDocs(eventsCollectionRef);
+      setevents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getEvents();
+  }, []);
+  console.log(events);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -22,12 +39,16 @@ export default function Events() {
           Popular <a href="">Events</a>
         </h3>
         <div className={styles.events__container}>
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
+          {events.map((event) => {
+            return (
+              <EventCard
+                key={event.id}
+                title={event.title}
+                venue={event.venue}
+                date={event.date}
+              />
+            );
+          })}
         </div>
       </main>
 
