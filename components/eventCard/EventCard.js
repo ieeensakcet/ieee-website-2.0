@@ -16,15 +16,11 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import Link from "next/link";
 import { deleteEvent } from "../../helpers/eventsDB";
+import { timeConverter } from "../../helpers/utils";
 
 
 export default function EventCard({ id, title, venue, date }) {
-  // const d = date.toDate()
-  // const month = d.getMonth()
-  // const year = d.getFullYear()
-  // const dat = d.getDate()
-  // const fecha =dat+"-"+month+"-"+year;
-  // console.log(dat, month, year)
+  const dateToShow = timeConverter(date)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -79,7 +75,7 @@ export default function EventCard({ id, title, venue, date }) {
         }}
       >
         <div className={styles.card__header}>
-          <p>{date}</p>
+          <p>{dateToShow}</p>
           <p>{venue}</p>
         </div>
         <h4 className={styles.card__title}>{title}</h4>
