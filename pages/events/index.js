@@ -4,13 +4,17 @@ import Image from "next/image";
 import Footer from "../../components/footer/Footer";
 import styles from "../../styles/Events.module.css";
 import EventCard from "../../components/eventCard/EventCard";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { db } from "../../config/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Carousel } from "@mohammedsrehan/react-responsive-carousel";
+import useWindowSize from "../../helpers/customHooks";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 export default function Events() {
+  const { width } = useWindowSize();
   const [events, setevents] = useState([]);
   const [eventType, setEventType] = useState("concert");
   const [eventCat, setEventCat] = useState([]);
@@ -24,7 +28,7 @@ export default function Events() {
       const data = await getDocs(q);
       setEventCat(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-    getEventsCategory()
+    getEventsCategory();
   }, [eventType]);
   useEffect(() => {
     const eventsCollectionRef = collection(db, "events");
@@ -125,6 +129,62 @@ export default function Events() {
               );
             })}
           </div>
+        </section>
+        <section className={styles.testimonial__section}>
+          <h1 className={styles.title}>Testimonials</h1>
+          <p className={styles.sub__title}>
+            Here&apos;s what participants are saying
+          </p>
+          <Carousel
+            className={styles.testimonial__carousal}
+            infiniteLoop={true}
+            autoPlay={true}
+            swipeable={true}
+            showStatus={false}
+            centerMode={true}
+            centerSlidePercentage={width <= 900 ? 80 : 50}
+            showIndicators={false}
+          >
+            <div className={styles.testimonial}>
+              <Typography variant="subtitle1">
+                I&apos;ve been using testimonial.to for the last few weeks and I
+                absolutely LOVE it❤️ Once you start, you understand how it
+                boosts your social proof. Worth every penny. Thanks @damengchen
+                for building it 🙏
+              </Typography>
+              <div>
+                <Typography variant="body1">John Doe</Typography>
+                <Typography variant="caption">Student</Typography>
+              </div>
+            </div>
+            <div className={styles.testimonial}>
+              <Typography variant="subtitle1">
+                We&apos;ve been struggling with collecting testimonials for
+                years, we used Typeform or email to get testimonials, stored the
+                good ones in Notion and then had a web developer add them to our
+                website, it was always a lot of work, out of date, testimonials
+                got lost along the way and customers never provided them most of
+                the time. This app solved all of our issues in a few minutes.
+                Love tools like this.
+              </Typography>
+              <div>
+                <Typography variant="body1">John Doe</Typography>
+                <Typography variant="caption">Student</Typography>
+              </div>
+            </div>
+            <div className={styles.testimonial}>
+              <Typography variant="subtitle1">
+                Testimonials are essential for any product launch. If you build
+                products or design landing pages, definitely add this to your
+                stack. It&apos;ll make launching/promoting your product so much
+                easier!
+              </Typography>
+              <div>
+                <Typography variant="body1">John Doe</Typography>
+                <Typography variant="caption">Student</Typography>
+              </div>
+            </div>
+          </Carousel>
         </section>
       </main>
       <Footer />
