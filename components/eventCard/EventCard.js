@@ -18,9 +18,8 @@ import Link from "next/link";
 import { deleteEvent } from "../../helpers/eventsDB";
 import { timeConverter } from "../../helpers/utils";
 
-
 export default function EventCard({ id, title, venue, date }) {
-  const dateToShow = timeConverter(date)
+  const dateToShow = timeConverter(date);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -39,7 +38,7 @@ export default function EventCard({ id, title, venue, date }) {
   };
 
   const DeleteEvent = () => {
-    deleteEvent(id)
+    deleteEvent(id);
     DeleteHandleClose();
   };
   return (
@@ -89,7 +88,7 @@ export default function EventCard({ id, title, venue, date }) {
               padding: "0",
             }}
           >
-            Read More
+            <Link href={`/events/${id}`}>Read More</Link>
           </Button>
           <IconButton
             aria-label="more"
