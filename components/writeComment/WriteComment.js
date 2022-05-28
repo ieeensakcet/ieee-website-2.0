@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import { Avatar, Button, Stack, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
 
-function WriteComment() {
-  const user = useSelector(selectUser);
-
+function WriteComment({user}) {
   const [commentTxt, setCommentTxt] = useState("");
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if(!user){
-      setDisabled(true)
+    if(user){
+      setDisabled(false)
     }
   }, [user])
   
-
+  console.log(disabled)
   return (
     <div style={{ padding: "15px" }}>
       <Stack direction="row" spacing={2} alignItems="flex-start">
