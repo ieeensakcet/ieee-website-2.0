@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Avatar, Button, Stack, TextField } from "@mui/material";
+import { addReview } from "../../helpers/eventsDB";
 
-function WriteComment({user}) {
+function WriteComment({user, id}) {
   const [commentTxt, setCommentTxt] = useState("");
   const [disabled, setDisabled] = useState(true);
 
@@ -10,8 +11,13 @@ function WriteComment({user}) {
       setDisabled(false)
     }
   }, [user])
+
+  const addRev = async () => {
+    await addReview(id, {
+      review: {text: commentTxt.trim(), user: user.email}
+    });
+  }
   
-  console.log(disabled)
   return (
     <div style={{ padding: "15px" }}>
       <Stack direction="row" spacing={2} alignItems="flex-start">
@@ -45,7 +51,7 @@ function WriteComment({user}) {
           onClick={(e) => {
             !commentTxt.trim()
               ? e.preventDefault()
-              : addComment(commentTxt.trim());
+              : addRev();
             setCommentTxt("");
           }}
         >
