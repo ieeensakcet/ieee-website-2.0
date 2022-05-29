@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import { Avatar, Button, Stack, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { addReview } from "../../helpers/eventsDB";
 
-function WriteComment() {
-  const user = useSelector(selectUser);
-
+function WriteComment({user, id}) {
   const [commentTxt, setCommentTxt] = useState("");
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if(!user){
-      setDisabled(true)
+    if(user){
+      setDisabled(false)
     }
   }, [user])
-  
 
+  const addRev = async () => {
+    await addReview(id, {
+      review: {text: commentTxt.trim(), user: user.email}
+    });
+  }
+  
   return (
     <div style={{ padding: "15px" }}>
       <Stack direction="row" spacing={2} alignItems="flex-start">
@@ -49,7 +51,7 @@ function WriteComment() {
           onClick={(e) => {
             !commentTxt.trim()
               ? e.preventDefault()
-              : addComment(commentTxt.trim());
+              : addRev();
             setCommentTxt("");
           }}
         >
