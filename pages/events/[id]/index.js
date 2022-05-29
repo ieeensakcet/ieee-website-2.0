@@ -35,6 +35,8 @@ export default function Events() {
 
   const [data, setdata] = useState({});
 
+  console.log(data.reviews)
+
   useEffect(() => {
     getData(id);
   }, [id, user]);
@@ -100,7 +102,7 @@ export default function Events() {
               <div className={styles.main__content__details__box}>
                 <div>
                   <Typography variant="subtitle2">Date</Typography>
-                  <Typography variant="body1">{timeConverter(data.date.seconds)}</Typography>
+                  <Typography variant="body1">{timeConverter(data.date?.seconds)}</Typography>
                 </div>
                 <div>
                   <Typography variant="subtitle2">Time</Typography>
@@ -211,12 +213,13 @@ export default function Events() {
             ) : (
               <></>
             )}
-            <WriteComment user={user}/>
+            <WriteComment user={user} id={id}/>
             <div className={styles.main__comments__container}>
-              <Comment />
-              <Comment />
-              <Comment />
-              <Comment />
+              {data.reviews?.map((review) => {
+                return(
+                  <Comment review={review} key={review.name}/>
+                )
+              })}
             </div>
           </section>
         </section>
