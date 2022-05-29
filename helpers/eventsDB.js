@@ -4,6 +4,7 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "../config/firebaseConfig";
 
@@ -21,12 +22,11 @@ const addEvent = async (data) => {
     images: data.images,
     link: data.link,
     scheduleType: data.scheduleType,
+    reviews: [],
   });
 };
 
 const updateEvent = async (id, data) => {
-  console.log(id)
-  console.log(data)
   const eventDocRef = doc(db, "events", id);
   const updateFields = {
     title: data.title,
@@ -42,9 +42,19 @@ const updateEvent = async (id, data) => {
   await updateDoc(eventDocRef, updateFields);
 };
 
+const addReview = async (id, data) => {
+  console.log(id)
+  console.log(data.review)
+  const eventDocRef = doc(db, "events", id);
+  const updateFields = {
+    reviews: arrayUnion(data.review),
+  };
+  await updateDoc(eventDocRef, updateFields);
+};
+
 const deleteEvent = async (id) => {
   const eventDocRef = doc(db, "events", id);
   await deleteDoc(eventDocRef);
 };
 
-export { addEvent, updateEvent, deleteEvent };
+export { addEvent, updateEvent, deleteEvent, addReview };
