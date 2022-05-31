@@ -1,12 +1,9 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import { initializeApp } from 'firebase/app'
-// import 'firebase/firestore'
-// import 'firebase/storage'
-import { getAuth } from 'firebase/auth'       // for authentication
+import { getAuth } from 'firebase/auth' 
+import { getFunctions } from 'firebase/functions';
+import { getStorage, connectStorageEmulator} from "firebase/storage";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
-// import 'firebase/initializeApp'
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -19,8 +16,15 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig)
-// const db = firebase.firestore()
-// const storage = firebase.storage()
-const auth = getAuth()
+const db = getFirestore()
+//emulator firestore
+connectFirestoreEmulator(db, 'localhost', 8080);
 
-export { firebaseApp, auth }
+const storage = getStorage(firebaseApp)
+connectStorageEmulator(storage, "localhost", 9199);
+
+const auth = getAuth()
+const firebaseFunctions = getFunctions(firebaseApp);
+
+
+export { firebaseApp, auth,  firebaseFunctions, db, storage}

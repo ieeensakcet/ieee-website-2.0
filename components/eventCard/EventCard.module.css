@@ -12,9 +12,19 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.card__title{
-    margin: 0px;
+.card__title {
+  margin: 0px;
 }
-.card__button{
-    border-radius: 18px;
+.card__button {
+  border-radius: 18px;
+}
+.more {
+  margin-top: 12px;
+  position: absolute;
+  right: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
