@@ -1,9 +1,12 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import Image from "next/image";
 import Footer from "../components/footer/Footer";
 import styles from "../styles/About.module.css";
 import {
   Accordion,
+  Link,
   AccordionDetails,
   AccordionSummary,
   Paper,
@@ -20,7 +23,16 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function About() {
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["about"])),
+    },
+  };
+}
+
+export default function About(props) {
+  const { t } = useTranslation();
   return (
     <div className={styles.container}>
       <Head>
@@ -64,16 +76,11 @@ export default function About() {
             <div className={styles.About_about_text}>
               <Typography variant="h6">
                 <span className={styles.About_abouttext_header}>
-                  IEEE Student Branch of Nawab Shah Alam Khan College of
-                  Engineering and Technology
+                  {t("about:about_IEEESB1")}
                 </span>{" "}
-                is a student community that strives to inform, learn, entertain,
-                and inspire action through the events and experiences we create.
-                We promote student empowerment, develop professional skills, and
-                foster technological innovations and build networks. ​ Our
-                community consists of amateurs to experts, who understand the
-                potential of volunteering and how priceless volunteers are!
+                {t("about:about_IEEESB")}
               </Typography>
+              <h2>{props.locale}</h2>
             </div>
           </Paper>
           <Paper
@@ -92,7 +99,7 @@ export default function About() {
               variant="h4"
               sx={{ color: "#c21531", borderBottom: "2px solid #000" }}
             >
-              OUR COMMUNITY
+              {t("about:head_our_community")}
             </Typography>
             <div
               style={{
@@ -111,22 +118,12 @@ export default function About() {
               />
             </div>
             <div className={styles.About__ourCommunity__text}>
-              <Typography variant="h6">
-                IEEE has its community around the globe, with more than 420,000
-                IEEE members. The world map has been divided into 10 regions and
-                we come under Region 10 (Asia and Pacific), we are located in
-                India and belong to the IEEE India Council which acts as a
-                consortium of 12 IEEE Sections located in different states of
-                the country. IEEE Hyderabad Section foresees the activities in
-                Telangana and Andhra Pradesh, different IEEE organizational
-                units come under the section which includes IEEE Student
-                Branches of colleges and universities.
-              </Typography>
+              <Typography variant="h6">{t("about:our_community")}</Typography>
             </div>
           </Paper>
           <section className={styles.About__WhatWeDo}>
             <Typography variant="h4" sx={{ color: "#fff" }}>
-              WHAT WE DO
+              {t("about:head_what")}
             </Typography>
             <Timeline align="left" sx={{ width: "100%", alignItems: "center" }}>
               <TimelineItem>
@@ -427,6 +424,12 @@ export default function About() {
             </div>
           </Paper>
         </div>
+        <Link href="/about" locale="en">
+          <h2>English</h2>
+        </Link>
+        <Link href="/te/about" locale="te">
+          <h2>Telugu</h2>
+        </Link>
       </main>
 
       <Footer />
