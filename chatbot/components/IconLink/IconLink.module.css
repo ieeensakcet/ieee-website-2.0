@@ -1,0 +1,9 @@
+.link_list {
+  padding: 0;
+  list-style: none;
+}
+
+.link_list_item {
+  text-align: left;
+  font-size: 0.9rem;
+}
