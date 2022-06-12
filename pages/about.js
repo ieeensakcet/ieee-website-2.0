@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Footer from "../components/footer/Footer";
 import styles from "../styles/About.module.css";
+import IEEEtimeline from "../components/timeline/IEEEtimeline";
 import {
   Accordion,
   Link,
@@ -12,14 +13,6 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from "@mui/lab";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -67,7 +60,7 @@ export default function About(props) {
               }}
             >
               <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:w-400/college_BKdkFH2fF.webp"
+                src="https://ik.imagekit.io/ieeensakcet/tr:w-600/IEEE_SB_M7zLicw2I.svg"
                 layout="fill"
                 alt="college"
               />
@@ -86,220 +79,63 @@ export default function About(props) {
           <Paper
             elevation={12}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              alignItems: "center",
-              justifyContent: "center",
               padding: "20px",
-              marginBottom: "20px",
+              gap: "20px",
+              marginBottom: "30px",
+              textAlign: "center",
             }}
           >
             <Typography
               variant="h4"
-              sx={{ color: "#c21531", borderBottom: "2px solid #000" }}
+              sx={{
+                color: "#c21531",
+                borderBottom: "2px solid #000",
+                display: "inline",
+              }}
             >
               {t("about:head_our_community")}
             </Typography>
-            <div
-              style={{
-                position: "relative",
-                minWidth: "80%",
-                maxHeight: "100%",
-                height: "300px",
-              }}
-            >
-              <Image
-                src="https://ik.imagekit.io/ieeensakcet/pyramid_gEz6JFkMv.svg"
-                layout="fill"
-                alt="pyramid"
-                loading="lazy"
-                className={styles.About__ourCommunity__pyramid}
-              />
-            </div>
-            <div className={styles.About__ourCommunity__text}>
-              <Typography variant="h6">{t("about:our_community")}</Typography>
+
+            <div className={styles.About_about_community1}>
+              <div className={styles.About_about_community_img}>
+                <Image
+                  src="https://ik.imagekit.io/ieeensakcet/pyramid_gEz6JFkMv.svg"
+                  layout="fill"
+                  alt="pyramid"
+                  loading="lazy"
+                  className={styles.About__ourCommunity__pyramid}
+                />
+              </div>
+
+              <div className={styles.About__ourCommunity__text}>
+                <Typography variant="h6" sx={{ textAlign: "justify" }}>
+                  IEEE has its community around the globe, with more than
+                  420,000 IEEE members. The world map has been divided into 10
+                  regions and we come under Region 10 (Asia and Pacific), we are
+                  located in India and belong to the IEEE India Council which
+                  acts as a consortium of 12 IEEE Sections located in different
+                  states of the country. IEEE Hyderabad Section foresees the
+                  activities in Telangana and Andhra Pradesh, different IEEE
+                  organizational units come under the section which includes
+                  IEEE Student Branches of colleges and universities.
+                </Typography>
+              </div>
             </div>
           </Paper>
-          <section className={styles.About__WhatWeDo}>
-            <Typography variant="h4" sx={{ color: "#fff" }}>
+          <Paper
+            elevation={12}
+            sx={{
+              backgroundColor: "#ffffff",
+
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
+            <Typography variant="h4" sx={{ color: "#000", paddingTop: "20px" }}>
               {t("about:head_what")}
             </Typography>
-            <Timeline align="left" sx={{ width: "100%", alignItems: "center" }}>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Paper
-                    elevation={8}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "250px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Image
-                      src="/seminar.png"
-                      layout="fixed"
-                      alt="seminars"
-                      height="50px"
-                      width="50px"
-                    />
-                    <Typography>Seminars</Typography>
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Paper
-                    elevation={8}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "250px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Image
-                      src="/webinar.png"
-                      layout="fixed"
-                      alt="webinars"
-                      loading="lazy"
-                      height="50px"
-                      width="50px"
-                    />
-                    <Typography>Webinars</Typography>
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Paper
-                    elevation={8}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "250px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Image
-                      src="/workshop.png"
-                      layout="fixed"
-                      alt="workshops"
-                      loading="lazy"
-                      height="50px"
-                      width="50px"
-                    />
-                    <Typography>Workshops</Typography>
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Paper
-                    elevation={8}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "250px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Image
-                      src="/competition.png"
-                      layout="fixed"
-                      alt="competition"
-                      loading="lazy"
-                      height="50px"
-                      width="50px"
-                    />
-                    <Typography>Competitions</Typography>
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Paper
-                    elevation={8}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "250px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Image
-                      src="/hackathon.png"
-                      layout="fixed"
-                      alt="hackathon"
-                      loading="lazy"
-                      height="50px"
-                      width="50px"
-                    />
-                    <Typography>Hackathons</Typography>
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Paper
-                    elevation={8}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "250px",
-                      padding: "10px",
-                    }}
-                  >
-                    <Image
-                      src="/network.png"
-                      layout="fixed"
-                      alt="network"
-                      loading="lazy"
-                      height="50px"
-                      width="50px"
-                    />
-                    <Typography>Help Build Network</Typography>
-                  </Paper>
-                </TimelineContent>
-              </TimelineItem>
-            </Timeline>
-          </section>
+            <IEEEtimeline />
+          </Paper>
           <Paper
             elevation={10}
             sx={{
@@ -318,7 +154,7 @@ export default function About(props) {
             </Typography>
             <div className={styles.About__Work__image}>
               <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:w-800/work_RmD9D29gs7.png"
+                src="https://ik.imagekit.io/ieeensakcet/tr:w-1000/LEADERSHIP_TEAM_5z97G5f_0.svg"
                 layout="fill"
                 alt="work"
                 loading="lazy"
@@ -344,8 +180,10 @@ export default function About(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    Comprises of faculty advisors and core student members who
-                    hold officer positions and maintain the workflow.
+                    Comprises of Counselor, society advisors, chairs,
+                    vice-chairs, team leads, event coordinators and the
+                    leadership team members. It is responsible for looking after
+                    the workflow and maintaining integrity and sustainbility.
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -362,12 +200,12 @@ export default function About(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography variant="h6">Program Committee</Typography>
+                  <Typography variant="h6">Leadership Team</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    Responsible for planning and execution of activities and
-                    events.
+                    It acts as the HR of an organization and oversees the
+                    complete function of the Student Branch.
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -384,40 +222,18 @@ export default function About(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography variant="h6">Membership Committee</Typography>
+                  <Typography variant="h6">Publicity Team</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    Responsible for recruiting new members, maintaining their
-                    data, funds management and coordinating with existing
-                    members.
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion
-                sx={{
-                  backgroundColor: "#12679b",
-                  color: "#fff",
-                  padding: "15px",
-                  margin: "auto",
-                }}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography variant="h6">Social Media Committee</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    This committee consists of 3 teams: <br />
+                    This team is responsible for managing social media,
+                    promotions of events and providing support to the exisiting
+                    societies. It is internally divided into 2 teams: <br />
                     1. Content Team - Responsible for generating content and
                     deciding what goes up on our social media accounts and
                     posters. <br />
                     2. Design Team - Responsible for desiging the posters,
                     flyers and social media posts. <br />
-                    3. Website Team - Manages Website and keep it updated
                   </Typography>
                 </AccordionDetails>
               </Accordion>
