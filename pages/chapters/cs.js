@@ -5,7 +5,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import classes from "../styles/CS.module.css";
+import classes from "../../styles/CS.module.css";
 import Image from "next/image";
 
 import Link from "next/Link";
