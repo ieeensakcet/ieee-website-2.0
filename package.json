@@ -26,11 +26,7 @@
     "next-i18next": "^11.0.0",
     "next-translate": "^1.4.0",
     "react": "17.0.2",
-<<<<<<< HEAD
-    "react-carousel-responsive": "0.0.31",
-=======
     "react-chatbot-kit": "^2.0.1",
->>>>>>> 6135e4561932e15df7ba19bad1a48493403680ee
     "react-dom": "17.0.2",
     "react-dropzone": "^14.2.1",
     "react-hook-form": "^7.29.0",
