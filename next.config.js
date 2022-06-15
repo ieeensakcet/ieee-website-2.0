@@ -6,7 +6,12 @@ const { i18n } = require("./next-i18next.config.js");
 
 module.exports = {
   images: {
-    domains: ['images.unsplash.com', 'source.unsplash.com', 'firebasestorage.googleapis.com'],
+    domains: [
+      "images.unsplash.com",
+      "source.unsplash.com",
+      "firebasestorage.googleapis.com",
+      "ik.imagekit.io",
+    ],
   },
   reactStrictMode: true,
   i18n,
