@@ -70,14 +70,6 @@ export default function Events() {
       </Head>
       <main className={styles.main}>
         <section className={styles.main__hero}>
-          <Image
-            className={styles.main__hero__image}
-            alt="image"
-            src="https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            layout="fill"
-            objectFit="cover"
-            priority
-          />
           <h1 className={styles.main__title}>
             {data.title}
           </h1>
@@ -163,7 +155,7 @@ export default function Events() {
                   >
                     <Image
                       src={img}
-                      alt={`${product.title} preview ${idx}`}
+                      alt={`${data.title} preview ${idx}`}
                       layout="fill"
                       objectFit="contain"
                       // width={300}
