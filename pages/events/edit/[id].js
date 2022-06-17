@@ -13,7 +13,6 @@ function Edit({ id }) {
     const docRef = doc(db, "events", `${id}`);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       setdata(docSnap.data());
     //   console.log(data)
     } else {
@@ -24,8 +23,7 @@ function Edit({ id }) {
 
   return (
     <div>
-      Edit
-      <h1>{id}</h1>
+      <h1 style={{color: "#12679b", textAlign: "center"}}>Update Event</h1>
       <EventForm form={data} id={id}/>
     </div>
   );
