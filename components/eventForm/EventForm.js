@@ -44,15 +44,7 @@ function EventForm(props) {
   const [scheduleType, setScheduleType] = useState("");
   const [eventType, setEventType] = useState("");
 
-  const {
-    formState,
-    getValues,
-    watch,
-    control,
-    register,
-    handleSubmit,
-    reset,
-  } = useForm({
+  const { formState, control, register, handleSubmit, reset } = useForm({
     defaultValues,
     mode: "onBlur",
   });
@@ -61,17 +53,17 @@ function EventForm(props) {
   useEffect(() => {
     if (props?.form) {
       reset(props.form);
-      setScheduleType(props.form.scheduleType)
-      setEventType(props.form.eventType)
+      setScheduleType(props.form.scheduleType);
+      setEventType(props.form.eventType);
     }
   }, [reset, props]);
 
   const eventChange = (e) => {
-    setEventType(e.target.value)
-  }
+    setEventType(e.target.value);
+  };
   const scheduleChange = (e) => {
-    setScheduleType(e.target.value)
-  }
+    setScheduleType(e.target.value);
+  };
 
   const uploadFilesData = async (data) => {
     const promises = [];
@@ -105,7 +97,6 @@ function EventForm(props) {
     }
 
     const photos = await Promise.all(promises);
-    console.log("uploading");
     await console.log(photos);
     await addEvent({
       title: data.title,
@@ -118,31 +109,35 @@ function EventForm(props) {
       link: data.link,
       scheduleType: data.scheduleType,
     });
+    alert("successfully added event");
+    reset(defaultValues);
+    setScheduleType("");
+    setEventType("");
   };
 
   const updateFilesData = async (id, data) => {
-    console.log("before update")
+    const date = new Date(data.date.seconds * 1000)
     await updateEvent(id, {
       title: data.title,
       eventType: data.eventType,
-      date: data.date,
+      date: date,
       venue: data.venue,
       description: data.description,
       details: data.details,
       // images: photos,
       link: data.link,
       scheduleType: data.scheduleType,
-    })
-    console.log("after update")
-  }
-
+    });
+    alert("Successfully Updated Event");
+    reset(defaultValues);
+    setScheduleType("");
+    setEventType("");
+  };
 
   const [data, setData] = useState();
-  console.log(data);
 
   const onSubmit = async (data) => {
     setData(data);
-    console.log(data)
     return isAddMode
       ? await uploadFilesData(data)
       : await updateFilesData(props.id, data);
@@ -343,15 +338,22 @@ function EventForm(props) {
                     )}
                   </Dropzone>
                   <List>
-                    {value?.map((f, index) => (
-                      <ListItem key={index}>
-                        <ListItemIcon>
-                          <InsertDriveFileIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={f.name} secondary={f.size} />
-                        <Image src={URL.createObjectURL(f)} alt="Images to be uploaded" width={200} height={100}/>
-                      </ListItem>
-                    ))}
+                    {props?.form
+                      ? ""
+                      : value?.map((f, index) => (
+                          <ListItem key={index}>
+                            <ListItemIcon>
+                              <InsertDriveFileIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={f.name} secondary={f.size} />
+                            <Image
+                              src={URL.createObjectURL(f)}
+                              alt="Images to be uploaded"
+                              width={200}
+                              height={100}
+                            />
+                          </ListItem>
+                        ))}
                   </List>
                 </>
               )}
@@ -360,7 +362,8 @@ function EventForm(props) {
         </Grid>
         <LinearProgressWithLabel value={progress} />
         <Button variant="contained" type="submit">
-          Create Event
+          {props?.form ? "Update Event" : "Create Event"}
+          {/* Create Event */}
         </Button>
       </div>
     </form>
