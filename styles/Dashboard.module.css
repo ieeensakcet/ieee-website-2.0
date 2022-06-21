@@ -72,3 +72,9 @@
   align-items: center;
   margin: 10px 25px;
 }
+.login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
