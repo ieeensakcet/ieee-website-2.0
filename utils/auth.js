@@ -10,7 +10,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { login } from "../features/userSlice";
+import { login, logout } from "../features/userSlice";
 
 export default function useProvideAuth() {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ export default function useProvideAuth() {
           login({
             email: userAuth.user.email,
             uid: userAuth.user.uid,
+            name: userAuth.user.displayName,
           })
         );
         // history.replace("/");
@@ -31,25 +32,14 @@ export default function useProvideAuth() {
       .catch((error) => alert(error.message));
   };
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        console.log("created user", responce.user);
-        // setUser(response.user);
-        signOut();
-        return response.user;
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  //   const signout = () => {
-  //     return firebase
-  //       .auth()
-  //       .signOut()
-  //       .then(() => {
-  //         setUser(false);
-  //       });
-  //   };
+    const signout = () => {
+      return signOut(auth)
+        .then(() => {
+          dispatch(
+            logout()
+          );
+        });
+    };
 
   //   const sendPasswordResetEmail = (email) => {
   //     return firebase
@@ -86,8 +76,7 @@ export default function useProvideAuth() {
   return {
     // userId: user && user.uid,
     signin,
-    signup,
-    // signout,
+    signout,
     // sendPasswordResetEmail,
     // confirmPasswordReset,
   };
