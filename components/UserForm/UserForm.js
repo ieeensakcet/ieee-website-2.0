@@ -1,7 +1,7 @@
 import { Button, MenuItem, TextField, Grid } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import styles from "./CreateUserForm.module.css";
+import styles from "./UserForm.module.css";
 import { getApp } from "firebase/app";
 import {
   connectFunctionsEmulator,
@@ -9,31 +9,47 @@ import {
   httpsCallable,
 } from "firebase/functions";
 import { firebaseFunctions } from "../../config/firebaseConfig";
-import { addUser } from "../../helpers/userDB";
+import { addUser, updateUserdb } from "../../helpers/userDB";
 
-function CreateUserForm() {
+function CreateUserForm(props) {
+  const formData = props?.props;
+  const isAddMode = !formData;
   const functions = getFunctions(getApp());
   // const functions = firebaseFunctions;
   connectFunctionsEmulator(functions, "localhost", 5001);
   const registers = httpsCallable(functions, "register");
+  const updates = httpsCallable(functions, "updateUser");
+  const makeWebmaster = httpsCallable(functions, "makeWebmaster");
+  const makeAdmin = httpsCallable(functions, "makeAdmin");
   const defaultValues = {
     email: "",
     password: "",
-    fullname: "",
+    displayName: "",
     membershipNumber: "",
-    role: "",
+    role: "member",
   };
-  const { formState, getValues, watch, control, register, handleSubmit } =
-    useForm({
-      defaultValues,
-    });
+
+  const [role, setRole] = useState("member");
+
+  const { formState, control, register, handleSubmit, reset } = useForm({
+    defaultValues,
+  });
   const { errors } = formState;
 
+  useEffect(() => {
+    if (props?.props) {
+      reset(props.props[0]);
+      setRole(props.props[0].customClaims);
+    }
+  }, [reset, props, formData]);
+
+  const roleChange = (e) => {
+    setRole(e.target.value);
+  };
+
   const [data, setData] = useState(null);
-  console.log(data);
 
   const createUser = async (data) => {
-    console.log("running");
     await registers({
       email: data.email,
       password: data.password,
@@ -41,13 +57,14 @@ function CreateUserForm() {
       role: data.role,
       membershipNumber: data.membershipNumber,
     })
-      .then(() => {
+      .then((responce) => {
         addUser({
           email: data.email,
           displayName: data.fullname,
           role: data.role,
           membershipNumber: data.membershipNumber,
         });
+        alert(responce.data.message)
       })
       .catch((error) => {
         // Getting the Error details.
@@ -57,33 +74,48 @@ function CreateUserForm() {
         // ...
       });
   };
-  const onSubmit = (data) => {
+  const updateUser = async (data) => {
+    console.log("Update User", data);
+    await updates({
+      id: data.id,
+      email: data.email,
+      password: data.password,
+      displayName: data.fullname,
+      role: data.role,
+      membershipNumber: data.membershipNumber,
+    })
+      .then(async (responce) => {
+        updateUserdb(data.id, {
+          email: data.email,
+          displayName: data.displayName,
+          customClaims: data.role,
+          membershipNumber: data.membershipNumber,
+        });
+        if (data.role === "webmaster") {
+          await makeWebmaster({ id: data.id });
+        }
+        if (data.role === "admin") {
+          await makeAdmin({ id: data.id });
+        }
+        alert(responce.data.message)
+      })
+      .catch((error) => {
+        // Getting the Error details.
+        const code = error.code;
+        const message = error.message;
+        const details = error.details;
+        // ...
+      });
+  };
+  const onSubmit = async (data) => {
     setData(data);
-    createUser(data);
+    return isAddMode ? await createUser(data) : await updateUser(data);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.form}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            {/* <TextField
-                    id="filled-email-input"
-                    label="Email"
-                    type="email"
-                    autoComplete="off"
-                    variant="filled"
-                    value={userInfo.email}
-                    onChange={onInputChange}
-                  /> */}
-            {/* <TextField
-                    id="filled-password-input"
-                    label="Password"
-                    type="password"
-                    autoComplete="off"
-                    variant="filled"
-                    value={userInfo.password}
-                    onChange={onInputChange}
-                  /> */}
             <Controller
               render={({ field }) => (
                 <TextField
@@ -111,7 +143,7 @@ function CreateUserForm() {
                   {...field}
                   variant="filled"
                   label="Full Name"
-                  inputProps={register("fullname", {
+                  inputProps={register("displayName", {
                     required: "Please enter user name",
                   })}
                   error={errors.fullname}
@@ -167,8 +199,11 @@ function CreateUserForm() {
               select
               fullWidth
               label="Role"
+              disabled={isAddMode ? true : false}
               variant="filled"
-              defaultValue=""
+              defaultValue="member"
+              onChange={roleChange}
+              value={role ?? ""}
               inputProps={register("role", {
                 required: "Please enter user role",
               })}
@@ -182,11 +217,8 @@ function CreateUserForm() {
           </Grid>
         </Grid>
         <Button variant="contained" type="submit">
-          Create User
+          {isAddMode ? "Create User" : "Update User"}
         </Button>
-        {/* <Button variant="contained" onClick={createUser} type="submit">
-                    Create User
-                  </Button> */}
       </div>
     </form>
   );

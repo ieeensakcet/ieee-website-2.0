@@ -56,6 +56,11 @@
   border-top-right-radius: 18px;
   background-color: #12679b;
 }
+.dashboard__container__header__buttons__box__update{
+  display: flex;
+  padding: 0 10px; 
+  background-color: #B25068;
+}
 .dashboard__container__header__buttons__boxRed{
   display: flex;
   padding: 0 10px;

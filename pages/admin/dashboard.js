@@ -18,7 +18,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CloseIcon from "@mui/icons-material/Close";
-import CreateUserForm from "../../components/createUserForm/CreateUserForm";
+import CreateUserForm from "../../components/UserForm/UserForm";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import { deleteUser } from "../../helpers/userDB";
@@ -31,7 +31,6 @@ import {
 
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
-  console.log(users);
   useEffect(() => {
     // const getUsers = async () => {
     //   const data = await getDocs(collection(db, "users"));
@@ -54,13 +53,17 @@ export default function Dashboard() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //modal update user
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const handleUpdateOpen = () => setUpdateOpen(true);
+  const handleUpdateClose = () => setUpdateOpen(false);
+
   //delete warning modal
   const [DeleteOpen, setDeleteOpen] = useState(false);
   const DeleteHandleOpen = () => setDeleteOpen(true);
   const DeleteHandleClose = () => setDeleteOpen(false);
 
   const [selectedRows, setSelectedRows] = useState();
-  console.log(selectedRows);
 
   //delete user auth function
   const functions = getFunctions(getApp());
@@ -71,17 +74,17 @@ export default function Dashboard() {
   //delete user
   const DeleteUser = () => {
     const [userToBeDeleted] = selectedRows;
-    console.log(userToBeDeleted);
     deleteUserAuth({ email: userToBeDeleted.email });
     deleteUser(userToBeDeleted.id);
+    DeleteHandleClose()
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "Membership ID", width: 120 },
     {
       field: "displayName",
-      headerName: "First name",
-      width: 150,
+      headerName: "Name",
+      width: 200,
       editable: true,
     },
     {
@@ -168,6 +171,56 @@ export default function Dashboard() {
                     </Button>
                   </DialogActions>
                 </Dialog>
+              </div>
+              <div
+                className={styles.dashboard__container__header__buttons__box__update}
+              >
+                <Button
+                  sx={{ color: "#fff" }}
+                  endIcon={<AddBoxIcon />}
+                  // onClick={openModal}
+                  onClick={handleUpdateOpen}
+                >
+                  Update User
+                </Button>
+                <Modal
+                  open={updateOpen}
+                  onClose={handleUpdateClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: "80%",
+                      bgcolor: "background.paper",
+                      boxShadow: 24,
+                      p: 8,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Button
+                      onClick={() => setUpdateOpen((prev) => !prev)}
+                      variant="contained"
+                      endIcon={<CloseIcon />}
+                      sx={{
+                        position: "absolute",
+                        right: 0,
+                        top: 0,
+                        backgroundColor: "#db2b39",
+                      }}
+                    >
+                      Close
+                    </Button>
+                    <h1 className={styles.title__modal}>
+                      Update User<span className={styles.span}>Account</span>
+                    </h1>
+                    <CreateUserForm props={selectedRows}/>
+                  </Box>
+                </Modal>
               </div>
               <div
                 className={styles.dashboard__container__header__buttons__box}
