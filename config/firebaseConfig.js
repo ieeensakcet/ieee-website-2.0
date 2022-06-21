@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth' 
+import { connectAuthEmulator, getAuth } from 'firebase/auth' 
 import { getFunctions } from 'firebase/functions';
 import { getStorage, connectStorageEmulator} from "firebase/storage";
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
@@ -24,6 +24,8 @@ const storage = getStorage(firebaseApp)
 connectStorageEmulator(storage, "localhost", 9199);
 
 const auth = getAuth()
+connectAuthEmulator(auth, "http://localhost:9099");
+
 const firebaseFunctions = getFunctions(firebaseApp);
 
 
