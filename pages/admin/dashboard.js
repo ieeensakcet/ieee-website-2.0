@@ -28,15 +28,17 @@ import {
   getFunctions,
   httpsCallable,
 } from "firebase/functions";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
+import SignIn from "../../components/signIn/SignIn";
+import useProvideAuth from "../../utils/auth";
 
 export default function Dashboard() {
+  const auth = useProvideAuth();
+  const user = useSelector(selectUser);
+
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    // const getUsers = async () => {
-    //   const data = await getDocs(collection(db, "users"));
-    //   setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // };
-    // getUsers()
     const unsubscribe = onSnapshot(collection(db, "users"), (querySnapshot) => {
       setUsers(
         querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -76,8 +78,12 @@ export default function Dashboard() {
     const [userToBeDeleted] = selectedRows;
     deleteUserAuth({ email: userToBeDeleted.email });
     deleteUser(userToBeDeleted.id);
-    DeleteHandleClose()
+    DeleteHandleClose();
   };
+
+  const logOut = () => {
+    auth.signout()
+  }
 
   const columns = [
     { field: "id", headerName: "Membership ID", width: 120 },
@@ -109,191 +115,202 @@ export default function Dashboard() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <div className={styles.title}>
-          <h1>
-            <span className={styles.title__border}>Adm</span>in Dashboard
-          </h1>
-          <div className={styles.title__userInfo}>
-            <Typography variant="subtitle1">
-              Logged In as <b>John Doe</b>
-            </Typography>
-            <Button
-              variant="contained"
-              endIcon={<LogoutIcon />}
-              sx={{ backgroundColor: "#db2b39" }}
-            >
-              Logout
-            </Button>
-          </div>
-        </div>
-        <div className={styles.dashboard__container}>
-          <div className={styles.dashboard__container__header}>
-            <div className={styles.dashboard__container__header__content}>
-              <Typography variant="h6" sx={{ color: "#12679b" }}>
-                All Users
+      {user ? (
+        <main className={styles.main}>
+          <div className={styles.title}>
+            <h1>
+              <span className={styles.title__border}>Adm</span>in Dashboard
+            </h1>
+            <div className={styles.title__userInfo}>
+              <Typography variant="subtitle1">
+                Logged In as <b>{user.name}</b>
               </Typography>
-              <span>|</span>
-              <Typography variant="body1">30 total</Typography>
-            </div>
-            <div className={styles.dashboard__container__header__buttons}>
-              <div
-                className={styles.dashboard__container__header__buttons__boxRed}
+              <Button
+                variant="contained"
+                endIcon={<LogoutIcon />}
+                sx={{ backgroundColor: "#db2b39" }}
+                onClick={logOut}
               >
-                <Button
-                  sx={{ color: "#fff" }}
-                  endIcon={<DeleteIcon />}
-                  onClick={DeleteHandleOpen}
-                >
-                  Delete User
-                </Button>
-                <Dialog
-                  open={DeleteOpen}
-                  onClose={DeleteHandleClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Are you sure?"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      Do you really want to delete the user? This cannot be
-                      undone.
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={DeleteHandleClose} autoFocus>
-                      No
-                    </Button>
-                    <Button onClick={DeleteUser} sx={{ color: "red" }}>
-                      Yes, Delete User
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </div>
-              <div
-                className={styles.dashboard__container__header__buttons__box__update}
-              >
-                <Button
-                  sx={{ color: "#fff" }}
-                  endIcon={<AddBoxIcon />}
-                  // onClick={openModal}
-                  onClick={handleUpdateOpen}
-                >
-                  Update User
-                </Button>
-                <Modal
-                  open={updateOpen}
-                  onClose={handleUpdateClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: "80%",
-                      bgcolor: "background.paper",
-                      boxShadow: 24,
-                      p: 8,
-                      textAlign: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => setUpdateOpen((prev) => !prev)}
-                      variant="contained"
-                      endIcon={<CloseIcon />}
-                      sx={{
-                        position: "absolute",
-                        right: 0,
-                        top: 0,
-                        backgroundColor: "#db2b39",
-                      }}
-                    >
-                      Close
-                    </Button>
-                    <h1 className={styles.title__modal}>
-                      Update User<span className={styles.span}>Account</span>
-                    </h1>
-                    <CreateUserForm props={selectedRows}/>
-                  </Box>
-                </Modal>
-              </div>
-              <div
-                className={styles.dashboard__container__header__buttons__box}
-              >
-                <Button
-                  sx={{ color: "#fff" }}
-                  endIcon={<AddBoxIcon />}
-                  // onClick={openModal}
-                  onClick={handleOpen}
-                >
-                  Add User
-                </Button>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: "80%",
-                      bgcolor: "background.paper",
-                      boxShadow: 24,
-                      p: 8,
-                      textAlign: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => setOpen((prev) => !prev)}
-                      variant="contained"
-                      endIcon={<CloseIcon />}
-                      sx={{
-                        position: "absolute",
-                        right: 0,
-                        top: 0,
-                        backgroundColor: "#db2b39",
-                      }}
-                    >
-                      Close
-                    </Button>
-                    <h1 className={styles.title__modal}>
-                      Create User<span className={styles.span}>Account</span>
-                    </h1>
-                    <CreateUserForm />
-                  </Box>
-                </Modal>
-              </div>
+                Logout
+              </Button>
             </div>
           </div>
-          <div style={{ height: 400, width: "100%" }}>
-            <DataGrid
-              rows={users}
-              columns={columns}
-              pageSize={25}
-              rowsPerPageOptions={[25]}
-              checkboxSelection
-              disableSelectionOnClick
-              onSelectionModelChange={(ids) => {
-                const selectedIDs = new Set(ids);
-                const selectedRowData = users.filter((user) =>
-                  selectedIDs.has(user.id)
-                );
-                setSelectedRows(selectedRowData);
-              }}
-              sx={{ border: "none" }}
-            />
+          <div className={styles.dashboard__container}>
+            <div className={styles.dashboard__container__header}>
+              <div className={styles.dashboard__container__header__content}>
+                <Typography variant="h6" sx={{ color: "#12679b" }}>
+                  All Users
+                </Typography>
+                <span>|</span>
+                <Typography variant="body1">30 total</Typography>
+              </div>
+              <div className={styles.dashboard__container__header__buttons}>
+                <div
+                  className={
+                    styles.dashboard__container__header__buttons__boxRed
+                  }
+                >
+                  <Button
+                    sx={{ color: "#fff" }}
+                    endIcon={<DeleteIcon />}
+                    onClick={DeleteHandleOpen}
+                  >
+                    Delete User
+                  </Button>
+                  <Dialog
+                    open={DeleteOpen}
+                    onClose={DeleteHandleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Are you sure?"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        Do you really want to delete the user? This cannot be
+                        undone.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={DeleteHandleClose} autoFocus>
+                        No
+                      </Button>
+                      <Button onClick={DeleteUser} sx={{ color: "red" }}>
+                        Yes, Delete User
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
+                <div
+                  className={
+                    styles.dashboard__container__header__buttons__box__update
+                  }
+                >
+                  <Button
+                    sx={{ color: "#fff" }}
+                    endIcon={<AddBoxIcon />}
+                    // onClick={openModal}
+                    onClick={handleUpdateOpen}
+                  >
+                    Update User
+                  </Button>
+                  <Modal
+                    open={updateOpen}
+                    onClose={handleUpdateClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "80%",
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 8,
+                        textAlign: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => setUpdateOpen((prev) => !prev)}
+                        variant="contained"
+                        endIcon={<CloseIcon />}
+                        sx={{
+                          position: "absolute",
+                          right: 0,
+                          top: 0,
+                          backgroundColor: "#db2b39",
+                        }}
+                      >
+                        Close
+                      </Button>
+                      <h1 className={styles.title__modal}>
+                        Update User<span className={styles.span}>Account</span>
+                      </h1>
+                      <CreateUserForm props={selectedRows} />
+                    </Box>
+                  </Modal>
+                </div>
+                <div
+                  className={styles.dashboard__container__header__buttons__box}
+                >
+                  <Button
+                    sx={{ color: "#fff" }}
+                    endIcon={<AddBoxIcon />}
+                    // onClick={openModal}
+                    onClick={handleOpen}
+                  >
+                    Add User
+                  </Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "80%",
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 8,
+                        textAlign: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => setOpen((prev) => !prev)}
+                        variant="contained"
+                        endIcon={<CloseIcon />}
+                        sx={{
+                          position: "absolute",
+                          right: 0,
+                          top: 0,
+                          backgroundColor: "#db2b39",
+                        }}
+                      >
+                        Close
+                      </Button>
+                      <h1 className={styles.title__modal}>
+                        Create User<span className={styles.span}>Account</span>
+                      </h1>
+                      <CreateUserForm />
+                    </Box>
+                  </Modal>
+                </div>
+              </div>
+            </div>
+            <div style={{ height: 400, width: "100%" }}>
+              <DataGrid
+                rows={users}
+                columns={columns}
+                pageSize={25}
+                rowsPerPageOptions={[25]}
+                checkboxSelection
+                disableSelectionOnClick
+                onSelectionModelChange={(ids) => {
+                  const selectedIDs = new Set(ids);
+                  const selectedRowData = users.filter((user) =>
+                    selectedIDs.has(user.id)
+                  );
+                  setSelectedRows(selectedRowData);
+                }}
+                sx={{ border: "none" }}
+              />
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+       ) : (
+         <div className={styles.login}>
+           <SignIn />
+         </div>
+       )}
       <Footer />
     </div>
   );
