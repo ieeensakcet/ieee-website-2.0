@@ -24,6 +24,14 @@ const TextInput = () => {
     }
     auth.signin(userInfo.email, userInfo.password);
   };
+
+  const resetPass = () => {
+    if(!userInfo.email){
+      alert("enter email address")
+      return
+    }
+    auth.ResetPassword(userInfo.email)
+  }
   return (
     <>
       <TextField
@@ -44,6 +52,7 @@ const TextInput = () => {
         value={userInfo.password}
         onChange={onInputChange}
       />
+      <Button sx={{justifyContent: "start"}} variant="text" onClick={resetPass}>Forgot Password?</Button>
       <Button variant="contained" onClick={logins}>
         Login
       </Button>
@@ -53,7 +62,6 @@ const TextInput = () => {
 
 export default function Login() {
   const user = useSelector(selectUser);
-  console.log(user);
 
   return (
     <div>
