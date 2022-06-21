@@ -1,12 +1,6 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-// import queryString from "query-string";
-// import * as firebase from "firebase/app";
-// import "firebase/auth";
-
 import { auth } from "../config/firebaseConfig";
 import {
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
@@ -41,47 +35,18 @@ export default function useProvideAuth() {
         });
     };
 
-  //   const sendPasswordResetEmail = (email) => {
-  //     return firebase
-  //       .auth()
-  //       .sendPasswordResetEmail(email)
-  //       .then(() => {
-  //         return true;
-  //       });
-  //   };
-
-  //   const confirmPasswordReset = (password, code) => {
-  //     const resetCode = code || getFromQueryString("oobCode");
-
-  //     return firebase
-  //       .auth()
-  //       .confirmPasswordReset(resetCode, password)
-  //       .then(() => {
-  //         return true;
-  //       });
-  //   };
-
-  //   useEffect(() => {
-  //     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-  //       if (user) {
-  //         setUser(user);
-  //       } else {
-  //         setUser(false);
-  //       }
-  //     });
-
-  //     return () => unsubscribe();
-  //   }, []);
+    const ResetPassword = (email) => {
+      return sendPasswordResetEmail(auth, email)
+        .then(() => {
+          return {
+            message: "Password reset message sent Successfully"
+          };
+        });
+    };
 
   return {
-    // userId: user && user.uid,
     signin,
     signout,
-    // sendPasswordResetEmail,
-    // confirmPasswordReset,
+    ResetPassword,
   };
 }
-
-const getFromQueryString = (key) => {
-  return queryString.parse(window.location.search)[key];
-};
