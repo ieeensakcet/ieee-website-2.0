@@ -12,6 +12,11 @@ const addUser = async (data) => {
       displayName: data.displayName,
       customClaims: data.role,
       membershipNumber: data.membershipNumber,
+      imageURL: data.imageURL,
+      linkedinURL: data.linkedinURL,
+      society: data.society,
+      societyRole: data.societyRole,
+      excom: data.excom,
     }
   );
 };
