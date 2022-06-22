@@ -14,7 +14,7 @@ function WriteComment({user, id}) {
 
   const addRev = async () => {
     await addReview(id, {
-      review: {text: commentTxt.trim(), user: user.email}
+      review: {text: commentTxt.trim(), user: user.name}
     });
   }
   

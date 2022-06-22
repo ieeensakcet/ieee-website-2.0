@@ -1,5 +1,6 @@
 import { auth } from "../config/firebaseConfig";
 import {
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -12,7 +13,6 @@ export default function useProvideAuth() {
   const signin = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
-        console.log(userAuth.user);
         dispatch(
           login({
             email: userAuth.user.email,
@@ -38,9 +38,7 @@ export default function useProvideAuth() {
     const ResetPassword = (email) => {
       return sendPasswordResetEmail(auth, email)
         .then(() => {
-          return {
-            message: "Password reset message sent Successfully"
-          };
+            alert("Password reset message sent Successfully to email")
         });
     };
 
