@@ -1,25 +1,24 @@
-import { collection, getDocs, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, deleteDoc, updateDoc, setDoc } from "firebase/firestore";
 import { db } from "../config/firebaseConfig";
 
 // collection ref
 const usersCollectionRef = collection(db, "users");
 
 const addUser = async (data) => {
-  await addDoc(
-    usersCollectionRef,
+  await setDoc(
+    doc(db, "users", data.membershipNumber),
     {
       email: data.email,
       displayName: data.displayName,
       customClaims: data.role,
       membershipNumber: data.membershipNumber,
-      // uid: data.uid,
     }
   );
 };
 
-const updateUser = async (id, age) => {
+const updateUserdb = async (id, data) => {
   const userDoc = doc(db, "users", id);
-  const newFields = { age: age + 1 };
+  const newFields = data;
   await updateDoc(userDoc, newFields);
 };
 
@@ -28,4 +27,4 @@ const deleteUser = async (id) => {
   await deleteDoc(userDoc);
 };
 
-export {addUser, updateUser, deleteUser}
+export {addUser, updateUserdb, deleteUser}
