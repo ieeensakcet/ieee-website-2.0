@@ -14,7 +14,7 @@ import styles from "./event.module.css";
 import useWindowSize from "../../../helpers/customHooks";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../features/userSlice";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../config/firebaseConfig";
 import { timeConverter } from "../../../helpers/utils";
 
@@ -28,31 +28,25 @@ const product = {
 
 export default function Events() {
   const user = useSelector(selectUser);
-  console.log(user);
-
   const router = useRouter();
   const { id } = router.query;
 
   const [data, setdata] = useState({});
 
-  console.log(data.reviews)
-
   useEffect(() => {
-    getData(id);
-  }, [id, user]);
+    // getData(id);
+    const unsub = onSnapshot(doc(db, "events", `${id}`), (doc) => {
+      if (doc.exists()) {
+        setdata(doc.data());
+      } else {
+        alert("Event not found");
+      }
+    });
 
-  async function getData(id) {
-    const docRef = doc(db, "events", `${id}`);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setdata(docSnap.data());
-    //   console.log(data)
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
+    return () => {
+      unsub(id);
     }
-  }
+  }, [id, user]);
 
   //modal user sign in
   const [open, setOpen] = useState(false);
@@ -70,9 +64,7 @@ export default function Events() {
       </Head>
       <main className={styles.main}>
         <section className={styles.main__hero}>
-          <h1 className={styles.main__title}>
-            {data.title}
-          </h1>
+          <h1 className={styles.main__title}>{data.title}</h1>
         </section>
         <section className={styles.main__event}>
           <section className={styles.main__content}>
@@ -87,14 +79,14 @@ export default function Events() {
             <div className={styles.main__content__details}>
               <div className={styles.main__content__details__header}>
                 <Typography variant="subtitle1">{data.eventType}</Typography>
-                <Typography variant="h6">
-                  {data.title}
-                </Typography>
+                <Typography variant="h6">{data.title}</Typography>
               </div>
               <div className={styles.main__content__details__box}>
                 <div>
                   <Typography variant="subtitle2">Date</Typography>
-                  <Typography variant="body1">{timeConverter(data.date?.seconds)}</Typography>
+                  <Typography variant="body1">
+                    {timeConverter(data.date?.seconds)}
+                  </Typography>
                 </div>
                 <div>
                   <Typography variant="subtitle2">Time</Typography>
@@ -105,9 +97,7 @@ export default function Events() {
                   <Typography variant="body1">{data.venue}</Typography>
                 </div>
               </div>
-              <Typography variant="body1">
-                {data.description}
-              </Typography>
+              <Typography variant="body1">{data.description}</Typography>
               <Button
                 variant="contained"
                 className={styles.main__content__details__button}
@@ -205,12 +195,10 @@ export default function Events() {
             ) : (
               <></>
             )}
-            <WriteComment user={user} id={id}/>
+            <WriteComment user={user} id={id} />
             <div className={styles.main__comments__container}>
               {data.reviews?.map((review) => {
-                return(
-                  <Comment review={review} key={review.name}/>
-                )
+                return <Comment review={review} key={review.name} />;
               })}
             </div>
           </section>
