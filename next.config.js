@@ -3,7 +3,7 @@
 // }
 module.exports = {
   images: {
-    domains: ['images.unsplash.com', 'source.unsplash.com', 'firebasestorage.googleapis.com'],
+    domains: ['images.unsplash.com', 'source.unsplash.com', 'firebasestorage.googleapis.com', "localhost"],
   },
   reactStrictMode: true,
 }
