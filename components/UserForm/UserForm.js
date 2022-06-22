@@ -44,7 +44,7 @@ function CreateUserForm(props) {
   useEffect(() => {
     if (props?.props) {
       reset(props.props[0]);
-      setRole(props.props[0].customClaims);
+      setRole(props.props[0]?.customClaims);
     }
   }, [reset, props, formData]);
 
@@ -55,7 +55,6 @@ function CreateUserForm(props) {
   const [data, setData] = useState(null);
 
   const createUser = async (data) => {
-    console.log(data)
     await registers({
       email: data.email,
       password: data.password,
