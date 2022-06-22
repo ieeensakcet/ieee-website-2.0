@@ -1,4 +1,4 @@
-import { Button, MenuItem, TextField, Grid } from "@mui/material";
+import { Button, MenuItem, TextField, Grid, Checkbox } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styles from "./UserForm.module.css";
@@ -27,6 +27,11 @@ function CreateUserForm(props) {
     displayName: "",
     membershipNumber: "",
     role: "member",
+    society: "",
+    imageURL: "",
+    linkedinURL: "",
+    societyRole: "",
+    excom: false,
   };
 
   const [role, setRole] = useState("member");
@@ -50,21 +55,28 @@ function CreateUserForm(props) {
   const [data, setData] = useState(null);
 
   const createUser = async (data) => {
+    console.log(data)
     await registers({
       email: data.email,
       password: data.password,
-      displayName: data.fullname,
+      displayName: data.displayName,
       role: data.role,
       membershipNumber: data.membershipNumber,
+      photoURL: data.imageURL,
     })
       .then((responce) => {
         addUser({
           email: data.email,
-          displayName: data.fullname,
+          displayName: data.displayName,
           role: data.role,
           membershipNumber: data.membershipNumber,
+          imageURL: data.imageURL,
+          linkedinURL: data.linkedinURL,
+          society: data.society,
+          societyRole: data.societyRole,
+          excom: data.excom,
         });
-        alert(responce.data.message)
+        alert(responce.data.message);
       })
       .catch((error) => {
         // Getting the Error details.
@@ -83,6 +95,7 @@ function CreateUserForm(props) {
       displayName: data.fullname,
       role: data.role,
       membershipNumber: data.membershipNumber,
+      photoURL: data.imageURL,
     })
       .then(async (responce) => {
         updateUserdb(data.id, {
@@ -90,6 +103,11 @@ function CreateUserForm(props) {
           displayName: data.displayName,
           customClaims: data.role,
           membershipNumber: data.membershipNumber,
+          imageURL: data.imageURL,
+          linkedinURL: data.linkedinURL,
+          society: data.society,
+          societyRole: data.societyRole,
+          excom: data.excom,
         });
         if (data.role === "webmaster") {
           await makeWebmaster({ id: data.id });
@@ -97,7 +115,7 @@ function CreateUserForm(props) {
         if (data.role === "admin") {
           await makeAdmin({ id: data.id });
         }
-        alert(responce.data.message)
+        alert(responce.data.message);
       })
       .catch((error) => {
         // Getting the Error details.
@@ -146,11 +164,11 @@ function CreateUserForm(props) {
                   inputProps={register("displayName", {
                     required: "Please enter user name",
                   })}
-                  error={errors.fullname}
-                  helperText={errors.fullname?.message}
+                  error={errors.displayName}
+                  helperText={errors.displayName?.message}
                 />
               )}
-              name="fullname"
+              name="displayName"
               control={control}
             />
           </Grid>
@@ -192,6 +210,96 @@ function CreateUserForm(props) {
               )}
               name="membershipNumber"
               control={control}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              render={({ field }) => (
+                <TextField
+                  sx={{ width: "100%" }}
+                  {...field}
+                  variant="filled"
+                  label="Society"
+                  inputProps={register("society", {
+                    required: "Please enter Society",
+                  })}
+                  error={errors.society}
+                  helperText={errors.society?.message}
+                />
+              )}
+              name="society"
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              render={({ field }) => (
+                <TextField
+                  sx={{ width: "100%" }}
+                  {...field}
+                  variant="filled"
+                  label="Image URL"
+                  inputProps={register("imageURL", {
+                    required: "Please enter image URL",
+                  })}
+                  error={errors.imageURL}
+                  helperText={errors.imageURL?.message}
+                />
+              )}
+              name="imageURL"
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              render={({ field }) => (
+                <TextField
+                  sx={{ width: "100%" }}
+                  {...field}
+                  variant="filled"
+                  label="Linkedin URL"
+                  inputProps={register("linkedinURL", {
+                    required: "Please enter linkedin URL",
+                  })}
+                  error={errors.linkedinURL}
+                  helperText={errors.linkedinURL?.message}
+                />
+              )}
+              name="linkedinURL"
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              render={({ field }) => (
+                <TextField
+                  sx={{ width: "100%" }}
+                  {...field}
+                  variant="filled"
+                  label="Society Role"
+                  inputProps={register("societyRole", {
+                    required: "Please enter society role",
+                  })}
+                  error={errors.societyRole}
+                  helperText={errors.societyRole?.message}
+                />
+              )}
+              name="societyRole"
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+          <label>Member of ExCom?</label>
+            <Controller
+              name="excom"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  onChange={(e) => field.onChange(e.target.checked)}
+                  checked={field.value}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
