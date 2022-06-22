@@ -14,7 +14,7 @@ exports.register = functions
         emailVerified: false,
         password: data.password,
         displayName: data.displayName,
-        photoURL: "http://www.example.com/12345678/photo.png",
+        photoURL: data.photoURL,
         disabled: false,
       })
       .then((userRecord) => {
@@ -41,7 +41,7 @@ exports.updateUser = functions
         emailVerified: false,
         password: data.password,
         displayName: data.displayName,
-        photoURL: "http://www.example.com/12345678/photo.png",
+        photoURL: data.photoURL,
         disabled: false,
       })
       .then((userRecord) => {
