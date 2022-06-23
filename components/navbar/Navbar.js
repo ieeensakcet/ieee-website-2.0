@@ -1,24 +1,31 @@
 import {
+  Button,
+  ButtonGroup,
+  ClickAwayListener,
   Collapse,
+  Grow,
   IconButton,
   List,
   ListItem,
   ListItemText,
+  MenuItem,
+  MenuList,
   Paper,
+  Popper,
   SwipeableDrawer,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import styles from "./Navbar.module.css";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Link from "next/link";
 
 const NavBar = () => {
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
-  const [opens, setOpens] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -33,8 +40,30 @@ const NavBar = () => {
   const handleClick = () => {
     setOpen(!open);
   };
-  const handleClicks = () => {
-    setOpens(!opens);
+
+  const [openLang, setOpenLang] = useState(false);
+  const anchorRef = useRef(null);
+  const [selectedLang, setSelectedLang] = useState("English");
+
+  const handleLangClick = () => {
+    console.info(`You clicked ${selectedLang}`);
+  };
+
+  const handleMenuItemClick = (lang) => {
+    setSelectedLang(lang);
+    setOpenLang(false);
+  };
+
+  const handleToggle = () => {
+    setOpenLang((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenLang(false);
   };
 
   const mobileNav = (
@@ -48,47 +77,20 @@ const NavBar = () => {
       </IconButton>
       <List component="nav" aria-labelledby="nested-list-subheader">
         <ListItem button>
-          <Link href="/" passHref className={styles.text}>
-            <ListItemText primary="HOME" />
+          <Link href="/" passHref>
+            <ListItemText primary="HOME" className={styles.text} />
           </Link>
         </ListItem>
         <ListItem button to="/aboutus">
-          <Link href="/about" passHref className={styles.text}>
-            <ListItemText primary="ABOUT US" />
+          <Link href="/about" passHref>
+            <ListItemText primary="ABOUT US" className={styles.text} />
           </Link>
         </ListItem>
-        <ListItem button onClick={handleClicks}>
-          <ListItemText primary="OUR EVENTS" className={styles.text} />
-          {opens ? (
-            <ExpandLessIcon className={styles.buttonR} />
-          ) : (
-            <ExpandMoreIcon className={styles.buttonR} />
-          )}
+        <ListItem button to="/events">
+          <Link href="/events" passHref>
+            <ListItemText primary="EVENTS" className={styles.text} />
+          </Link>
         </ListItem>
-        <Collapse in={opens} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={styles.nested}>
-              <Link href="/webinars" passHref className={styles.text}>
-                <ListItemText primary="WEBINARS" />
-              </Link>
-            </ListItem>
-            <ListItem button className={styles.nested}>
-              <Link href="/quizzes" passHref className={styles.text}>
-                <ListItemText primary="QUIZES" />
-              </Link>
-            </ListItem>
-            <ListItem button className={styles.nested}>
-              <Link href="/competitions" passHref className={styles.text}>
-                <ListItemText primary="COMPETITIONS" />
-              </Link>
-            </ListItem>
-            <ListItem button className={styles.nested}>
-              <Link href="/workshops" passHref className={styles.text}>
-                <ListItemText primary="WORKSHOPS" />
-              </Link>
-            </ListItem>
-          </List>
-        </Collapse>
         <ListItem button onClick={handleClick}>
           <ListItemText primary="OUR CHAPTERS" className={styles.text} />
           {open ? (
@@ -100,31 +102,105 @@ const NavBar = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={styles.nested}>
-              <Link href="/cs" passHref className={styles.text}>
-                <ListItemText primary="CS" />
+              <Link href="/cs" passHref>
+                <ListItemText primary="CS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/wie" passHref className={styles.text}>
-                <ListItemText primary="WIE" />
+              <Link href="/wie" passHref>
+                <ListItemText primary="WIE" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/ras" passHref className={styles.text}>
-                <ListItemText primary="RAS" />
+              <Link href="/ras" passHref>
+                <ListItemText primary="RAS" className={styles.text} />
+              </Link>
+            </ListItem>
+            <ListItem button className={styles.nested}>
+              <Link href="/cas" passHref>
+                <ListItemText primary="CAS" className={styles.text} />
+              </Link>
+            </ListItem>
+            <ListItem button className={styles.nested}>
+              <Link href="/sps" passHref>
+                <ListItemText primary="SPS" className={styles.text} />
               </Link>
             </ListItem>
           </List>
         </Collapse>
         <ListItem button>
-          <Link href="/ourteam" passHref className={styles.text}>
-            <ListItemText primary="OUR TEAM" />
+          <Link href="/ourteam" passHref>
+            <ListItemText primary="OUR TEAM" className={styles.text} />
           </Link>
         </ListItem>
         <ListItem button>
-          <Link href="/joinus" passHref className={styles.text}>
-            <ListItemText primary="JOIN US" />
+          <Link href="/joinus" passHref>
+            <ListItemText primary="JOIN US" className={styles.text} />
           </Link>
+        </ListItem>
+        <ListItem button>
+          <ButtonGroup
+            variant="contained"
+            ref={anchorRef}
+            aria-label="split button"
+          >
+            <Button onClick={handleLangClick}>{selectedLang}</Button>
+            <Button
+              size="small"
+              aria-controls={openLang ? "split-button-menu" : undefined}
+              aria-expanded={openLang ? "true" : undefined}
+              aria-label="select merge strategy"
+              aria-haspopup="menu"
+              onClick={handleToggle}
+            >
+              <ArrowDropDownIcon />
+            </Button>
+          </ButtonGroup>
+          <Popper
+            open={openLang}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList id="split-button-menu" autoFocusItem>
+                        <MenuItem
+                          onClick={() => handleMenuItemClick("English")}
+                        >
+                          <Link href="/">
+                            English
+                          </Link>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => handleMenuItemClick("Telugu")}
+                        >
+                          <Link href="/">
+                            Telugu
+                          </Link>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => handleMenuItemClick("Urdu")}
+                        >
+                          <Link href="/">
+                            Urdu
+                          </Link>
+                        </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </ListItem>
       </List>
     </div>
@@ -169,17 +245,37 @@ const NavBar = () => {
               <ul className={styles.subItem}>
                 <li className={styles.navbar__list__listItem}>
                   <Link href="/cs" passHref>
-                    <a className={styles.navbar__list__listItem__link__subitem}>Computer Society</a>
+                    <a className={styles.navbar__list__listItem__link__subitem}>
+                      Computer Society
+                    </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
                   <Link href="/ras" passHref>
-                    <a className={styles.navbar__list__listItem__link__subitem}>RAS</a>
+                    <a className={styles.navbar__list__listItem__link__subitem}>
+                      RAS
+                    </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
                   <Link href="/wie" passHref>
-                    <a className={styles.navbar__list__listItem__link__subitem}>WIE</a>
+                    <a className={styles.navbar__list__listItem__link__subitem}>
+                      WIE
+                    </a>
+                  </Link>
+                </li>
+                <li className={styles.navbar__list__listItem}>
+                  <Link href="/cas" passHref>
+                    <a className={styles.navbar__list__listItem__link__subitem}>
+                      CAS
+                    </a>
+                  </Link>
+                </li>
+                <li className={styles.navbar__list__listItem}>
+                  <Link href="/sps" passHref>
+                    <a className={styles.navbar__list__listItem__link__subitem}>
+                      SPS
+                    </a>
                   </Link>
                 </li>
               </ul>
@@ -199,6 +295,72 @@ const NavBar = () => {
               <a className={styles.navbar__list__listItem__link}>JOIN US</a>
             </Link>
           </li>
+          {/* <li className={styles.navbar__list__listItem}> */}
+          {/* <ListItem button> */}
+          <ButtonGroup
+            variant="contained"
+            ref={anchorRef}
+            aria-label="split button"
+            sx={{
+              marginTop: "4px",
+            }}
+          >
+            <Button onClick={handleLangClick}>{selectedLang}</Button>
+            <Button
+              size="small"
+              aria-controls={openLang ? "split-button-menu" : undefined}
+              aria-expanded={openLang ? "true" : undefined}
+              aria-label="select merge strategy"
+              aria-haspopup="menu"
+              onClick={handleToggle}
+            >
+              <ArrowDropDownIcon />
+            </Button>
+          </ButtonGroup>
+          <Popper
+            open={openLang}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal
+            sx={{
+              zIndex: "25",
+            }}
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList id="split-button-menu" autoFocusItem>
+                      <MenuItem onClick={() => handleMenuItemClick("English")}>
+                        <Link href="/" locale="en">
+                          English
+                        </Link>
+                      </MenuItem>
+                      <MenuItem onClick={() => handleMenuItemClick("Telugu")}>
+                        <Link href="/" locale="te">
+                          Telugu
+                        </Link>
+                      </MenuItem>
+                      <MenuItem onClick={() => handleMenuItemClick("Urdu")}>
+                        <Link href="/" locale="ur">
+                          Urdu
+                        </Link>
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+          {/* </ListItem> */}
+          {/* </li> */}
         </ul>
         {mobile ? (
           <SwipeableDrawer
