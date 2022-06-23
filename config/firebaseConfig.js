@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFunctions } from "firebase/functions";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
+=======
+import { initializeApp } from 'firebase/app'
+import { connectAuthEmulator, getAuth } from 'firebase/auth' 
+import { getFunctions } from 'firebase/functions';
+import { getStorage, connectStorageEmulator} from "firebase/storage";
+>>>>>>> bafd8716bf542149acb8df8dd07bcb2ad6b55d4e
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -22,7 +29,13 @@ const db = getFirestore();
 const storage = getStorage(firebaseApp);
 // connectStorageEmulator(storage, "localhost", 9199);
 
+<<<<<<< HEAD
 const auth = getAuth();
+=======
+const auth = getAuth()
+connectAuthEmulator(auth, "http://localhost:9099");
+
+>>>>>>> bafd8716bf542149acb8df8dd07bcb2ad6b55d4e
 const firebaseFunctions = getFunctions(firebaseApp);
 
 export { firebaseApp, auth, firebaseFunctions, db, storage };

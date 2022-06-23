@@ -74,8 +74,8 @@ export default function EventCard({ id, title, venue, date }) {
         }}
       >
         <div className={styles.card__header}>
-          <p>{dateToShow}</p>
-          <p>{venue}</p>
+          <p className={styles.date}>{dateToShow}</p>
+          <p className={styles.venue}>{venue}</p>
         </div>
         <h4 className={styles.card__title}>{title}</h4>
         {/* <button className={styles.card__button}>Book Your Seat</button> */}
@@ -116,7 +116,7 @@ export default function EventCard({ id, title, venue, date }) {
               },
             }}
           >
-            <MenuItem onClick={DeleteHandleOpen}>Delete</MenuItem>
+            <MenuItem onClick={DeleteHandleOpen} sx={{ color: "#FF1818" }}>Delete</MenuItem>
             <Dialog
               open={DeleteOpen}
               onClose={DeleteHandleClose}

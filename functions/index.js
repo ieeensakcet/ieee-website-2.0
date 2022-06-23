@@ -6,36 +6,82 @@ const db = admin.firestore();
 exports.register = functions
   .region("us-central1")
   .https.onCall((data, context) => {
-    admin
+    return admin
       .auth()
       .createUser({
+        uid: data.membershipNumber,
         email: data.email,
         emailVerified: false,
         password: data.password,
         displayName: data.displayName,
-        photoURL: "http://www.example.com/12345678/photo.png",
+        photoURL: data.photoURL,
         disabled: false,
       })
       .then((userRecord) => {
         console.log(`Success user:${userRecord.uid} has been created`);
         // See the UserRecord reference doc for the contents of userRecord.
+        return {
+          message: `Success ${userRecord.displayName} has been added`,
+        };
       })
       .catch((error) => {
         console.log("Error creating new user:", error);
+        return {
+          message: `Error adding user, error: ${error}`,
+        };
       });
   });
-exports.updateUserRole = functions.https.onCall((data, context) => {
+exports.updateUser = functions
+  .region("us-central1")
+  .https.onCall((data, context) => {
+    return admin
+      .auth()
+      .updateUser(data.id, {
+        email: data.email,
+        emailVerified: false,
+        password: data.password,
+        displayName: data.displayName,
+        photoURL: data.photoURL,
+        disabled: false,
+      })
+      .then((userRecord) => {
+        console.log(`Success user:${userRecord.toJSON()} has been updated`);
+        // See the UserRecord reference doc for the contents of userRecord.
+        return {
+          message: `Success ${userRecord.displayName} has been updated`,
+        };
+      })
+      .catch((error) => {
+        console.log("Error updating new user:", error);
+        return {
+          message: `Error updating user, error: ${error}`,
+        };
+      });
+  });
+exports.makeWebmaster = functions.https.onCall((data, context) => {
   return admin
     .auth()
-    .getUserByEmail(data.email)
-    .then((user) => {
-      return admin.auth().setCustomUserClaims(user.uid, {
-        admin: true,
-      });
+    .setCustomUserClaims(data.id, {
+      webmaster: true,
     })
     .then(() => {
       return {
-        message: `Success ${data.email} has been made an admin`,
+        message: `Success ${data.id} has been made an webmaster`,
+      };
+    })
+    .catch((error) => {
+      return error;
+    });
+});
+exports.makeAdmin = functions.https.onCall((data, context) => {
+  return admin
+    .auth()
+    .setCustomUserClaims(data.id, {
+      admin: true,
+    })
+    .then(() => {
+      return {
+        message: `Success ${data.id} has been made an admin`,
       };
     })
     .catch((error) => {
@@ -56,32 +102,39 @@ exports.addDefaultUserRole = functions.auth.user().onCreate((user) => {
       return admin.auth().getUser(uid);
     })
     .then((userRecord) => {
-      console.log(uid);
       console.log(userRecord.customClaims.isMember);
       return null;
     });
 });
 
-exports.deleteUserAuth = functions.https.onCall( async (data, context) => {
-  console.log(data.email)
-  user = await admin.auth().getUserByEmail(data.email)
-  return admin.auth().deleteUser(user.uid)
-})
+exports.deleteUserAuth = functions.https.onCall(async (data, context) => {
+  console.log(data.email);
+  user = await admin.auth().getUserByEmail(data.email);
+  return admin.auth().deleteUser(user.uid);
+});
 
 //checking scheduled events and updating the event to completed
 exports.taskRunner = functions.pubsub
-    .schedule('* * * * *').onRun(async (context) => {
+  .schedule("* * * * *")
+  .onRun(async (context) => {
     // Consistent timestamp
     const now = admin.firestore.Timestamp.now();
     // Query all documents ready to perform
-    const query = db.collection('events').where('scheduleType', '==', 'schedule').where('date', '<=', now);
-    await query.get().then( async (snapshots) => {
+    const query = db
+      .collection("events")
+      .where("scheduleType", "==", "schedule")
+      .where("date", "<=", now);
+    await query.get().then(async (snapshots) => {
       //creating promise array to run the query concurrently
-      const updatesDocs = []
+      const updatesDocs = [];
       //updating each document
-      snapshots.forEach((doc) => updatesDocs.push(doc.ref.update({ 
-        scheduleType: 'completed'
-      })))
-      await Promise.all(updatesDocs)
-    })
-});
+      snapshots.forEach((doc) =>
+        updatesDocs.push(
+          doc.ref.update({
+            scheduleType: "completed",
+          })
+        )
+      );
+      await Promise.all(updatesDocs);
+    });
+  });

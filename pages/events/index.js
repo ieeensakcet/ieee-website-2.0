@@ -146,7 +146,7 @@ export default function Events() {
             showIndicators={false}
           >
             <div className={styles.testimonial}>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" sx={{ color: "#012169"}}>
                 I&apos;ve been using testimonial.to for the last few weeks and I
                 absolutely LOVE it❤️ Once you start, you understand how it
                 boosts your social proof. Worth every penny. Thanks @damengchen
@@ -158,7 +158,7 @@ export default function Events() {
               </div>
             </div>
             <div className={styles.testimonial}>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" sx={{ color: "#012169"}}>
                 We&apos;ve been struggling with collecting testimonials for
                 years, we used Typeform or email to get testimonials, stored the
                 good ones in Notion and then had a web developer add them to our
@@ -173,7 +173,7 @@ export default function Events() {
               </div>
             </div>
             <div className={styles.testimonial}>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" sx={{color: "#012169"}}>
                 Testimonials are essential for any product launch. If you build
                 products or design landing pages, definitely add this to your
                 stack. It&apos;ll make launching/promoting your product so much
