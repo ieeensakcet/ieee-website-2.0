@@ -1,6 +1,6 @@
 export const timeConverterWithHours = (UNIX_timestamp) => {
   var a = new Date(UNIX_timestamp * 1000);
-  console.log(a.toLocaleString("en-IN", { hour12: true }));
+  // console.log(a.toLocaleString("en-IN", { hour12: true }));
   var months = [
     "Jan",
     "Feb",
@@ -25,7 +25,7 @@ export const timeConverterWithHours = (UNIX_timestamp) => {
 };
 export const timeConverter = (UNIX_timestamp) => {
   var a = new Date(UNIX_timestamp * 1000);
-  console.log(a.toLocaleString("en-IN", { hour12: true }));
+  // console.log(a.toLocaleString("en-IN", { hour12: true }));
   var months = [
     "Jan",
     "Feb",
