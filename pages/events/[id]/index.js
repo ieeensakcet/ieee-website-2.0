@@ -18,14 +18,6 @@ import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../config/firebaseConfig";
 import { timeConverter } from "../../../helpers/utils";
 
-const product = {
-  images: [
-    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    "https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  ],
-};
-
 export default function Events() {
   const user = useSelector(selectUser);
   const router = useRouter();
@@ -38,6 +30,7 @@ export default function Events() {
     const unsub = onSnapshot(doc(db, "events", `${id}`), (doc) => {
       if (doc.exists()) {
         setdata(doc.data());
+        setImage(doc.data().images[1])
       } else {
         alert("Event not found");
       }
@@ -50,6 +43,7 @@ export default function Events() {
 
   //modal user sign in
   const [open, setOpen] = useState(false);
+  const [image, setImage] = useState("https://source.unsplash.com/GiQ9Yck2h3E/400x400")
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -71,9 +65,10 @@ export default function Events() {
             <div className={styles.main__content__image}>
               <Image
                 alt="event image"
-                src="https://source.unsplash.com/GiQ9Yck2h3E/400x400"
+                src={image}
                 layout="fill"
                 objectFit="contain"
+                priority
               />
             </div>
             <div className={styles.main__content__details}>
@@ -132,6 +127,7 @@ export default function Events() {
                       layout="fill"
                       objectFit="contain"
                       alt="logo"
+                      loading="lazy"
                     />
                   </div>
                 ))
@@ -148,9 +144,7 @@ export default function Events() {
                       alt={`${data.title} preview ${idx}`}
                       layout="fill"
                       objectFit="contain"
-                      // width={300}
-                      // height={300}
-                      priority={idx === 0}
+                      loading="lazy"
                     />
                   </div>
                 ))}
@@ -162,8 +156,6 @@ export default function Events() {
                 <Button
                   variant="outlined"
                   sx={{ color: "#12679b" }}
-                  // endIcon={<AddBoxIcon />}
-                  // onClick={openModal}
                   onClick={handleOpen}
                 >
                   Sign In to write review
@@ -197,8 +189,8 @@ export default function Events() {
             )}
             <WriteComment user={user} id={id} />
             <div className={styles.main__comments__container}>
-              {data.reviews?.map((review) => {
-                return <Comment review={review} key={review.name} />;
+              {data.reviews?.map((review, idx) => {
+                return <Comment review={review} key={idx} />;
               })}
             </div>
           </section>
