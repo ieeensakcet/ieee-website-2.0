@@ -12,7 +12,7 @@ import casLogo from "../public/assets/ieee-cas-logo.png";
 import spsLogo from "../public/assets/ieee-sps-logo.png";
 import { Button, Container, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 import { db } from "../config/firebaseConfig";
 import EventCard from "../components/eventCard/EventCard";
 
@@ -29,17 +29,18 @@ export default function Home() {
       const data = await getDocs(eventsCollectionRef);
       setevents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-    return () => {
+    // return () => {
       getEvents();
-    };
+    // };
   }, []);
+  console.log(events)
   return (
     <div className={styles.container}>
       <Head>
         <title>IEEE NSAKCET</title>
         <meta
           name="description"
-          content="IEEE Student Branch of Nawab Shah Alam Khan College of Engineering & Technology"
+          content="IEEE Student Branch of Nawab Shah Alam Khan College of Engineering &#38; Technology"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -135,7 +136,7 @@ export default function Home() {
               </Paper>
             </section>
             <section className={styles.home__events}>
-              <Typography variant="h4" className={styles.ourChapters__header}>
+              <Typography variant="h4" className={styles.home__events__header}>
                 LATEST EVENTS
               </Typography>
               <div className={styles.events__container}>
@@ -147,6 +148,7 @@ export default function Home() {
                       title={event.title}
                       venue={event.venue}
                       date={event.date.seconds}
+                      image={event.images[0]}
                     />
                   );
                 })}
