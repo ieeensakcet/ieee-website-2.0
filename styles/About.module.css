@@ -3,6 +3,14 @@
 
   margin: 20px auto;
 }
+
+.About_collegeimg {
+  position: relative;
+  min-width: 50%;
+  max-height: 100%;
+  height: 300px;
+}
+
 .About__about {
   /* display: flex;
 
@@ -127,9 +135,9 @@
 }
 .About__Work__image {
   position: relative;
-  min-width: 100%;
+  min-width: 65%;
   /* max-height: 100%; */
-  height: 800px;
+  height: 600px;
 }
 .About__accordion {
   background-color: #12679b;
@@ -155,6 +163,22 @@
   .About_about_community_img {
     min-width: 100%;
     height: 250px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .About__Work__image {
+    min-width: 65%;
+    /* max-height: 100%; */
+    height: 500px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .About__Work__image {
+    min-width: 75%;
+    /* max-height: 100%; */
+    height: 450px;
   }
 }
 
@@ -184,6 +208,13 @@
     font-size: 1.5rem;
   }
   .About__Work__image {
-    height: 250px;
+    height: 190px;
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .About_collegeimg {
+    height: 180px;
   }
 }

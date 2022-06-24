@@ -51,23 +51,16 @@ export default function About(props) {
               marginBottom: "30px",
             }}
           >
-            <div
-              style={{
-                position: "relative",
-                minWidth: "50%",
-                maxHeight: "100%",
-                height: "300px",
-              }}
-            >
+            <div className={styles.About_collegeimg}>
               <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:w-600/IEEE_SB_M7zLicw2I.svg"
+                src="https://ik.imagekit.io/ieeensakcet/About/tr:w-1000/College_adminblock_MN682k9FP.png"
                 layout="fill"
                 alt="college"
               />
             </div>
 
             <div className={styles.About_about_text}>
-              <Typography variant="h6">
+              <Typography variant="h6" sx={{ textAlign: "justify" }}>
                 <span className={styles.About_abouttext_header}>
                   {t("about:about_IEEESB1")}
                 </span>{" "}
@@ -154,7 +147,7 @@ export default function About(props) {
             </Typography>
             <div className={styles.About__Work__image}>
               <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:w-1000/LEADERSHIP_TEAM_5z97G5f_0.svg"
+                src="https://ik.imagekit.io/ieeensakcet/About/tr:w-1000/Workflow_Cr44BHyBc.png"
                 layout="fill"
                 alt="work"
                 loading="lazy"
@@ -245,6 +238,9 @@ export default function About(props) {
         </Link>
         <Link href="/te/about" locale="te">
           <h2>Telugu</h2>
+        </Link>
+        <Link href="/ur/about" locale="ur">
+          <h2>Urdu</h2>
         </Link>
       </main>
 

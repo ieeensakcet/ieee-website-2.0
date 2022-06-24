@@ -6,7 +6,7 @@ export const excom = [
       "https://www.linkedin.com/in/dr-mohammad-sanaullah-qaseem-724a2914/",
     emailURL: "mailto:ms_qaseem@ieee.org",
     image:
-      "https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/qaseem_sir.jpeg",
+      "https://ik.imagekit.io/ieeensakcet/profiles/tr:h-150,w-150,fo-auto/IMG_0908_wNnhWIB1j.JPG",
   },
   {
     name: "Mr. MOHAMMED KHALEEL AHMED",
@@ -14,7 +14,7 @@ export const excom = [
     linkedInURL: "https://www.linkedin.com/in/mohammed-khaleel-ahmed-1558a5aa",
     emailURL: "mailto:ahmedkhaleelmohammed@gmail.com",
     image:
-      "https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/Khaleel_sir.jpg",
+      "https://ik.imagekit.io/ieeensakcet/profiles/tr:h-150,w-150/IMG_0908_wNnhWIB1j.JPG",
   },
   {
     name: "Ms. SHANILA MAHREEN",
@@ -22,7 +22,7 @@ export const excom = [
     linkedInURL: "https://www.linkedin.com/in/shanila-mahreen-3617635b",
     emailURL: "mailto:shanilamahreen88@ieee.org",
     image:
-      "https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/shanila_mam.jpeg",
+      "https://ik.imagekit.io/ieeensakcet/profiles/tr:w-150/IMG_0782_6-WcPtvIJc.JPG?ik-sdk-version=javascript-1.4.3&updatedAt=1655986329524",
   },
 
   {

@@ -76,6 +76,7 @@
   display: flex;
   text-align: center;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .JoinUs__globalBenefits__header__text {
@@ -190,6 +191,11 @@
   .JoinUs__testemonials {
     width: 80%;
   }
+  .JoinUs__testemonials__carousel__content {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
 
   .JoinUs__benefits {
     grid-template-columns: repeat(2, 1fr);
@@ -210,10 +216,6 @@
   }
   .JoinUs__testemonials {
     width: 90%;
-  }
-  .JoinUs__testemonials__carousel__content {
-    flex-direction: column;
-    gap: 10px;
   }
   .JoinUs__testemonials__carousel__content__person__image {
     height: 100px;
