@@ -34,7 +34,7 @@ export default function OurTeam() {
             }}
             href="#ecxom"
           >
-            Executive Committee
+            Leadership Team
           </Button>
           <Button
             variant="contained"
@@ -49,7 +49,7 @@ export default function OurTeam() {
             }}
             href="#program"
           >
-            Program Committee
+            Executive Committee
           </Button>
           <Button
             variant="contained"
@@ -64,7 +64,7 @@ export default function OurTeam() {
             }}
             href="#socialMedia"
           >
-            Social Media Committee
+            Publicity Team
           </Button>
           <Button
             variant="contained"
@@ -79,13 +79,13 @@ export default function OurTeam() {
             }}
             href="#membership"
           >
-            Membership Committee
+            Mentors
           </Button>
         </div>
       </section>
       <section className={classes.OurTeam__group} id="excom">
         <Typography variant="h4" sx={{ color: "#12679b" }}>
-          Executive Committee
+          Leadership Team
         </Typography>
         <Carousel
           autoPlay={true}
@@ -133,7 +133,7 @@ export default function OurTeam() {
       </section>
       <section className={classes.OurTeam__group} id="program">
         <Typography variant="h4" sx={{ color: "#12679b" }}>
-          Program Committee
+          Executive Committee
         </Typography>
         <Carousel
           autoPlay={true}
@@ -169,7 +169,7 @@ export default function OurTeam() {
       </section>
       <section className={classes.OurTeam__group} id="socialMedia">
         <Typography variant="h4" sx={{ color: "#12679b" }}>
-          Social Media Committee
+          Publicity Team
         </Typography>
         <Carousel
           autoPlay={true}
@@ -205,7 +205,7 @@ export default function OurTeam() {
       </section>
       <section className={classes.OurTeam__group} id="membership">
         <Typography variant="h4" sx={{ color: "#12679b" }}>
-          Membership Committee
+          Mentors
         </Typography>
         <Carousel
           autoPlay={true}
