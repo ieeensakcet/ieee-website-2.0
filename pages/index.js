@@ -2,12 +2,37 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/footer/Footer";
-// import NavBar from "../components/navbar/Navbar";
+import NavBar from "../components/navbar/Navbar";
 import styles from "../styles/Home.module.css";
-
+import groupPhoto from "../public/assets/IEEEGroup.webp";
+import csLogo from "../public/assets/ieee-cs-logo.png";
+import rasLogo from "../public/assets/ieee-ras-logo.png";
+import wieLogo from "../public/assets/ieee-wie-logo.png";
+import casLogo from "../public/assets/ieee-cas-logo.png";
+import spsLogo from "../public/assets/ieee-sps-logo.png";
 import { Button, Container, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../config/firebaseConfig";
+import EventCard from "../components/eventCard/EventCard";
 
 export default function Home() {
+  const [events, setevents] = useState([]);
+  useEffect(() => {
+    const eventsCollectionRef = query(
+      collection(db, "events"),
+      where("scheduleType", "==", "completed"),
+      orderBy("date"),
+      limit(6)
+    );
+    const getEvents = async () => {
+      const data = await getDocs(eventsCollectionRef);
+      setevents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    return () => {
+      getEvents();
+    };
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
@@ -19,7 +44,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <NavBar /> */}
+      <NavBar />
       <main className={styles.main}>
         <div className={styles.home}>
           <Container
@@ -28,11 +53,10 @@ export default function Home() {
             disableGutters={true}
           >
             <Image
-              src="https://ik.imagekit.io/ieeensakcet/Home/tr:w-1800/IEEEGroup23crop_Fnm_9gRxW.png"
+              src={groupPhoto}
               alt="ieee_sb"
-              layout="fill"
-              objectFit="contain"
-              // className={styles.container__image}
+              priority
+              className={styles.container__image}
             />
             <div className={styles.header}>
               <div className={styles.header__text}>
@@ -55,7 +79,15 @@ export default function Home() {
           </Container>
           <section className={styles.mainSection}>
             <section className={styles.mission}>
-              <Paper elevation={8} className={styles.paper}>
+              <Paper
+                elevation={8}
+                sx={{
+                  padding: "30px",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
                 <header className={styles.headers}>
                   <Typography variant="h4">Mission</Typography>
                   <Typography variant="subtitle1">
@@ -71,11 +103,18 @@ export default function Home() {
                     title="mission"
                     height={150}
                     width={150}
-                    // className={styles.image}
                   />
                 </div>
               </Paper>
-              <Paper elevation={8} className={styles.paper}>
+              <Paper
+                elevation={8}
+                sx={{
+                  padding: "30px",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
                 <div>
                   <Image
                     src="/assets/telescope.webp"
@@ -83,7 +122,6 @@ export default function Home() {
                     title="vision"
                     height={150}
                     width={150}
-                    // className={styles.image}
                   />
                 </div>
                 <header className={styles.headers}>
@@ -96,162 +134,71 @@ export default function Home() {
                 </header>
               </Paper>
             </section>
-            {/* <section className={styles.events__section}>
-          <Typography variant="h4" className={styles.events__header}>
-            EVENTS
-          </Typography>
-          <div className={styles.events}>
-            <Paper elevation={12} className={styles.events_cards}>
-              <div className={styles.events_cards_image}>
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/webinar1_5vNp-eFY2.jpg"
-                  alt="webinar_image"
-                  loading="lazy"
-                  title="webinar"
-                  className={styles.Image}
-                />
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/webinar2_fJIQSopo9f.jpg"
-                  alt="webinar_image"
-                  loading="lazy"
-                  title="webinar"
-                  className={styles.Image}
-                />
+            <section className={styles.home__events}>
+              <Typography variant="h4" className={styles.ourChapters__header}>
+                LATEST EVENTS
+              </Typography>
+              <div className={styles.events__container}>
+                {events.map((event) => {
+                  return (
+                    <EventCard
+                      key={event.id}
+                      id={event.id}
+                      title={event.title}
+                      venue={event.venue}
+                      date={event.date.seconds}
+                    />
+                  );
+                })}
               </div>
-              <header className={styles.events_cards_header}>
-                <Typography variant="h5" className={styles.font}>
-                  Webinars
-                </Typography>
-                <Typography variant="body2" className={styles.font_viewAll}>
-                  <Link to="/webinars" className={styles.link}>
-                    View All
-                  </Link>
-                </Typography>
-              </header>
-            </Paper>
-            <Paper elevation={12} className={styles.events_cards}>
-              <div className={styles.events_cards_image}>
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/contest_qE08g9fZe.jpeg"
-                  alt="competition_image"
-                  loading="lazy"
-                  title="competition"
-                  className={styles.Image}
-                />
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/competition_YJJ38JHNLt.webp"
-                  alt="competition_image"
-                  loading="lazy"
-                  title="competition"
-                  className={styles.Image}
-                />
+            </section>
+            <section className={styles.ourChapters}>
+              <Typography variant="h4" className={styles.ourChapters__header}>
+                OUR CHAPTERS
+              </Typography>
+              <div className={styles.chapter_cards}>
+                <Paper elevation={12} className={styles.chapters}>
+                  <Image
+                    src={csLogo}
+                    loading="lazy"
+                    alt="chapter_image"
+                    className={styles.chapter_logo}
+                  />
+                </Paper>
+                <Paper elevation={12} className={styles.chapters}>
+                  <Image
+                    src={wieLogo}
+                    loading="lazy"
+                    alt="chapter_image"
+                    className={styles.chapter_logo}
+                  />
+                </Paper>
+                <Paper elevation={12} className={styles.chapters}>
+                  <Image
+                    src={casLogo}
+                    loading="lazy"
+                    alt="chapter_image"
+                    className={styles.chapter_logo}
+                  />
+                </Paper>
+                <Paper elevation={12} className={styles.chapters}>
+                  <Image
+                    src={spsLogo}
+                    loading="lazy"
+                    alt="chapter_image"
+                    className={styles.chapter_logo}
+                  />
+                </Paper>
+                <Paper elevation={12} className={styles.chapters}>
+                  <Image
+                    src={rasLogo}
+                    loading="lazy"
+                    alt="chapter_image"
+                    className={styles.chapter_logo}
+                  />
+                </Paper>
               </div>
-              <header className={styles.events_cards_header}>
-                <Typography variant="h5" className={styles.font}>
-                  Competitions
-                </Typography>
-                <Typography variant="body2" className={styles.font_viewAll}>
-                  <Link to="/competitions" className={styles.link}>
-                    View All
-                  </Link>
-                </Typography>
-              </header>
-            </Paper>
-            <Paper
-              elevation={12}
-              className={`${styles.events_cards} ${styles.quizzes}`}
-            >
-              <div className={styles.events_cards_image}>
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/quiz2_JTrlpOgug.jpg"
-                  alt="quiz_image"
-                  loading="lazy"
-                  title="quiz"
-                  className={styles.Image}
-                />
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/quiz1_s8sl-97c-i.jpg"
-                  alt="quiz_image"
-                  loading="lazy"
-                  title="quiz"
-                  className={styles.Image}
-                />
-              </div>
-              <header className={styles.events_cards_header}>
-                <Typography variant="h5" className={styles.font}>
-                  Quizzes
-                </Typography>
-                <Typography variant="body2" className={styles.font_viewAll}>
-                  <Link to="/quizzes" className={styles.link}>
-                    View All
-                  </Link>
-                </Typography>
-              </header>
-            </Paper>
-            <Paper
-              elevation={12}
-              className={`${styles.events_cards} ${styles.quizzes}`}
-            >
-              <div className={styles.events_cards_image}>
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/workshop1_rNGAqLYNa.webp"
-                  alt="workshop_image"
-                  loading="lazy"
-                  title="workshop"
-                  className={styles.Image}
-                />
-                <Image
-                  src="https://ik.imagekit.io/ieeensakcet/tr:w-300/workshop2_2bm7BAior.webp"
-                  alt="workshop_image"
-                  loading="lazy"
-                  title="workshop"
-                  className={styles.Image}
-                />
-              </div>
-              <header className={styles.events_cards_header}>
-                <Typography variant="h5" className={styles.font}>
-                  Workshops
-                </Typography>
-                <Typography variant="body2" className={styles.font_viewAll}>
-                  <Link to="/workshops" className={styles.link}>
-                    View All
-                  </Link>
-                </Typography>
-              </header>
-            </Paper>
-          </div>
-        </section> */}
-            {/* <section className={styles.ourChapters}>
-          <Typography variant="h4" className={styles.ourChapters__header}>
-            OUR CHAPTERS
-          </Typography>
-          <div className={styles.chapter_cards}>
-            <Paper elevation={12} className={styles.chapters}>
-              <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:h-70/ieee_bDdem9m3j.png"
-                loading="lazy"
-                alt="chapter_image"
-                className={styles.chapter_logo}
-              />
-            </Paper>
-            <Paper elevation={12} className={styles.chapters}>
-              <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:h-70/ieee_bDdem9m3j.png"
-                loading="lazy"
-                alt="chapter_image"
-                className={styles.chapter_logo}
-              />
-            </Paper>
-            <Paper elevation={12} className={styles.chapters}>
-              <Image
-                src="https://ik.imagekit.io/ieeensakcet/tr:h-70/ieee_bDdem9m3j.png"
-                loading="lazy"
-                alt="chapter_image"
-                className={styles.chapter_logo}
-              />
-            </Paper>
-          </div>
-        </section> */}
+            </section>
           </section>
           <Container
             maxWidth={false}

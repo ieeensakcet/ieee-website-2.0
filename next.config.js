@@ -8,10 +8,10 @@ module.exports = {
   images: {
     domains: [
       "images.unsplash.com",
+      "ik.imagekit.io",
       "source.unsplash.com",
       "firebasestorage.googleapis.com",
       "localhost",
-      "ik.imagekit.io",
     ],
   },
   reactStrictMode: true,
