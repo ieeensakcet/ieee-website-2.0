@@ -30,6 +30,7 @@
   padding: 25px 10%;
   justify-content: space-between;
   align-items: center;
+  margin: auto;
 }
 .header__text {
   color: #ffffff;
