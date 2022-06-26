@@ -22,8 +22,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const NavBar = () => {
+  const router = useRouter();
+  const path = router.route;
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -102,27 +105,27 @@ const NavBar = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={styles.nested}>
-              <Link href="/cs" passHref>
+              <Link href="/chapters/cs" passHref>
                 <ListItemText primary="CS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/wie" passHref>
+              <Link href="/chapters/wie" passHref>
                 <ListItemText primary="WIE" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/ras" passHref>
+              <Link href="/chapters/ras" passHref>
                 <ListItemText primary="RAS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/cas" passHref>
+              <Link href="/chapters/cas" passHref>
                 <ListItemText primary="CAS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/sps" passHref>
+              <Link href="/chapters/sps" passHref>
                 <ListItemText primary="SPS" className={styles.text} />
               </Link>
             </ListItem>
@@ -184,14 +187,14 @@ const NavBar = () => {
                         <MenuItem
                           onClick={() => handleMenuItemClick("Telugu")}
                         >
-                          <Link href="/">
+                          <Link href={`/te${path}`}>
                             Telugu
                           </Link>
                         </MenuItem>
                         <MenuItem
                           onClick={() => handleMenuItemClick("Urdu")}
                         >
-                          <Link href="/">
+                          <Link href={`/ur${path}`}>
                             Urdu
                           </Link>
                         </MenuItem>
@@ -244,35 +247,35 @@ const NavBar = () => {
             >
               <ul className={styles.subItem}>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/cs" passHref>
+                  <Link href="/chapters/cs" passHref>
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       Computer Society
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/ras" passHref>
+                  <Link href="/chapters/ras" passHref>
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       RAS
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/wie" passHref>
+                  <Link href="/chapters/wie" passHref>
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       WIE
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/cas" passHref>
+                  <Link href="/chapters/cass" passHref>
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       CAS
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/sps" passHref>
+                  <Link href="/chapters/sps" passHref>
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       SPS
                     </a>
@@ -339,17 +342,17 @@ const NavBar = () => {
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList id="split-button-menu" autoFocusItem>
                       <MenuItem onClick={() => handleMenuItemClick("English")}>
-                        <Link href="/" locale="en">
+                        <Link href={path} locale="en">
                           English
                         </Link>
                       </MenuItem>
                       <MenuItem onClick={() => handleMenuItemClick("Telugu")}>
-                        <Link href="/" locale="te">
+                        <Link href={`/te${path}`} locale="te">
                           Telugu
                         </Link>
                       </MenuItem>
                       <MenuItem onClick={() => handleMenuItemClick("Urdu")}>
-                        <Link href="/" locale="ur">
+                        <Link href={`/ur${path}`} locale="ur">
                           Urdu
                         </Link>
                       </MenuItem>
