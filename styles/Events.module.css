@@ -1,6 +1,5 @@
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
 }
 
 .title {
@@ -49,9 +48,8 @@
   gap: 25px;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin: 30px auto;
   width: 80%;
-  margin: auto;
 }
 
 .event__categories__list__button {
