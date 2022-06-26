@@ -19,7 +19,6 @@ export default function Events() {
   const [eventType, setEventType] = useState("concert");
   const [eventCat, setEventCat] = useState([]);
   useEffect(() => {
-    console.log(eventType);
     const q = query(
       collection(db, "events"),
       where("eventType", "==", eventType)
@@ -39,7 +38,6 @@ export default function Events() {
 
     getEvents();
   }, []);
-  console.log(events);
 
   return (
     <div className={styles.container}>
@@ -53,9 +51,6 @@ export default function Events() {
       </Head>
 
       <main className={styles.main}>
-        <Button>
-          <Link href="/events/add-event">Add Event</Link>
-        </Button>
         <section>
           <h1 className={styles.title}>Upcoming Events</h1>
           <div className={styles.events__container}>
@@ -67,6 +62,7 @@ export default function Events() {
                   title={event.title}
                   venue={event.venue}
                   date={event.date.seconds}
+                  image={event.images[0]}
                 />
               );
             })}
@@ -125,6 +121,7 @@ export default function Events() {
                   title={event.title}
                   venue={event.venue}
                   date={event.date.seconds}
+                  image={event.images[0]}
                 />
               );
             })}
@@ -144,6 +141,7 @@ export default function Events() {
             centerMode={true}
             centerSlidePercentage={width <= 900 ? 80 : 50}
             showIndicators={false}
+            showThumbs={false}
           >
             <div className={styles.testimonial}>
               <Typography variant="subtitle1" sx={{ color: "#012169"}}>
