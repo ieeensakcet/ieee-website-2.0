@@ -12,6 +12,7 @@ module.exports = {
       "source.unsplash.com",
       "firebasestorage.googleapis.com",
       "localhost",
+      "placehold.jp",
     ],
   },
   reactStrictMode: true,
