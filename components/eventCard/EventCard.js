@@ -59,7 +59,7 @@ export default function EventCard({ id, title, venue, date, image }) {
           overflow: "hidden",
         }}
       >
-        <Image alt="image" src={image} layout="fill" />
+        <Image alt="image" src={image ?? "http://placehold.jp/255x170.png"} layout="fill" />
       </Paper>
       <Paper
         elevation={3}
