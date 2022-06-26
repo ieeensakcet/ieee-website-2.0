@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "../components/footer/Footer";
-import NavBar from "../components/navbar/Navbar";
 import styles from "../styles/Home.module.css";
 import groupPhoto from "../public/assets/IEEEGroup.webp";
 import csLogo from "../public/assets/ieee-cs-logo.png";
@@ -22,7 +20,7 @@ export default function Home() {
     const eventsCollectionRef = query(
       collection(db, "events"),
       where("scheduleType", "==", "completed"),
-      orderBy("date"),
+      orderBy("date", "desc"),
       limit(6)
     );
     const getEvents = async () => {
@@ -33,7 +31,6 @@ export default function Home() {
       getEvents();
     // };
   }, []);
-  console.log(events)
   return (
     <div className={styles.container}>
       <Head>
@@ -45,7 +42,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NavBar />
       <main className={styles.main}>
         <div className={styles.home}>
           <Container
@@ -254,7 +250,6 @@ export default function Home() {
         </div>
       </main>
 
-      <Footer />
       <footer className={styles.footer}></footer>
     </div>
   );
