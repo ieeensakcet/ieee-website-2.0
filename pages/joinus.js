@@ -3,6 +3,8 @@ import classes from "../styles/Join.module.css";
 import Image from "next/image";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import {
   Accordion,
@@ -15,11 +17,19 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["joinus"])),
+    },
+  };
+}
 export default function JoinUs() {
+  const { t } = useTranslation();
   return (
     <div className={classes.JoinUs}>
       <section className={classes.JoinUs__form}>
-        <Typography variant="h4">BECOME AN IEEE MEMBER</Typography>
+        <Typography variant="h4">{t("joinus:join1")}</Typography>
         <Typography
           variant="h5"
           sx={{
@@ -28,9 +38,7 @@ export default function JoinUs() {
             width: { md: "50%", xs: "90%" },
           }}
         >
-          Join a community of over 420,000 technology and engineering
-          professionals united by a common desire to continuously learn,
-          interact, collaborate, and innovate
+          {t("joinus:join2")}
         </Typography>
         <Link
           sx={{ textDecoration: "none" }}
@@ -64,11 +72,8 @@ export default function JoinUs() {
             height="120px"
             width="120px"
           />
-          <Typography variant="h6">SOFT SKILLS</Typography>
-          <Typography variant="body1">
-            Build your professional skills including leadership, teamwork,
-            communication, and prioritization
-          </Typography>
+          <Typography variant="h6">{t("joinus:join3")}</Typography>
+          <Typography variant="body1">{t("joinus:join4")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -80,11 +85,8 @@ export default function JoinUs() {
             height="120px"
             width="120px"
           />
-          <Typography variant="h6">NETWORK</Typography>
-          <Typography variant="body1">
-            Make friends and network with an unparalled, global community of
-            professionals
-          </Typography>
+          <Typography variant="h6">{t("joinus:join5")}</Typography>
+          <Typography variant="body1">{t("joinus:join6")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -96,12 +98,8 @@ export default function JoinUs() {
             height="120px"
             width="120px"
           />
-          <Typography variant="h6">AWARDS</Typography>
-          <Typography variant="body1">
-            Submit projects or papers for consideration and have the opportunity
-            to win awards and funding while gaining peer recognition for your
-            efforts
-          </Typography>
+          <Typography variant="h6">{t("joinus:join7")}</Typography>
+          <Typography variant="body1">{t("joinus:join8")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -113,11 +111,8 @@ export default function JoinUs() {
             height="120px"
             width="120px"
           />
-          <Typography variant="h6">TRAVEL GRANTS</Typography>
-          <Typography variant="body1">
-            These grants were created to help you focus on your goals of
-            advancing your potential in areas not local to you
-          </Typography>
+          <Typography variant="h6">{t("joinus:join9")}</Typography>
+          <Typography variant="body1">{t("joinus:join10")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -129,11 +124,8 @@ export default function JoinUs() {
             height="120px"
             width="120px"
           />
-          <Typography variant="h6">SCHOLARSHIPS</Typography>
-          <Typography variant="body1">
-            Funds to help students pay for an undergraduate or post-graduate
-            degree
-          </Typography>
+          <Typography variant="h6">{t("joinus:join11")}</Typography>
+          <Typography variant="body1">{t("joinus:join12")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -146,10 +138,7 @@ export default function JoinUs() {
             width="120px"
           />
           <Typography variant="h6">@IEEE.org</Typography>
-          <Typography variant="body1">
-            Get a premium Google Suite account for free. A professional email
-            address to make you stand out
-          </Typography>
+          <Typography variant="body1">{t("joinus:join13")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -161,11 +150,8 @@ export default function JoinUs() {
             height="120px"
             width="120px"
           />
-          <Typography variant="h6">MAGAZINES</Typography>
-          <Typography variant="body1">
-            Collection of premium magazines, journals and access to some latest
-            research papers
-          </Typography>
+          <Typography variant="h6">{t("joinus:join14")}</Typography>
+          <Typography variant="body1">{t("joinus:join15")}</Typography>
         </div>
         <div className={classes.JoinUs__benefits__benefit}>
           <Image
@@ -178,9 +164,7 @@ export default function JoinUs() {
             width="120px"
           />
           <Typography variant="h6">IEEE.tv</Typography>
-          <Typography variant="body1">
-            An exclusive video portal for IEEE members around the globe
-          </Typography>
+          <Typography variant="body1">{t("joinus:join16")}</Typography>
         </div>
       </section>
       <section className={classes.JoinUs__globalBenefits}>
@@ -194,20 +178,20 @@ export default function JoinUs() {
             width="120px"
           />
           <Typography variant="h4" sx={{ fontWeight: "600" }}>
-            STILL NOT SATISFIED?
+            {t("joinus:join17")}
           </Typography>
         </div>
         <Typography variant="h5">
-          Check out the{" "}
+          {t("joinus:join18")}{" "}
           <a
             href="https://www.ieee.org/membership/benefits/index.html"
             target="_blank"
             rel="noreferrer"
             sx={{ color: "#12679b" }}
           >
-            IEEE Global Benefits
+            IEEE Global Benefits Finder
           </a>{" "}
-          Finder to know more...
+          {t("joinus:join19")}
         </Typography>
       </section>
       <section className={classes.JoinUs__testemonials}>
@@ -218,7 +202,7 @@ export default function JoinUs() {
           interval={5000}
         >
           <div className={classes.JoinUs__testemonials__carousel}>
-            <Typography variant="h4">Testemonials</Typography>
+            <Typography variant="h4">{t("joinus:join20")}</Typography>
             <div className={classes.JoinUs__testemonials__carousel__content}>
               <div
                 className={
@@ -231,24 +215,13 @@ export default function JoinUs() {
                   sx={{ height: "150px", width: "150px" }}
                 />
                 <Typography variant="subtitle1">Hafsa Taruj</Typography>
-                <Typography variant="overline">
-                  Design Team Volunteer
-                </Typography>
+                <Typography variant="overline">SMTC Lead - 2020</Typography>
               </div>
-              <Typography variant="body1">
-                "Our IEEE Student Branch provides networking opportunities among
-                various entrepreneurs and students so that the members achieve
-                problem-solving and leadership skills, this will help students
-                to come up with new ideas and to determine what they are willing
-                to achieve. The Student Branch teaches the students about the
-                professional environment of the corporate world and also
-                provides technical and fun activities to keep the students
-                active and engaged throughout their campus life."
-              </Typography>
+              <Typography variant="body1">{t("joinus:join21")}</Typography>
             </div>
           </div>
           <div className={classes.JoinUs__testemonials__carousel}>
-            <Typography variant="h4">Testemonials</Typography>
+            <Typography variant="h4">{t("joinus:join20")}</Typography>
             <div className={classes.JoinUs__testemonials__carousel__content}>
               <div
                 className={
@@ -263,24 +236,13 @@ export default function JoinUs() {
                 <Typography variant="subtitle1">
                   Syeda Kaunain Fatima
                 </Typography>
-                <Typography variant="overline">Ex SB Chair</Typography>
+                <Typography variant="overline">SB Chair - 2020</Typography>
               </div>
-              <Typography variant="body1">
-                "IEEE has given me the chance to improve my management skills.
-                Being exposed to multitudinous scenarios, I learned valuable
-                wisdom about effectively managing my time, developing new work
-                processes, voicing opinions while being open to feedback and
-                above all, networking with a relevant group of professionals.
-                IEEE members are uniquely positioned to provide the innovative
-                solutions needed in the technical industries going forward. In
-                addition to the human networks that can be tapped for advice or
-                assistance, there are many web resources with special access
-                just for members."
-              </Typography>
+              <Typography variant="body1">{t("joinus:join22")}</Typography>
             </div>
           </div>
           <div className={classes.JoinUs__testemonials__carousel}>
-            <Typography variant="h4">Testemonials</Typography>
+            <Typography variant="h4">{t("joinus:join20")}</Typography>
             <div className={classes.JoinUs__testemonials__carousel__content}>
               <div
                 className={
@@ -295,14 +257,9 @@ export default function JoinUs() {
                 <Typography variant="subtitle1">
                   Syeda Kounain Fatima
                 </Typography>
-                <Typography variant="overline">Secretary</Typography>
+                <Typography variant="overline">SB Secretary - 2022</Typography>
               </div>
-              <Typography variant="body1">
-                "Joining IEEE has provided me with professional exposure. It
-                also exposed me to various new opportunities and gave me a
-                chance to organize technical events, seminars, webinars and to
-                network with people all over the world."
-              </Typography>
+              <Typography variant="body1">{t("joinus:join23")}</Typography>
             </div>
           </div>
         </Carousel>
@@ -322,14 +279,10 @@ export default function JoinUs() {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography variant="h6">What is IEEE</Typography>
+            <Typography variant="h6"> {t("joinus:join24")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Institute of Electrical and Electronics Engineers, IEEE is the
-              world's largest technical professional organization dedicated to
-              advancing technology for the benefit of humanity.
-            </Typography>
+            <Typography>{t("joinus:join25")}</Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -340,14 +293,10 @@ export default function JoinUs() {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">
-              Is IEEE only for CS and IT Engineering Students?
-            </Typography>
+            <Typography variant="h6">{t("joinus:join26")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              No, IEEE is available to all branches of engineering.
-            </Typography>
+            <Typography>{t("joinus:join27")}</Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -358,12 +307,10 @@ export default function JoinUs() {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">
-              What are the payments options for IEEE membership?
-            </Typography>
+            <Typography variant="h6">{t("joinus:join28")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>Online payment and payment through Bank.</Typography>
+            <Typography>{t("joinus:join29")}</Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -374,17 +321,10 @@ export default function JoinUs() {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">
-              I am no longer a student, how can I change to an IEEE Professional
-              Membership?
-            </Typography>
+            <Typography variant="h6">{t("joinus:join30")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Once you finish your student membership, you can apply for
-              professional membership the same way you did for student
-              membership.
-            </Typography>
+            <Typography>{t("joinus:join31")}</Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -395,12 +335,10 @@ export default function JoinUs() {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">
-              What are the IEEE Membership Benefits?
-            </Typography>
+            <Typography variant="h6">{t("joinus:join32")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>See benefits at top of the page</Typography>
+            <Typography>{t("joinus:join33")}</Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -411,13 +349,10 @@ export default function JoinUs() {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">
-              Do I need to be an IEEE member to get a GoogleApps@IEEE mail
-              account?
-            </Typography>
+            <Typography variant="h6">{t("joinus:join34")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>Yes</Typography>
+            <Typography>{t("joinus:join37")}</Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -428,15 +363,10 @@ export default function JoinUs() {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">Why do students join the IEEE?</Typography>
+            <Typography variant="h6"> {t("joinus:join35")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              IEEE membership provides you a chance to improve your management
-              skills, effectively manage time, develop new work processes, voice
-              your opinions and networking with a relevant group of
-              professionals.
-            </Typography>
+            <Typography>{t("joinus:join36")}</Typography>
           </AccordionDetails>
         </Accordion>
       </section>

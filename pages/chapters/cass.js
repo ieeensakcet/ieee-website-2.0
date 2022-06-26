@@ -9,6 +9,11 @@ import { ras } from "../data/profile";
 
 import { IoLibrarySharp } from "react-icons/io5";
 import { GoCircuitBoard } from "react-icons/Go";
+import { GrResources } from "react-icons/Gr";
+import { BsNewspaper } from "react-icons/Bs";
+import { TbDiscount2 } from "react-icons/Tb";
+
+import { FaDatabase } from "react-icons/Fa";
 
 export default function Cas() {
   return (
@@ -108,7 +113,9 @@ export default function Cas() {
               height="125px"
               width="325px"
             /> */}
-            <IoLibrarySharp size="15em" color=" #000" />
+            <div>
+              <IoLibrarySharp size="5em" color=" #000" />
+            </div>
             <Typography variant="body1">
               Electronic access to the IEEE Circuits and Systems Society Digital
               Library which features access to all CASS fully owned publication
@@ -133,7 +140,9 @@ export default function Cas() {
               height="100px"
               width="260px"
             /> */}
-            {/* <GoCircuitBoard size="170px" color=" #000" /> */}
+            <div>
+              <GoCircuitBoard size="5em" color=" #000" />
+            </div>
             <Typography variant="body1">
               Join one of our 14 Technical Committees which promote technical
               activities in various topical areas and offer additional
@@ -158,9 +167,12 @@ export default function Cas() {
               height="100px"
               width="205px"
             /> */}
+            <div>
+              <GrResources size="5em" color=" #000" />
+            </div>
             <Typography variant="body1">
               A myriad of networking resources are available from ISCAS and
-              other conferences to regional chapter events.
+              other conferences to regional chapter events
             </Typography>
           </Paper>
           <Paper
@@ -173,17 +185,21 @@ export default function Cas() {
               padding: "40px",
             }}
           >
-            <Image
+            {/* <Image
               src="/ras/award.png"
               alt="award"
               layout="fixed"
               loading="lazy"
               height="100px"
               width="250px"
-            />
+            /> */}
+
+            <div>
+              <BsNewspaper size="5em" color=" #000" />
+            </div>
             <Typography variant="body1">
               Free access to the CAS Society Newsletter to stay current on
-              industry and society news.
+              industry and society news
             </Typography>
           </Paper>
           <Paper
@@ -196,14 +212,18 @@ export default function Cas() {
               padding: "40px",
             }}
           >
-            <Image
+            {/* <Image
               src="/ras/resource.png"
               alt="resource"
               layout="fixed"
               loading="lazy"
               height="100px"
               width="200px"
-            />
+            /> */}
+            <div>
+              <TbDiscount2 size="6em" color=" #000" />
+            </div>
+
             <Typography variant="body1">
               Discount for conference registration fee and free electronic
               access to proceedings of CAS conferences
@@ -219,14 +239,17 @@ export default function Cas() {
               padding: "40px",
             }}
           >
-            <Image
+            {/* <Image
               src="/ras/volunteer.png"
               alt="volunteer"
               layout="fixed"
               loading="lazy"
               height="100px"
               width="200px"
-            />
+            /> */}
+            <div>
+              <FaDatabase size="5em" color=" #000" />
+            </div>
             <Typography variant="body1">
               Get free subscription to IEEE DataPort, which provides access to
               all IEEE DataPort Datasets.

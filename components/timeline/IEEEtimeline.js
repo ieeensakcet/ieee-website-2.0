@@ -6,8 +6,9 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import Typography from "@mui/material/Typography";
+// import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 // New icone below
 
@@ -20,10 +21,19 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import { Icon } from "@mui/material";
 import Image from "next/image";
-import { yellow } from "@mui/material/colors";
+
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["timeline"])),
+//     },
+//   };
+// }
 
 const IEEEtimeline = () => {
+  const { t } = useTranslation();
   // export default function CustomizedTimeline() {
+
   return (
     <div>
       <Timeline
@@ -54,11 +64,11 @@ const IEEEtimeline = () => {
           </TimelineSeparator>
           <TimelineContent sx={{ py: "12px", px: 2 }}>
             <Typography variant="h6" component="span">
-              Established
+              {t("timeline:time1")}
             </Typography>
-            <Typography>under the leadership of Mr. Mohammed Khalid</Typography>
+            <Typography>{t("timeline:time2")}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Chair - Ms. Syeda Kaunain Fatima
+              {t("timeline:time3")}
             </Typography>
           </TimelineContent>
         </TimelineItem>
@@ -69,7 +79,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Student Members: 23 <br /> Professional Members: 4
+            {t("timeline:time4")} <br /> {t("timeline:time5")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -92,7 +102,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Technical & Non-Technical Events conducted: 20
+            {t("timeline:time6")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -115,9 +125,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Recognized for contributing at IEEE Region 10 Students Young
-            Professionals Women in Engineering Life Members (SYWL) Virtual
-            Congress 2020
+            {t("timeline:time7")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -139,7 +147,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            A new beginning!
+            {t("timeline:time8")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -150,10 +158,10 @@ const IEEEtimeline = () => {
           </TimelineSeparator>
           <TimelineContent sx={{ py: "12px", px: 2 }}>
             <Typography variant="h6" component="span">
-              Year: 2021
+              {t("timeline:time9")}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Chair - Mohammed Khalid
+              {t("timeline:time10")}
             </Typography>
           </TimelineContent>
         </TimelineItem>
@@ -163,7 +171,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Student Members: 43 <br /> Professional Members: 6
+            {t("timeline:time11")} <br /> {t("timeline:time12")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -180,7 +188,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Technical & Non-Technical Events conducted: 15
+            {t("timeline:time13")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -197,7 +205,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Received Cash Award for SAC Buddy Program
+            {t("timeline:time14")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -214,7 +222,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Formed IEEE Women in Engineering and Affinity Group
+            {t("timeline:time15")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -248,7 +256,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Formed IEEE Computer Society
+            {t("timeline:time16")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -282,7 +290,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Formed IEEE Robotics and Automation Society
+            {t("timeline:time17")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -317,7 +325,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Exemplary Student Branch Award'21
+            {t("timeline:time18")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -339,10 +347,10 @@ const IEEEtimeline = () => {
           </TimelineSeparator>
           <TimelineContent sx={{ py: "12px", px: 2 }}>
             <Typography variant="h6" component="span">
-              Year: 2022
+              {t("timeline:time19")}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Chair - Nida Meher
+              {t("timeline:time20")}
             </Typography>
           </TimelineContent>
         </TimelineItem>
@@ -353,7 +361,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Formed IEEE Signal Processing Society
+            {t("timeline:time21")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -388,7 +396,7 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Formed IEEE Circuit and Systems Society
+            {t("timeline:time22")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -423,8 +431,8 @@ const IEEEtimeline = () => {
             variant="body2"
             color="text.secondary"
           >
-            Student Members: 77 <br />
-            Professional Members: 6
+            {t("timeline:time23")} <br />
+            {t("timeline:time24")}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineConnector sx={{ height: "10px" }} />
@@ -453,7 +461,7 @@ const IEEEtimeline = () => {
             {/* <TimelineConnector sx={{ height: "20px" }} /> */}
           </TimelineSeparator>
           <TimelineContent sx={{ py: "23px", px: 2, margin: "0px" }}>
-            <Typography>IEEE SWAY!</Typography>
+            <Typography>{t("timeline:time25")}</Typography>
           </TimelineContent>
         </TimelineItem>
       </Timeline>
