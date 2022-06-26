@@ -2,7 +2,7 @@ import ListIcon from "@mui/icons-material/List";
 import classes from "../styles/Join.module.css";
 import Image from "next/image";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+import { Carousel } from "@mohammedsrehan/react-responsive-carousel";
 
 import {
   Accordion,
@@ -19,7 +19,7 @@ export default function JoinUs() {
   return (
     <div className={classes.JoinUs}>
       <section className={classes.JoinUs__form}>
-        <Typography variant="h4">BECOME AN IEEE MEMBER</Typography>
+        <Typography variant="h4">{t("about:about_IEEESB1")}</Typography>
         <Typography
           variant="h5"
           sx={{
@@ -236,14 +236,14 @@ export default function JoinUs() {
                 </Typography>
               </div>
               <Typography variant="body1">
-                "Our IEEE Student Branch provides networking opportunities among
+                Our IEEE Student Branch provides networking opportunities among
                 various entrepreneurs and students so that the members achieve
                 problem-solving and leadership skills, this will help students
                 to come up with new ideas and to determine what they are willing
                 to achieve. The Student Branch teaches the students about the
                 professional environment of the corporate world and also
                 provides technical and fun activities to keep the students
-                active and engaged throughout their campus life."
+                active and engaged throughout their campus life
               </Typography>
             </div>
           </div>
@@ -266,7 +266,7 @@ export default function JoinUs() {
                 <Typography variant="overline">Ex SB Chair</Typography>
               </div>
               <Typography variant="body1">
-                "IEEE has given me the chance to improve my management skills.
+                IEEE has given me the chance to improve my management skills.
                 Being exposed to multitudinous scenarios, I learned valuable
                 wisdom about effectively managing my time, developing new work
                 processes, voicing opinions while being open to feedback and
@@ -275,7 +275,7 @@ export default function JoinUs() {
                 solutions needed in the technical industries going forward. In
                 addition to the human networks that can be tapped for advice or
                 assistance, there are many web resources with special access
-                just for members."
+                just for members
               </Typography>
             </div>
           </div>
@@ -298,10 +298,10 @@ export default function JoinUs() {
                 <Typography variant="overline">Secretary</Typography>
               </div>
               <Typography variant="body1">
-                "Joining IEEE has provided me with professional exposure. It
+                Joining IEEE has provided me with professional exposure. It
                 also exposed me to various new opportunities and gave me a
                 chance to organize technical events, seminars, webinars and to
-                network with people all over the world."
+                network with people all over the world
               </Typography>
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function JoinUs() {
           <AccordionDetails>
             <Typography>
               Institute of Electrical and Electronics Engineers, IEEE is the
-              world's largest technical professional organization dedicated to
+              world&#39;s largest technical professional organization dedicated to
               advancing technology for the benefit of humanity.
             </Typography>
           </AccordionDetails>
