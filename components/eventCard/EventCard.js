@@ -17,8 +17,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { deleteEvent } from "../../helpers/eventsDB";
 import { timeConverter } from "../../helpers/utils";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
-export default function EventCard({ id, title, venue, date }) {
+export default function EventCard({ id, title, venue, date, image }) {
+  const user = useSelector(selectUser);
+
   const dateToShow = timeConverter(date);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -46,7 +50,7 @@ export default function EventCard({ id, title, venue, date }) {
       <Paper
         elevation={3}
         sx={{
-          width: "265px",
+          width: "255px",
           height: "170px",
           zIndex: "10",
           position: "absolute",
@@ -55,16 +59,12 @@ export default function EventCard({ id, title, venue, date }) {
           overflow: "hidden",
         }}
       >
-        <Image
-          alt="image"
-          src="https://images.unsplash.com/photo-1567446362432-f30e36eb96c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-          layout="fill"
-        />
+        <Image alt="image" src={image ?? "http://placehold.jp/255x170.png"} layout="fill" />
       </Paper>
       <Paper
         elevation={3}
         sx={{
-          width: "320px",
+          width: "300px",
           height: "240px",
           position: "absolute",
           bottom: "0px",
@@ -90,60 +90,69 @@ export default function EventCard({ id, title, venue, date }) {
           >
             <Link href={`/events/${id}`}>Read More</Link>
           </Button>
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClick}
-            sx={{ padding: "0px" }}
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id="long-menu"
-            MenuListProps={{
-              "aria-labelledby": "long-button",
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: 48 * 4.5,
-                width: "20ch",
-              },
-            }}
-          >
-            <MenuItem onClick={DeleteHandleOpen} sx={{ color: "#FF1818" }}>Delete</MenuItem>
-            <Dialog
-              open={DeleteOpen}
-              onClose={DeleteHandleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Are you sure?"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  Do you really want to delete the Event? This cannot be undone.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={DeleteHandleClose} autoFocus>
-                  No
-                </Button>
-                <Button onClick={DeleteEvent} sx={{ color: "red" }}>
-                  Yes, Delete Event
-                </Button>
-              </DialogActions>
-            </Dialog>
-            <MenuItem onClick={handleClose}>
-              <Link href={`/events/edit/${id}`}>Update</Link>
-            </MenuItem>
-          </Menu>
+          {user ? (
+            <>
+              <IconButton
+                aria-label="more"
+                id="long-button"
+                aria-controls={open ? "long-menu" : undefined}
+                aria-expanded={open ? "true" : undefined}
+                aria-haspopup="true"
+                onClick={handleClick}
+                sx={{ padding: "0px" }}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="long-menu"
+                MenuListProps={{
+                  "aria-labelledby": "long-button",
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                  style: {
+                    maxHeight: 48 * 4.5,
+                    width: "20ch",
+                  },
+                }}
+              >
+                <MenuItem onClick={DeleteHandleOpen} sx={{ color: "#FF1818" }}>
+                  Delete
+                </MenuItem>
+                <Dialog
+                  open={DeleteOpen}
+                  onClose={DeleteHandleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Are you sure?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Do you really want to delete the Event? This cannot be
+                      undone.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={DeleteHandleClose} autoFocus>
+                      No
+                    </Button>
+                    <Button onClick={DeleteEvent} sx={{ color: "red" }}>
+                      Yes, Delete Event
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+                <MenuItem onClick={handleClose}>
+                  <Link href={`/events/edit/${id}`}>Update</Link>
+                </MenuItem>
+              </Menu>
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </Paper>
     </div>
