@@ -2,6 +2,13 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
+import Chatbot from "react-chatbot-kit";
+import ActionProvider from "../chatbot/ActionProvider";
+import MessageParser from "../chatbot/MessageParser";
+import config from "../chatbot/config";
+import "react-chatbot-kit/build/main.css";
+import Logo from "../components/logo/Logo"
+
 import groupPhoto from "../public/assets/IEEEGroup.webp";
 import csLogo from "../public/assets/ieee-cs-logo.png";
 import rasLogo from "../public/assets/ieee-ras-logo.png";
@@ -16,6 +23,8 @@ import EventCard from "../components/eventCard/EventCard";
 
 export default function Home() {
   const [events, setevents] = useState([]);
+  const [showBot, toggleBot] = useState(false);
+
   useEffect(() => {
     const eventsCollectionRef = query(
       collection(db, "events"),
@@ -43,6 +52,24 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+      <>
+      {showBot && (
+        <div className={styles.app_chatbot_container}>
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+          />
+        </div>
+      )}
+      <button
+        className={styles.app_chatbot_button}
+        onClick={() => toggleBot((prev) => !prev)}
+      >
+        <div>Nawab</div>
+        <Logo/>
+      </button>
+    </>
         <div className={styles.home}>
           <Container
             maxWidth={false}
