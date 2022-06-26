@@ -11,7 +11,7 @@ import {
   programCommittee,
   socialMediaCommittee,
   membershipCommittee,
-} from "./data/profile";
+} from "../data/profile";
 
 import classes from "../styles/Ourteam.module.css";
 
