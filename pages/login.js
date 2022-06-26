@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Footer from "../components/footer/Footer";
-import SignIn from "../components/signIn/SignIn";
+import SignIn from "../components/signin/SignIn";
 
 export default function Login() {
   return (

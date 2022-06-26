@@ -8,7 +8,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../config/firebaseConfig";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
-import SignIn from "../../components/signIn/SignIn";
+import SignIn from "../../components/signin/SignIn";
 import useProvideAuth from "../../utils/auth";
 import UsersTable from "../../components/usersTable/UsersTable";
 import EventCard from "../../components/eventCard/EventCard";
