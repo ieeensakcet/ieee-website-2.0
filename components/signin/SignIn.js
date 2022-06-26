@@ -6,8 +6,12 @@ import styles from "./SignIn.module.css";
 import { Button, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
+import { useRouter } from 'next/router'
+
 
 const TextInput = () => {
+  const router = useRouter()
+
   const auth = useProvideAuth();
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -23,6 +27,7 @@ const TextInput = () => {
       return;
     }
     auth.signin(userInfo.email, userInfo.password);
+    router.push("/")
   };
 
   const resetPass = () => {
