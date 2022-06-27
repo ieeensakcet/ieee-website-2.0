@@ -107,7 +107,7 @@ const NavBar = () => {
           </Link>
         </ListItem>
         <ListItem button to="/events">
-          <Link href="/events" passHref>
+          <Link href="/events" passHref locale="en">
             <ListItemText primary="EVENTS" className={styles.text} />
           </Link>
         </ListItem>
@@ -122,34 +122,34 @@ const NavBar = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={styles.nested}>
-              <Link href="/chapters/cs" passHref>
+              <Link href="/chapters/cs" passHref locale="en">
                 <ListItemText primary="CS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/chapters/wie" passHref>
+              <Link href="/chapters/wie" passHref locale="en">
                 <ListItemText primary="WIE" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/chapters/ras" passHref>
+              <Link href="/chapters/ras" passHref locale="en">
                 <ListItemText primary="RAS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/chapters/cas" passHref>
+              <Link href="/chapters/cas" passHref locale="en">
                 <ListItemText primary="CAS" className={styles.text} />
               </Link>
             </ListItem>
             <ListItem button className={styles.nested}>
-              <Link href="/chapters/sps" passHref>
+              <Link href="/chapters/sps" passHref locale="en">
                 <ListItemText primary="SPS" className={styles.text} />
               </Link>
             </ListItem>
           </List>
         </Collapse>
         <ListItem button>
-          <Link href="/ourteam" passHref>
+          <Link href="/ourteam" passHref locale="en">
             <ListItemText primary="OUR TEAM" className={styles.text} />
           </Link>
         </ListItem>
@@ -242,12 +242,12 @@ const NavBar = () => {
             </Link>
           </li>
           <li className={`${styles.navbar__list__listItem} ${styles.hover}`}>
-            <Link href="/events" passHref>
+            <Link href="/events" passHref locale="en">
               <a className={styles.navbar__list__listItem__link}>EVENTS</a>
             </Link>
           </li>
           <li className={`${styles.navbar__list__listItem} ${styles.hover}`}>
-            <Link href="/cs" passHref>
+            <Link href="/cs" passHref locale="en">
               <a className={styles.navbar__list__listItem__link}>
                 OUR CHAPTERS
               </a>
@@ -258,35 +258,35 @@ const NavBar = () => {
             >
               <ul className={styles.subItem}>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/chapters/cs" passHref>
+                  <Link href="/chapters/cs" passHref locale="en">
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       Computer Society
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/chapters/ras" passHref>
+                  <Link href="/chapters/ras" passHref locale="en">
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       RAS
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/chapters/wie" passHref>
+                  <Link href="/chapters/wie" passHref locale="en">
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       WIE
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/chapters/cass" passHref>
+                  <Link href="/chapters/cass" passHref locale="en">
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       CAS
                     </a>
                   </Link>
                 </li>
                 <li className={styles.navbar__list__listItem}>
-                  <Link href="/chapters/sps" passHref>
+                  <Link href="/chapters/sps" passHref locale="en">
                     <a className={styles.navbar__list__listItem__link__subitem}>
                       SPS
                     </a>
@@ -296,7 +296,7 @@ const NavBar = () => {
             </Paper>
           </li>
           <li className={styles.navbar__list__listItem}>
-            <Link href="/ourteam" passHref>
+            <Link href="/ourteam" passHref locale="en">
               <a className={styles.navbar__list__listItem__link}>OUR TEAM</a>
             </Link>
           </li>
