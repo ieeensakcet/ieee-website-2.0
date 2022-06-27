@@ -130,6 +130,7 @@ export default function Home() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
+                  width: "100%"
                 }}
               >
                 <header className={styles.headers}>
@@ -153,6 +154,7 @@ export default function Home() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
+                  width: "100%"
                 }}
               >
                 <div>
