@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Footer from "../../components/footer/Footer";
 import styles from "../../styles/Dashboard.module.css";
 import { Button, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -122,7 +121,6 @@ export default function Dashboard() {
           <SignIn />
         </div>
       )}
-      <Footer />
     </div>
   );
 }
