@@ -130,7 +130,7 @@ export default function Home() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 <header className={styles.headers}>
@@ -154,7 +154,7 @@ export default function Home() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 <div>
@@ -241,8 +241,18 @@ export default function Home() {
           </section>
           <Container
             maxWidth={false}
-            className={styles.bottomContainer}
             disableGutters={true}
+            sx={{
+              width: "100%",
+              backgroundColor: "#12679b",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "25px",
+              paddingBottom: "40px",
+              borderBottom: "2px solid #ffffff",
+            }}
           >
             <div className={styles.cards}>
               <Paper elevation={12} className={styles.card}>

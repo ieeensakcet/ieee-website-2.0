@@ -167,17 +167,6 @@
 .red {
   color: #ff4040;
 }
-.bottomContainer {
-  width: 100%;
-  background-color: #12679b;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-  padding-bottom: 40px;
-  border-bottom: 2px solid #ffffff;
-}
 .text {
   text-align: center;
   width: 70%;
