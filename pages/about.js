@@ -2,7 +2,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import Image from "next/image";
-import Footer from "../components/footer/Footer";
 import styles from "../styles/About.module.css";
 import IEEEtimeline from "../components/timeline/IEEEtimeline";
 import {
@@ -221,8 +220,6 @@ export default function About(props) {
           </Paper>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
