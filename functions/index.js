@@ -115,7 +115,7 @@ exports.deleteUserAuth = functions.https.onCall(async (data, context) => {
 
 //checking scheduled events and updating the event to completed
 exports.taskRunner = functions.pubsub
-  .schedule("* * * * *")
+  .schedule("every 30 minutes")
   .onRun(async (context) => {
     // Consistent timestamp
     const now = admin.firestore.Timestamp.now();
