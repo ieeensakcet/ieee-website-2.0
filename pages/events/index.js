@@ -49,7 +49,7 @@ export default function Events() {
 
       <main className={styles.main}>
         <section>
-          <h1 className={styles.title}>Upcoming Events</h1>
+          <h1 className={styles.title}>Latest Events</h1>
           <div className={styles.events__container}>
             {events.map((event) => {
               return (
@@ -73,19 +73,10 @@ export default function Events() {
               variant="contained"
               className={styles.event__categories__list__button}
               onClick={() => {
-                setEventType("concert");
+                setEventType("seminar");
               }}
             >
-              Concert
-            </Button>
-            <Button
-              variant="contained"
-              className={styles.event__categories__list__button}
-              onClick={() => {
-                setEventType("conference");
-              }}
-            >
-              Conference
+              Smeinar
             </Button>
             <Button
               variant="contained"
@@ -99,14 +90,20 @@ export default function Events() {
             <Button
               variant="contained"
               className={styles.event__categories__list__button}
+              onClick={() => {
+                setEventType("workshop");
+              }}
             >
               Workshop
             </Button>
             <Button
               variant="contained"
               className={styles.event__categories__list__button}
+              onClick={() => {
+                setEventType("webinar");
+              }}
             >
-              Seminar
+              Webinar
             </Button>
           </div>
           <div className={styles.events__container}>
