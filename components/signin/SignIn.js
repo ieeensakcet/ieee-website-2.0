@@ -27,7 +27,7 @@ const TextInput = () => {
       return;
     }
     auth.signin(userInfo.email, userInfo.password);
-    router.push("/")
+    // router.push("/")
   };
 
   const resetPass = () => {
