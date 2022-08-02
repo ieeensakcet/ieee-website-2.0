@@ -35,12 +35,6 @@
   margin: auto;
   max-width: 1366px;
 }
-.container {
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
 .container__image {
   background-size: cover;
   background-repeat: no-repeat;
@@ -87,14 +81,6 @@
   flex-direction: column;
   gap: 20px;
 }
-.home__events__header{
-  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee, 2px 1px 1px #ccc,
-    1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc,
-    3px 4px 1px #eee, 5px 4px 1px #ccc, 4px 5px 1px #eee, 6px 5px 1px #ccc,
-    5px 6px 1px #eee, 7px 6px 1px #ccc;
-  text-align: center;
-  margin-top: 25px;
-}
 .home__events{
   margin-top: 20px;
 }
@@ -118,28 +104,12 @@
   align-items: center;
   margin: 30px 0;
 }
-.ourChapters__header {
-  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee, 2px 1px 1px #ccc,
-    1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc,
-    3px 4px 1px #eee, 5px 4px 1px #ccc, 4px 5px 1px #eee, 6px 5px 1px #ccc,
-    5px 6px 1px #eee, 7px 6px 1px #ccc;
-}
 .chapter_cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   width: 95%;
-}
-.chapters {
-  display: flex;
-  position: relative;
-  justify-content: center;
-  border-radius: 15px;
-  height: 120px;
-  padding: 20px;
-  min-width: 250px;
-  flex: 1;
 }
 .chapter_logo {
   max-height: 100%;
@@ -154,43 +124,12 @@
   margin: 50px;
   width: 70%;
 }
-.card {
-  height: 140px;
-  padding: 25px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-}
-.red {
-  color: #ff4040;
-}
-.text {
-  text-align: center;
-  width: 70%;
-  color: #ffffff;
-}
-.button {
-  padding: 10px 40px;
-  color: #12679b;
-  background-color: #ffffff;
-}
-.button:hover {
-  background-color: #c21531;
-  color: #ffffff;
-}
 @media (max-width: 960px) {
   .container__image {
     background-size: contain;
   }
 }
 @media (max-width: 600px) {
-  .button {
-    padding: 10px 20px;
-    min-width: max-content;
-  }
   .header {
     padding: 5%;
     position: static;
@@ -203,9 +142,6 @@
   .image {
     width: 100px;
     height: 110px;
-  }
-  .paper {
-    padding: 15px;
   }
   .header {
     flex-direction: column;

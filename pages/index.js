@@ -93,7 +93,13 @@ export default function Home() {
         <div className={styles.home}>
           <Container
             maxWidth={false}
-            className={styles.container}
+            // className={styles.container}
+            sx={{
+              width: "100%",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+            }}
             disableGutters={true}
           >
             <Image
@@ -114,7 +120,17 @@ export default function Home() {
                   variant="contained"
                   color="primary"
                   size="large"
-                  className={styles.button}
+                  // className={styles.button}
+                  sx={{
+                    padding: { xs: "10px 20px", sm: "10px 40px" },
+                    minWidth: { xs: "max-content" },
+                    color: "#12679b",
+                    backgroundColor: "#ffffff",
+                    "&:hover": {
+                      backgroundColor: "#c21531",
+                      color: "#ffffff",
+                    },
+                  }}
                 >
                   Join Us
                 </Button>
@@ -126,7 +142,7 @@ export default function Home() {
               <Paper
                 elevation={8}
                 sx={{
-                  padding: "30px",
+                  padding: { sm: "30px", xs: "15px" },
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
@@ -150,7 +166,7 @@ export default function Home() {
               <Paper
                 elevation={8}
                 sx={{
-                  padding: "30px",
+                  padding: { sm: "30px", xs: "15px" },
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
@@ -173,7 +189,15 @@ export default function Home() {
               </Paper>
             </section>
             <section className={styles.home__events}>
-              <Typography variant="h4" className={styles.home__events__header}>
+              <Typography
+                variant="h4"
+                sx={{
+                  textShadow:
+                    "1px 0px 1px #ccc, 0px 1px 1px #eee, 2px 1px 1px #ccc, 1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc, 3px 4px 1px #eee, 5px 4px 1px #ccc, 4px 5px 1px #eee, 6px 5px 1px #ccc, 5px 6px 1px #eee, 7px 6px 1px #ccc",
+                  textAlign: "center",
+                  marginTop: "25px",
+                }}
+              >
                 {t("home:home4")}
               </Typography>
               <div className={styles.events__container}>
@@ -192,11 +216,29 @@ export default function Home() {
               </div>
             </section>
             <section className={styles.ourChapters}>
-              <Typography variant="h4" className={styles.ourChapters__header}>
+              <Typography
+                variant="h4"
+                sx={{
+                  textShadow:
+                    "1px 0px 1px #ccc, 0px 1px 1px #eee, 2px 1px 1px #ccc, 1px 2px 1px #eee, 3px 2px 1px #ccc, 2px 3px 1px #eee, 4px 3px 1px #ccc, 3px 4px 1px #eee, 5px 4px 1px #ccc, 4px 5px 1px #eee, 6px 5px 1px #ccc, 5px 6px 1px #eee, 7px 6px 1px #ccc",
+                }}
+              >
                 {t("home:home5")}
               </Typography>
               <div className={styles.chapter_cards}>
-                <Paper elevation={12} className={styles.chapters}>
+                <Paper
+                  elevation={12}
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    justifyContent: "center",
+                    borderRadius: "15px",
+                    height: "120px",
+                    padding: "20px",
+                    minWidth: "250px",
+                    flex: "1",
+                  }}
+                >
                   <Image
                     src={csLogo}
                     loading="lazy"
@@ -204,7 +246,19 @@ export default function Home() {
                     className={styles.chapter_logo}
                   />
                 </Paper>
-                <Paper elevation={12} className={styles.chapters}>
+                <Paper
+                  elevation={12}
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    justifyContent: "center",
+                    borderRadius: "15px",
+                    height: "120px",
+                    padding: "20px",
+                    minWidth: "250px",
+                    flex: "1",
+                  }}
+                >
                   <Image
                     src={wieLogo}
                     loading="lazy"
@@ -212,7 +266,19 @@ export default function Home() {
                     className={styles.chapter_logo}
                   />
                 </Paper>
-                <Paper elevation={12} className={styles.chapters}>
+                <Paper
+                  elevation={12}
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    justifyContent: "center",
+                    borderRadius: "15px",
+                    height: "120px",
+                    padding: "20px",
+                    minWidth: "250px",
+                    flex: "1",
+                  }}
+                >
                   <Image
                     src={casLogo}
                     loading="lazy"
@@ -220,7 +286,19 @@ export default function Home() {
                     className={styles.chapter_logo}
                   />
                 </Paper>
-                <Paper elevation={12} className={styles.chapters}>
+                <Paper
+                  elevation={12}
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    justifyContent: "center",
+                    borderRadius: "15px",
+                    height: "120px",
+                    padding: "20px",
+                    minWidth: "250px",
+                    flex: "1",
+                  }}
+                >
                   <Image
                     src={spsLogo}
                     loading="lazy"
@@ -228,7 +306,19 @@ export default function Home() {
                     className={styles.chapter_logo}
                   />
                 </Paper>
-                <Paper elevation={12} className={styles.chapters}>
+                <Paper
+                  elevation={12}
+                  sx={{
+                    display: "flex",
+                    position: "relative",
+                    justifyContent: "center",
+                    borderRadius: "15px",
+                    height: "120px",
+                    padding: "20px",
+                    minWidth: "250px",
+                    flex: "1",
+                  }}
+                >
                   <Image
                     src={rasLogo}
                     loading="lazy"
@@ -255,35 +345,117 @@ export default function Home() {
             }}
           >
             <div className={styles.cards}>
-              <Paper elevation={12} className={styles.card}>
-                <Typography variant="h3" className={styles.red}>
+              <Paper
+                elevation={12}
+                sx={{
+                  height: "140px",
+                  padding: "25px",
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: "#ff4040",
+                  }}
+                >
                   45+
                 </Typography>
                 <Typography variant="body1">{t("home:home6")}</Typography>
               </Paper>
-              <Paper elevation={12} className={styles.card}>
-                <Typography variant="h3" className={styles.red}>
+              <Paper
+                elevation={12}
+                sx={{
+                  height: "140px",
+                  padding: "25px",
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: "#ff4040",
+                  }}
+                >
                   40+
                 </Typography>
                 <Typography variant="body1">{t("home:home7")}</Typography>
               </Paper>
-              <Paper elevation={12} className={styles.card}>
-                <Typography variant="h3" className={styles.red}>
+              <Paper
+                elevation={12}
+                sx={{
+                  height: "140px",
+                  padding: "25px",
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: "#ff4040",
+                  }}
+                >
                   5
                 </Typography>
                 <Typography variant="body1">{t("home:home8")}</Typography>
               </Paper>
-              <Paper elevation={12} className={styles.card}>
-                <Typography variant="h3" className={styles.red}>
+              <Paper
+                elevation={12}
+                sx={{
+                  height: "140px",
+                  padding: "25px",
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: "#ff4040",
+                  }}
+                >
                   3
                 </Typography>
                 <Typography variant="body1">{t("home:home9")}</Typography>
               </Paper>
             </div>
-            <Typography variant="h2" className={styles.text}>
+            <Typography
+              variant="h2"
+              sx={{
+                textAlign: "center",
+                width: "70%",
+                color: "#ffffff",
+              }}
+            >
               {t("home:home10")}
             </Typography>
-            <Typography variant="h6" className={styles.text}>
+            <Typography
+              variant="h6"
+              sx={{
+                textAlign: "center",
+                width: "70%",
+                color: "#ffffff",
+              }}
+            >
               {t("home:home11")}
             </Typography>
             <Link href="/joinus" passHref className={styles.link}>
@@ -291,7 +463,17 @@ export default function Home() {
                 variant="contained"
                 color="primary"
                 size="large"
-                className={styles.button}
+                // className={styles.button}
+                sx={{
+                  padding: { xs: "10px 20px", sm: "10px 40px" },
+                  minWidth: { xs: "max-content" },
+                  color: "#12679b",
+                  backgroundColor: "#ffffff",
+                  "&:hover": {
+                    backgroundColor: "#c21531",
+                    color: "#ffffff",
+                  },
+                }}
               >
                 Join Us
               </Button>
