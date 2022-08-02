@@ -29,7 +29,7 @@ export default function Events() {
     const unsub = onSnapshot(doc(db, "events", `${id}`), (doc) => {
       if (doc.exists()) {
         setdata(doc.data());
-        setImage(doc.data().images[1])
+        setImage(doc.data().images[0])
       } else {
         alert("Event not found");
       }
