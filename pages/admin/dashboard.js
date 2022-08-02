@@ -86,6 +86,7 @@ export default function Dashboard() {
                     title={event.title}
                     venue={event.venue}
                     date={event.date?.seconds}
+                    image={event.images[0]}
                   />
                 );
               })}
@@ -106,6 +107,7 @@ export default function Dashboard() {
                     title={event.title}
                     venue={event.venue}
                     date={event.date?.seconds}
+                    image={event.images[0]}
                   />
                 );
               })}
