@@ -104,3 +104,11 @@ background-image: linear-gradient(57deg, #0093E9 1%, #112266 99%);
     width: 300px;
   }
 }
+@media (max-width: 600px) {
+  .main__title {
+    width: 90%;
+  }
+  .main__event {
+    width: 90%;
+  }
+}
